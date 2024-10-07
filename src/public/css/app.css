@@ -1,0 +1,42 @@
+body {
+    background: #eeeeee;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 20px 50px;
+}
+
+.header-container h1 {
+    font-size: 32px;
+    font-weight: Bold;
+    color: #1945ff;
+    /* 濃い青色 */
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.icon-box {
+    background-color: #2755fe;
+    /* 濃い青色 */
+    padding: 8px;
+    /* アイコン周りのスペース */
+    border-radius: 4px;
+    /* 角を丸く */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    /* テキストとの間隔 */
+    box-shadow: 2px 4px 8px #687cc1;
+}
+
+.icon-box i {
+    font-size: 32px;
+    /* アイコンのサイズ */
+    color: white;
+    /* アイコンの色 */
+}
