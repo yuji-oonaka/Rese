@@ -1,0 +1,112 @@
+.login-container {
+    max-width: 540px;
+    margin: 180px auto;
+    padding: 0;
+    background-color: white;
+    box-shadow: 2px 4px 8px #979797;
+    border-radius: 5px;
+}
+
+.register-container {
+    max-width: 540px;
+    margin: 180px auto;
+    padding: 0;
+    background-color: white;
+    box-shadow: 2px 4px 8px #979797;
+    border-radius: 5px;
+}
+
+.login-header {
+    background-color:#305dff;
+    /* 濃い青色 */
+    color: white;
+    padding: 5px 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: left;
+}
+
+.register-header {
+    background-color: #305dff;
+    /* 濃い青色 */
+    color: white;
+    padding: 5px 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    /* フレックスボックスに変更 */
+    align-items: center;
+    /* 垂直方向に中央揃え */
+    padding: 5px;
+    margin: 20px 20px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #414141;
+}
+
+.icon-name::before,
+.icon-email::before,
+.icon-password::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+    font-size: 25px;
+}
+
+.icon-name::before {
+    content: "\f007";
+}
+
+.icon-email::before {
+    content: "\f0e0";
+    /* メールアイコン */
+}
+
+.icon-password::before {
+    content: "\f023";
+    /* 鍵アイコン */
+}
+
+input {
+    width: calc(100% - 40px);
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #414141;
+    font-size: 18px;
+}
+
+button {
+    width: auto;
+    /* 自動幅 */
+    padding: 10px 20px;
+    /* パディング調整 */
+    background-color:#305dff;
+    /* ボタンの青色 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    /* ボタンを右に寄せる */
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #305dff;
+    /* ホバー時の色 */
+}
+
+.form-group:last-child {
+    display: flex;
+    justify-content: flex-end;
+    /* ボタンを右寄せ */
+}
