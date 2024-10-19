@@ -1,0 +1,123 @@
+.shop-container {
+    max-width: 80%;
+    margin: auto;
+}
+
+
+
+.filter-bar {
+    width: 50%;
+    display: flex;
+    margin-left: 730px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.filter-bar select {
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 100%;
+}
+
+.filter-bar input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    height: 100%;
+}
+
+.filter-bar select:first-child,
+.filter-bar select:nth-child(2) {
+    border-right: 1px solid #ddd;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-md-3 {
+    flex: 0 0 24%;
+    max-width: 24%;
+}
+
+.card {
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px #aaa;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 7px 15px;
+}
+
+.btn-light i.fa-heart {
+    color: #ccc; /* 初期状態の色 */
+}
+
+.btn-light.active i.fa-heart {
+    color: red; /* お気に入り状態の色 */
+}
+
+.btn-primary {
+    font-size: 16px;
+    background-color: #1945ff;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #ffff;
+    padding: 8px 20px;
+}
+
+.row>.col-md-3 {
+    margin: 10px 6px;
+}
+
+.btn-light {
+    background-color: #eeeeee;
+}
+
+.fa-heart {
+    font-size: 32px;
+}
+
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination li a,
+.pagination li span {
+    display: block;
+    padding: 5px 15px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #007bff;
+}
+
+.pagination a {
+    background: white;
+}
+
+.pagination li.active span {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination li a:hover {
+    background-color: #f8f9fa;
+}

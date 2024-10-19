@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ShopController;
 
 
-Route::get('/login', function () {
-        return view('auth.login');
-    })->name('login');
 
-Route::get('/register', function () {
-        return view('auth.register');
-    })->name('register');
+Route::get('/', [ShopController::class, 'showShopList'])->name('home');
+Route::get('/detail/{shop_id}', [ShopController::class, 'showShopDetail'])->name('shop.detail');

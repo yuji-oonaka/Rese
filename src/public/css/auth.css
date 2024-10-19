@@ -17,7 +17,7 @@
 }
 
 .login-header {
-    background-color:#305dff;
+    background-color: #305dff;
     /* 濃い青色 */
     color: white;
     padding: 5px 20px;
@@ -89,7 +89,7 @@ button {
     /* 自動幅 */
     padding: 10px 20px;
     /* パディング調整 */
-    background-color:#305dff;
+    background-color: #305dff;
     /* ボタンの青色 */
     color: white;
     border: none;
