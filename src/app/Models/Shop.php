@@ -26,5 +26,15 @@ class Shop extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+    public function isFavorited($userId)
+    {
+        return $this->favorites()->where('user_id', $userId)->exists();
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }
 

@@ -3,6 +3,7 @@ body {
 }
 
 .header-container {
+    max-width: 80%;
     display: flex;
     align-items: center;
     padding: 10px 20px;
@@ -32,4 +33,60 @@ body {
 .icon-box i {
     font-size: 32px;
     color: white;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    /* Ensure it is above other content */
+}
+
+.menu-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.menu-content {
+    background-color: white;
+    padding: 100px;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+    max-width: 768px;
+}
+
+.menu-content a {
+    display: block;
+    margin: 10px 0;
+    color: blue;
+    text-decoration: none;
+    font-size: 32px;
+}
+
+.close-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 3px;
 }

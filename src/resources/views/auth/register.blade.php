@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label for="email">
-                <span class="icon-email"></span></i>
+                <span class="icon-email"></span>
             </label>
             <input type="email" id="email" name="email" placeholder="Email" required>
         </div>

@@ -7,50 +7,58 @@
 @endsection
 
 @section('content')
-<div class="shop-container">
-    <div class="d-flex justify-content-end mb-4">
-        <div class="filter-bar d-flex">
-            <select class="form-select me-2">
-                <option>All areas</option>
-                <!-- エリアオプション -->
-            </select>
-            <select class="form-select me-2">
-                <option>All genres</option>
-                <!-- ジャンルオプション -->
-            </select>
-            <input type="text" class="form-control" placeholder="Search...">
-        </div>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="logo">
+            <div class="icon-box">
+                <i class="fas fa-align-left"></i>
+            </div>
+            Rese
+        </h1>
+        <form action="{{ route('shop.list') }}" method="GET" id="search-form">
+            <div class="filter">
+                <select name="area" id="area-filter" onchange="this.form.submit()">
+                    <option value="">All areas</option>
+                    @foreach($areas as $area)
+                        <option value="{{ $area->id }}" {{ request('area') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
+                    @endforeach
+                </select>
+                <select name="genre" id="genre-filter" onchange="this.form.submit()">
+                    <option value="">All genres</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}" {{ request('genre') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
+                    @endforeach
+                </select>
+                <input type="text" name="search" id="search-input" placeholder="Search..." value="{{ request('search') }}">
+            </div>
+        </form>
     </div>
-    <div class="row">
+    <div class="grid">
         @foreach($shops as $shop)
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm h-100">
-                    <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" class="card-img-top">
-                    <div class="card-body d-flex flex-column justify-content-between">
+            <div class="item">
+                <div class="card">
+                    <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+                    <div class="content">
                         <div>
                             <h2>{{ $shop->name }}</h2>
                             <p>#{{ $shop->area->name }} #{{ $shop->genre->name }}</p>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                            <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="btn btn-primary">詳しくみる</a>
-                            <button class="btn btn-light" onclick="toggleFavorite(this)"><i class="fa fa-heart"></i></button>
+                        <div class="actions">
+                            <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="btn-detail">詳しくみる</a>
+                            <form action="{{ route('shop.favorite', ['shop' => $shop->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn-favorite {{ $shop->favorites_count > 0 ? 'active' : '' }}">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-
-    <!-- ページネーション -->
-    <div class="pagination-container">
-        {{ $shops->links() }}
+    <div class="pagination">
+        {{ $shops->appends(request()->query())->links() }}
     </div>
 </div>
-
-<script>
-function toggleFavorite(button) {
-   button.classList.toggle('active');
-   // AJAXでfavoriteテーブルに登録するコードを追加
-}
-</script>
 @endsection

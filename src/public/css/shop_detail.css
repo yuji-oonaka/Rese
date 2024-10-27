@@ -1,4 +1,4 @@
-.container {
+.main {
     display: flex;
     justify-content: space-between;
     max-width: 80%;
@@ -9,25 +9,60 @@ h2 {
     font-size: 32px;
 }
 
-.image-container {
+.left {
     width: 50%;
 }
 
-.reservation-container {
+.right {
     width: 40%;
     background-color: #007bff;
-    /* 青色 */
     color: white;
     padding: 30px;
     border-radius: 8px;
 }
 
-.img-fluid {
+.shop-image {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
-.btn-light {
+.back-btn {
+    font-weight: bold;
+    background: #fff;
+    padding: 3px 8px;
+    margin-right: 10px;
+    text-decoration: none;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px #aaa;
     color: #333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.summary {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
 }

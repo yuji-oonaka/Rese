@@ -1,45 +1,61 @@
-.shop-container {
+.container {
     max-width: 80%;
-    margin: auto;
+    margin: 0 auto;
 }
 
-
-
-.filter-bar {
-    width: 50%;
+.d-flex.justify-content-between.align-items-center.mb-4 {
     display: flex;
-    margin-left: 730px;
-    border-radius: 8px;
-    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.filter-bar select {
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.filter {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    height: 50px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter select,
+.filter input {
     border: none;
     outline: none;
     padding: 10px;
     height: 100%;
+    box-sizing: border-box;
 }
 
-.filter-bar input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    height: 100%;
+.filter select {
+    flex: 1;
+    border-right: 1px solid #e9ecef;
 }
 
-.filter-bar select:first-child,
-.filter-bar select:nth-child(2) {
-    border-right: 1px solid #ddd;
+#search-input {
+    flex: 2;
+    padding-left: 15px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
-.row {
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.item {
     display: flex;
-    flex-wrap: wrap;
-}
-
-.col-md-3 {
-    flex: 0 0 24%;
-    max-width: 24%;
+    justify-content: center;
 }
 
 .card {
@@ -49,51 +65,49 @@
     box-shadow: 2px 2px 2px #aaa;
 }
 
-.card-img-top {
+.card img {
     width: 100%;
-    height: auto;
 }
 
-.card-body {
-    padding: 7px 15px;
+.content {
+    padding: 1px 15px;
 }
 
-.btn-light i.fa-heart {
-    color: #ccc; /* 初期状態の色 */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.btn-light.active i.fa-heart {
-    color: red; /* お気に入り状態の色 */
-}
-
-.btn-primary {
-    font-size: 16px;
+.btn-detail {
     background-color: #1945ff;
+    color: #fff;
+    padding: 10px 15px;
     border-radius: 4px;
     text-decoration: none;
-    color: #ffff;
-    padding: 8px 20px;
 }
 
-.row>.col-md-3 {
-    margin: 10px 6px;
+.btn-favorite {
+    border: none;
+    background: none;
 }
 
-.btn-light {
-    background-color: #eeeeee;
-}
-
-.fa-heart {
+.btn-favorite i {
     font-size: 32px;
+    color: rgb(194, 189, 189);
 }
 
-.pagination-container {
+.btn-favorite.active i {
+    color: red;
+}
+
+.pagination {
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-.pagination {
+.pagination ul {
     display: flex;
     list-style-type: none;
     padding: 0;
@@ -120,4 +134,17 @@
 
 .pagination li a:hover {
     background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+    .filter {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .filter select,
+    .filter input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

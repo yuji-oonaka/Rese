@@ -6,25 +6,43 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    @yield('css')
+    <link rel="stylesheet" href="{{ asset('css/shop_list.css') }}">
+    <script src="https://kit.fontawesome.com/9d85be4431.js" crossorigin="anonymous"></script>
+</head>
+<body>
 <header>
-    <div class="header-container">
-        <h1>
-            <div class="icon-box">
-                <i class="fas fa-align-left"></i>
-            </div>
-            Rese
-        </h1>
-    </div>
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
 </header>
 
-    <main>
-        @yield('content')
-    </main>
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        @auth
+            <a href="{{ route('shop.list') }}">Home</a>
+            <a href="{{ route('logout') }}">Logout</a>
+            <a href="{{ route('mypage') }}">Mypage</a>
+        @else
+            <a href="{{ route('shop.list') }}">Home</a>
+            <a href="{{ route('register') }}">Registration</a>
+            <a href="{{ route('login') }}">Login</a>
+        @endauth
+        <button class="close-btn" onclick="toggleMenu()">X</button>
+    </div>
+</div>
 
-    <footer>
-        <!-- フッターの内容 -->
-    </footer>
+<main>
+    @yield('content')
+</main>
+
+<footer>
+    <!-- フッターの内容 -->
+</footer>
+
+<script>
+function toggleMenu() {
+    const menuOverlay = document.getElementById('menu-overlay');
+    menuOverlay.classList.toggle('active');
+}
+</script>
+
 </body>
 </html>

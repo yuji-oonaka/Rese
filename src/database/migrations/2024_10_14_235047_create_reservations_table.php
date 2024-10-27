@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('shop_id')->constrained();
-            $table->date('date');
-            $table->time('time');
-            $table->integer('number_of_people');
+            $table->date('date')->nullable(false);
+            $table->time('time')->nullable(false);
+            $table->integer('number_of_people')->nullable(false)->unsigned();
             $table->timestamps();
         });
     }

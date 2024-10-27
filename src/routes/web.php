@@ -7,5 +7,16 @@ use App\Http\Controllers\ShopController;
 
 
 
-Route::get('/', [ShopController::class, 'showShopList'])->name('home');
+Route::get('/', [ShopController::class, 'showShopList'])->name('shop.list');
 Route::get('/detail/{shop_id}', [ShopController::class, 'showShopDetail'])->name('shop.detail');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [UserController::class, 'showUserPage']);
+    Route::post('/shop/{shop}/favorite', [ShopController::class, 'toggleFavorite'])
+    ->name('shop.favorite');
+    Route::post('/favorite', [FavoriteController::class, 'makeFavorite']);
+    Route::post('/favorite/delete', [FavoriteController::class, 'deleteFavorite']);
+    Route::post('/reserve/{shop_id}', [ReservationController::class, 'makeReservation'])->name('reservation.store');
+    Route::post('/reserve/delete', [ReservationController::class, 'deleteReservation']);
+    Route::get('/reserve/done', [ReservationController::class, 'showReservation'])->name('reservation.show');
+});
