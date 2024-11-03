@@ -15,10 +15,13 @@ h2 {
 
 .right {
     width: 40%;
-    background-color: #007bff;
+    background-color: #305dff;
+    /* 背景色は青 */
     color: white;
     padding: 30px;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
 }
 
 .shop-image {
@@ -49,20 +52,35 @@ h2 {
     width: 100%;
     margin-bottom: 10px;
     padding: 5px;
+    background-color: #ffffff;
+    /* 入力フィールドの背景を白に */
+    border: none;
+    /* 枠線なし */
+    border-radius: 4px;
+    /* 角を丸める */
 }
 
 .summary {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #4d7fff;
+    /* サマリー部分の背景色を薄い青色に */
+    color: #ffffff;
     padding: 10px;
-    margin-bottom: 10px;
+}
+
+#reservation-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Make the form take full height of its container */
 }
 
 .submit-btn {
     width: 100%;
-    background-color: #343a40;
+    background-color: #0538ff;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    margin-top: auto;
+    /* Push the button to the bottom */
 }

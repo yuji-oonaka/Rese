@@ -1,0 +1,32 @@
+/* thanks.css */
+.thank-you-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 60px 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px #aaa;
+    text-align: center;
+}
+
+.thank-you-container p {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 50px;
+    /* テキストとボタンの間に余白を追加 */
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #2979ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    /* ホバー時の色変更 */
+}

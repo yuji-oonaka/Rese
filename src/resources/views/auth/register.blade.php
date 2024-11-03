@@ -2,6 +2,9 @@
 
 @section('title', '登録')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+
 @section('content')
 <div class="register-container">
     <div class="register-header">

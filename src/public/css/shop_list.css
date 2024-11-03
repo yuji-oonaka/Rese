@@ -70,7 +70,7 @@
 }
 
 .content {
-    padding: 1px 15px;
+    padding: 10px 15px;
 }
 
 .actions {
@@ -80,9 +80,9 @@
 }
 
 .btn-detail {
-    background-color: #1945ff;
+    background-color: #315eff;
     color: #fff;
-    padding: 10px 15px;
+    padding: 5px 10px;
     border-radius: 4px;
     text-decoration: none;
 }
@@ -90,6 +90,7 @@
 .btn-favorite {
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 .btn-favorite i {
@@ -98,7 +99,7 @@
 }
 
 .btn-favorite.active i {
-    color: red;
+    color: #ff0000;
 }
 
 .pagination {

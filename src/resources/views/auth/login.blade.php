@@ -2,6 +2,9 @@
 
 @section('title', 'ログイン')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+
 @section('content')
 <div class="login-container">
     <div class="login-header">

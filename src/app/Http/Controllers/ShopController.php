@@ -52,12 +52,10 @@ class ShopController extends Controller
 
         if ($user->favorites()->where('shop_id', $shop_id)->exists()) {
             $user->favorites()->detach($shop_id);
-            $status = 'removed';
         } else {
             $user->favorites()->attach($shop_id);
-            $status = 'added';
         }
 
-        return response()->json(['status' => $status]);
+        return redirect()->back();
     }
 }

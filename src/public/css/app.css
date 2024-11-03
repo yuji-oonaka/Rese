@@ -78,6 +78,15 @@ body {
     font-size: 32px;
 }
 
+.btn-link {
+    margin: 10px 0;
+    color: blue;
+    background: #fff;
+    font-size: 32px;
+    border: none;
+    cursor: pointer;
+}
+
 .close-btn {
     background-color: #007bff;
     color: white;
