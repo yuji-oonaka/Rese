@@ -57,5 +57,19 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        $this->app->singleton(
+        \Illuminate\Contracts\Validation\Factory::class,
+        function ($app) {
+            $validator = new \Illuminate\Validation\Factory($app['translator'], $app);
+
+            // カスタムメッセージの設定
+            $validator->resolver(function ($translator, $data, $rules, $messages, $attributes) {
+                return new \Illuminate\Validation\Validator($translator, $data, $rules, $messages, $attributes);
+            });
+
+            return $validator;
+        }
+    );
     }
 }

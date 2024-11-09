@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->nullable(false);
+            $table->string('name_kana')->nullable();
+            $table->string('name_katakana')->nullable();
             $table->timestamps();
         });
     }

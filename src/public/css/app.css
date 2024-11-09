@@ -2,23 +2,6 @@ body {
     background: #eeeeee;
 }
 
-.header-container {
-    max-width: 80%;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    margin: 20px 180px;
-}
-
-.header-container h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #1945ff;
-    margin: 0;
-    display: flex;
-    align-items: center;
-}
-
 .icon-box {
     background-color: #2755fe;
     padding: 8px;
@@ -26,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 20px;
+    margin-right: 10px;
     box-shadow: 2px 4px 8px #687cc1;
 }
 
@@ -36,7 +19,8 @@ body {
 }
 
 .menu-icon {
-    font-size: 30px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }
 

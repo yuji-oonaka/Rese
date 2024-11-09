@@ -9,13 +9,9 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="logo">
-            <div class="icon-box">
-                <i class="fas fa-align-left"></i>
-            </div>
-            Rese
-        </h1>
+        <x-header-component />
         <form action="{{ route('shop.list') }}" method="GET" id="search-form">
+            <div class="filter-container">
             <div class="filter">
                 <select name="area" id="area-filter" onchange="this.form.submit()">
                     <option value="">All areas</option>
@@ -29,8 +25,15 @@
                         <option value="{{ $genre->id }}" {{ request('genre') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
                     @endforeach
                 </select>
-                <input type="text" name="search" id="search-input" placeholder="Search..." value="{{ request('search') }}">
+                <div class="search-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" name="search" id="search-input" placeholder="Search..." value="{{ request('search') }}">
+                </div>
             </div>
+        </div>
         </form>
     </div>
     <div class="grid">

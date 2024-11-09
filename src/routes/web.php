@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/favorite', [FavoriteController::class, 'makeFavorite']);
     Route::post('/favorite/delete', [FavoriteController::class, 'deleteFavorite']);
     Route::post('/reserve/{shop_id}', [ReservationController::class, 'makeReservation'])->name('reservation.store');
-    Route::post('/reserve/delete', [ReservationController::class, 'deleteReservation']);
+    Route::delete('/reserve/{reservation_id}', [ReservationController::class, 'deleteReservation'])->name('reservation.delete');
     Route::get('/reserve/done', [ReservationController::class, 'showReservation'])->name('reservation.show');
     Route::get('/thanks', function () {
         return view('thanks');

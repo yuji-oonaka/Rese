@@ -13,10 +13,14 @@ class AreasTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $areas = ['東京都', '大阪府', '福岡県'];
+        $areas = [
+        ['name' => '東京都', 'name_kana' => 'とうきょうと', 'name_katakana' => 'トウキョウト'],
+        ['name' => '大阪府', 'name_kana' => 'おおさかふ', 'name_katakana' => 'オオサカフ'],
+        ['name' => '福岡県', 'name_kana' => 'ふくおかけん', 'name_katakana' => 'フクオカケン'],
+        ];
 
         foreach ($areas as $area) {
-            Area::create(['name' => $area]);
+            Area::create($area);
         }
     }
 }

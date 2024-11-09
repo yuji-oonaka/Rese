@@ -7,8 +7,9 @@
 @endsection
 
 @section('content')
+<x-header-component />
 <div class="thank-you-container">
     <p>会員登録ありがとうございます</p>
-    <a href="{{ route('login') }}" class="btn btn-primary">ログインする</a>
+    <a href="{{ route('mypage') }}" class="btn btn-primary">ログインする</a>
 </div>
 @endsection

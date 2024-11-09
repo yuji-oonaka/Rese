@@ -34,8 +34,12 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class);
     }
 
-    // ユーザーは複数のお気に入り店舗を持つ
     public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function favoritedShops()
     {
         return $this->belongsToMany(Shop::class, 'favorites');
     }

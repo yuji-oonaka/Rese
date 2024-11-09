@@ -22,9 +22,30 @@ class ShopController extends Controller
     }
 
     if ($request->filled('search')) {
-        $query->where('name', 'like', '%' . $request->search . '%');
-    }
+        $search = $request->search;
+        // 全角スペースを半角スペースに変換
+        $search = str_replace('　', ' ', $search);
+        // 連続する半角スペースを1つにまとめる
+        $search = preg_replace('/\s+/', ' ', $search);
+        // 半角スペースで分割
+        $searchTerms = explode(' ', $search);
 
+        $query->where(function($q) use ($searchTerms) {
+            foreach ($searchTerms as $term) {
+                $q->where(function($subQ) use ($term) {
+                    $subQ->where('name', 'like', '%' . $term . '%')
+                        ->orWhereHas('area', function($areaQ) use ($term) {
+                            $areaQ->where('name', 'like', '%' . $term . '%')
+                                ->orWhere('name_kana', 'like', '%' . $term . '%')
+                                ->orWhere('name_katakana', 'like', '%' . $term . '%');
+                        })
+                        ->orWhereHas('genre', function($genreQ) use ($term) {
+                            $genreQ->where('name', 'like', '%' . $term . '%');
+                        });
+                });
+            }
+        });
+    }
     $userId = auth()->id();
 
     $shops = $query->with(['area', 'genre'])
@@ -50,10 +71,12 @@ class ShopController extends Controller
         $user = auth()->user();
         $shop = Shop::findOrFail($shop_id);
 
-        if ($user->favorites()->where('shop_id', $shop_id)->exists()) {
-            $user->favorites()->detach($shop_id);
+        $favorite = $user->favorites()->where('shop_id', $shop_id)->first();
+
+        if ($favorite) {
+            $favorite->delete();
         } else {
-            $user->favorites()->attach($shop_id);
+            $user->favorites()->create(['shop_id' => $shop_id]);
         }
 
         return redirect()->back();

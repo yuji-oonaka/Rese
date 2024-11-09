@@ -1,10 +1,15 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title', '飲食店詳細')
+
+@section('css')
 <link rel="stylesheet" href="{{ asset('css/shop_detail.css') }}">
+@endsection
+@section('content')
 
 <div class="main">
     <div class="left">
+        <x-header-component />
         <div class="header">
             <a href="{{ route('shop.list') }}" class="back-btn">&lt;</a>
             <h2>{{ $shop->name }}</h2>
@@ -21,13 +26,13 @@
         <form id="reservation-form" method="POST">
             @csrf
             <!-- 日付選択 -->
-            <input type="date" id="date-input" name="date" class="input" value="{{ request('date') }}" required>
+            <input type="date" id="date-input" name="date" class="input date" value="{{ request('date') }}" required>
 
             <!-- 時間選択 -->
-            <input type="time" id="time-input" name="time" class="input" value="{{ request('time') }}" required>
+            <input type="time" id="time-input" name="time" class="input time" value="{{ request('time') }}" required>
 
             <!-- 人数選択 -->
-            <select id="people-input" name="number_of_people" class="input" required>
+            <select id="people-input" name="number_of_people" class="input people" required>
                 @for ($i = 1; $i <= 10; $i++)
                     <option value="{{ $i }}" {{ request('number_of_people') == $i ? 'selected' : '' }}>{{ $i }}人</option>
                 @endfor
@@ -35,10 +40,10 @@
 
             <!-- サマリー表示 -->
             <div class="summary">
-                <p>Shop: {{ $shop->name }}</p>
-                <p>Date: <span id="summary-date">{{ request('date') }}</span></p>
-                <p>Time: <span id="summary-time">{{ request('time') }}</span></p>
-                <p>Number: <span id="summary-people">{{ request('number_of_people') }}</span>人</p>
+                <p>Shop {{ $shop->name }}</p>
+                <p>Date <span id="summary-date">{{ request('date') }}</span></p>
+                <p>Time <span id="summary-time">{{ request('time') }}</span></p>
+                <p>Number <span id="summary-people">{{ request('number_of_people') }}</span>人</p>
             </div>
 
             <!-- 予約ボタン -->

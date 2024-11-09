@@ -22,6 +22,7 @@ h2 {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    margin: 30px 0;
 }
 
 .shop-image {
@@ -45,7 +46,6 @@ h2 {
 .header {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
 }
 
 .input {
@@ -60,11 +60,14 @@ h2 {
     /* 角を丸める */
 }
 
+
 .summary {
+    max-width: 85%;
     background-color: #4d7fff;
     /* サマリー部分の背景色を薄い青色に */
+    border-radius: 4px;
     color: #ffffff;
-    padding: 10px;
+    padding: 10px 30px;
 }
 
 #reservation-form {
@@ -82,5 +85,5 @@ h2 {
     padding: 15px;
     border-radius: 0 0 8px 8px;
     margin-top: auto;
-    /* Push the button to the bottom */
+    cursor: pointer;
 }

@@ -1,7 +1,12 @@
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .login-container {
     max-width: 540px;
-    margin: 180px auto;
-    padding: 0;
+    margin: 0 auto;
     background-color: white;
     box-shadow: 2px 4px 8px #979797;
     border-radius: 5px;
@@ -9,8 +14,7 @@
 
 .register-container {
     max-width: 540px;
-    margin: 180px auto;
-    padding: 0;
+    margin: 0 auto;
     background-color: white;
     box-shadow: 2px 4px 8px #979797;
     border-radius: 5px;
@@ -109,4 +113,13 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     /* ボタンを右寄せ */
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
