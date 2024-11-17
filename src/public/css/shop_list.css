@@ -119,15 +119,26 @@
     text-decoration: none;
 }
 
+.btn-detail:hover {
+    background-color: #0056b3;
+}
+
 .btn-favorite {
     border: none;
     background: none;
     cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-favorite:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
 }
 
 .btn-favorite i {
     font-size: 32px;
     color: rgb(194, 189, 189);
+    transition: color 0.2s ease;
 }
 
 .btn-favorite.active i {

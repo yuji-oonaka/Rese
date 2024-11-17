@@ -13,6 +13,8 @@ class ShopController extends Controller
 {
     $query = Shop::query();
 
+    $isSearched = $request->filled('area') || $request->filled('genre') || $request->filled('search');
+
     if ($request->filled('area')) {
         $query->where('area_id', $request->area);
     }
@@ -57,7 +59,7 @@ class ShopController extends Controller
     $areas = Area::all();
     $genres = Genre::all();
 
-    return view('shop_list', compact('shops', 'areas', 'genres'));
+    return view('shop_list', compact('shops', 'areas', 'genres', 'isSearched'));
 }
 
     public function showShopDetail($shop_id)

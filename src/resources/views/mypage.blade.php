@@ -16,6 +16,9 @@
         <!-- 左側: 予約状況 -->
         <div class="left-section">
             <h2>予約状況</h2>
+            @if($reservations->isEmpty())
+                <p>現在、予約はありません。</p>
+            @else
             @foreach($reservations as $index => $reservation)
                 <div class="reservation-card">
                     <div class="reservation-header">
@@ -34,20 +37,75 @@
                         </form>
                     </div>
                     @if($reservation->shop)
-                        <p>Shop {{ $reservation->shop->name }}</p>
-                        <p>Date {{ $reservation->date }}</p>
-                        <p>Time {{ $reservation->time }}</p>
-                        <p>Number {{ $reservation->number_of_people }}人</p>
+                    <table class="reservation-info-table">
+                        <tr>
+                            <th>Shop</th>
+                            <td>{{ $reservation->shop->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td>{{ $reservation->date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Time</th>
+                            <td>{{ $reservation->time }}</td>
+                        </tr>
+                        <tr>
+                            <th>Number</th>
+                            <td>{{ $reservation->number_of_people }}人</td>
+                        </tr>
+                    </table>
+                    <button class="edit-btn" onclick="toggleForm({{ $index }})">変更</button>
+                    <!-- 変更フォーム (非表示) -->
+                    <form id="edit-form-{{ $index }}" action="{{ route('reservation.update', ['reservation_id' => $reservation->id]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('PUT')
+                        <table class="reservation-edit-table">
+                            <tr>
+                                <th><label for="date">日付</label></th>
+                                <td>
+                                    <input type="date" name="date" id="date-input-{{ $index }}"
+                                        value="{{ old('date', $reservation->date) }}"
+                                        min="{{ now()->toDateString() }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="time">時間</label></th>
+                                <td>
+                                    <input type="time" name="time" id="time-input-{{ $index }}"
+                                        value="{{ old('time', $reservation->time) }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="number_of_people">人数</label></th>
+                                <td>
+                                    <input type="number" name="number_of_people"
+                                        value="{{ old('number_of_people', $reservation->number_of_people) }}"
+                                        min="1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="form-actions">
+                                    <button type="submit" class="update-btn">更新する</button>
+                                    <button type="button" class="cancel-btn" onclick="toggleForm({{ $index }})">キャンセル</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                     @else
                         <p>この予約には店舗情報がありません。</p>
                     @endif
                 </div>
             @endforeach
+            @endif
         </div>
 
         <!-- 右側: お気に入り店舗 -->
         <div class="right-section">
             <h2>お気に入り店舗</h2>
+            @if($favorites->isEmpty())
+                <p>現在、お気に入りの店舗はありません。</p>
+            @else
             <div class="favorite-grid">
                 @foreach($favorites as $favorite)
                     <div class="favorite-card">
@@ -74,7 +132,56 @@
                     </div>
                 @endforeach
             </div>
+            @endif
         </div>
     </div>
 </div>
 @endsection
+
+<script>
+// フォームの表示・非表示を切り替える関数
+function toggleForm(index) {
+    var form = document.getElementById('edit-form-' + index);
+    if (form.style.display === "none") {
+        form.style.display = "block";
+        // フォームが表示されたときに日付と時間のバリデーションを設定
+        setDateAndTimeValidation(index);
+    } else {
+        form.style.display = "none";
+    }
+}
+
+// 日付と時間のバリデーション設定
+function setDateAndTimeValidation(index) {
+    const dateInput = document.getElementById('date-input-' + index);
+    const timeInput = document.getElementById('time-input-' + index);
+
+    // 日付が変更されたときに実行
+    dateInput.addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const currentDate = new Date();
+
+        // 今日の日付が選択された場合
+        if (selectedDate.toDateString() === currentDate.toDateString()) {
+            // 現在時刻以降のみ許可
+            const hours = currentDate.getHours();
+            const minutes = currentDate.getMinutes();
+            const minTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+
+            timeInput.min = minTime;
+
+            // もし現在時刻より前の時間が設定されていたらリセットする
+            if (timeInput.value && timeInput.value < minTime) {
+                timeInput.value = minTime;
+            }
+        } else {
+            // 他の日付が選択された場合は制限なし
+            timeInput.removeAttribute('min');
+        }
+    });
+
+    // ページ読み込み時にもチェック（初期値が今日の場合に対応）
+    dateInput.dispatchEvent(new Event('change'));
+}
+
+</script>

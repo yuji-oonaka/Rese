@@ -60,14 +60,49 @@ h2 {
     /* 角を丸める */
 }
 
+/* 日付選択フィールド */
+input[type="date"] {
+    width: 150px;
+    /* 幅を縮める */
+}
+
+input[type="time"] {
+    width:88%;
+}
+
+select[name="number_of_people"] {
+    width:90%
+}
+
+.text-danger {
+    color: tomato;
+}
 
 .summary {
-    max-width: 85%;
+    max-width: 80%;
     background-color: #4d7fff;
     /* サマリー部分の背景色を薄い青色に */
     border-radius: 4px;
     color: #ffffff;
     padding: 10px 30px;
+}
+
+.summary-table {
+    width: 50%;
+    border-collapse: collapse;
+}
+
+.summary-table td {
+    padding: 5px;
+    color: white;
+}
+
+.summary-table td:first-child {
+    text-align: left;
+}
+
+.summary-table td:last-child {
+    text-align: left;
 }
 
 #reservation-form {

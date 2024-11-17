@@ -23,29 +23,48 @@
         <h3>予約</h3>
 
         <!-- 予約フォーム -->
-        <form id="reservation-form" method="POST">
+        <form id="reservation-form" method="POST" novalidate>
             @csrf
             <!-- 日付選択 -->
             <input type="date" id="date-input" name="date" class="input date" value="{{ request('date') }}" required>
-
+            @if ($errors->has('date'))
+                <span class="text-danger">{{ $errors->first('date') }}</span>
+            @endif
             <!-- 時間選択 -->
             <input type="time" id="time-input" name="time" class="input time" value="{{ request('time') }}" required>
-
+            @if ($errors->has('time'))
+                <span class="text-danger">{{ $errors->first('time') }}</span>
+            @endif
             <!-- 人数選択 -->
             <select id="people-input" name="number_of_people" class="input people" required>
-                @for ($i = 1; $i <= 10; $i++)
+                @for ($i = 0; $i <= 10; $i++)
                     <option value="{{ $i }}" {{ request('number_of_people') == $i ? 'selected' : '' }}>{{ $i }}人</option>
                 @endfor
             </select>
-
+            @if ($errors->has('number_of_people'))
+                <span class="text-danger">{{ $errors->first('number_of_people') }}</span>
+            @endif
             <!-- サマリー表示 -->
             <div class="summary">
-                <p>Shop {{ $shop->name }}</p>
-                <p>Date <span id="summary-date">{{ request('date') }}</span></p>
-                <p>Time <span id="summary-time">{{ request('time') }}</span></p>
-                <p>Number <span id="summary-people">{{ request('number_of_people') }}</span>人</p>
+                <table class="summary-table">
+                    <tr>
+                        <td>Shop</td>
+                        <td>{{ $shop->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td><span id="summary-date">{{ request('date') }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td><span id="summary-time">{{ request('time') }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Number</td>
+                        <td><span id="summary-people">{{ request('number_of_people') }}</span>人</td>
+                    </tr>
+                </table>
             </div>
-
             <!-- 予約ボタン -->
             <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="submit-btn">予約する</button>
         </form>
@@ -64,6 +83,17 @@ document.getElementById('time-input').addEventListener('change', function() {
 
 document.getElementById('people-input').addEventListener('change', function() {
     document.getElementById('summary-people').textContent = this.value;
+});
+
+// 今日の日付以降しか選べないようにする
+document.addEventListener("DOMContentLoaded", function() {
+    const dateInput = document.getElementById('date-input');
+
+    // 今日の日付を取得
+    const today = new Date().toISOString().split('T')[0];
+
+    // 日付フィールドの最小値（min）を今日の日付に設定
+    dateInput.setAttribute('min', today);
 });
 </script>
 

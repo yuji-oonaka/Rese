@@ -203,3 +203,242 @@
     background-color: #007bff;
     color: white;
 }
+
+/* テーブル全体のスタイル */
+.reservation-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px; /* カード間隔のように見せるため */
+}
+
+.reservation-table th,
+.reservation-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.reservation-table th {
+    background-color: transparent;
+    color: black;
+}
+
+/* テーブル行のスタイル (カード風) */
+.reservation-card {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-card td {
+    padding: 15px;
+}
+
+/* 削除ボタンのスタイル */
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .reservation-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .reservation-card {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px; /* カード間隔 */
+    }
+}
+
+/* 変更ボタンのスタイル */
+.edit-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #218838;
+}
+
+/* フォームのスタイル */
+#edit-form {
+    margin-top: 10px;
+}
+
+#edit-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#edit-form input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.reservation-edit-table th {
+    color: white;
+}
+
+.reservation-edit-table input {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+/* 予約情報テーブルのスタイル */
+.reservation-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.reservation-info-table th,
+.reservation-info-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.reservation-info-table th {
+    width: 30%;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reservation-info-table td {
+    width: 70%;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 変更ボタンのスタイル調整 */
+.edit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.edit-btn:hover {
+    background-color: #218838;
+}
+
+/* 予約カードの内部余白調整 */
+.reservation-card {
+    padding: 15px;
+}
+
+/* 予約ヘッダーのスタイル調整 */
+.reservation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-header svg {
+    margin-right: 10px;
+}
+
+.reservation-header p {
+    flex-grow: 1;
+    margin: 0;
+}
+
+/* 削除ボタンのスタイル調整 */
+.delete-btn {
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-btn:hover {
+    color: #ff6b6b;
+}
+
+.form-actions {
+    text-align: center;
+    padding: 10px;
+}
+
+.update-btn,
+.cancel-btn {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.update-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn:hover {
+    background-color: #545b62;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+.popup-buttons button {
+    margin: 0 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+}

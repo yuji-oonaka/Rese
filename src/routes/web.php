@@ -24,4 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/thanks', function () {
         return view('thanks');
     })->name('thanks');
-});
+    // 予約編集ページ表示用ルート
+    Route::get('/reserve/{reservation_id}/edit', [ReservationController::class, 'editReservation'])->name('reservation.edit');
+
+    // 予約更新処理用ルート
+    Route::put('/reserve/{reservation_id}', [ReservationController::class, 'updateReservation'])->name('reservation.update');
+    });
