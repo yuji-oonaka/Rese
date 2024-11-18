@@ -30,16 +30,6 @@
     margin-right: 20px;
 }
 
-/* カード共通のスタイル */
-.reservation-card,
-.favorite-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
 /* 予約カードのスタイル */
 .reservation-card {
     background-color: #007bff;
@@ -55,20 +45,21 @@
 .favorite-card img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
 }
 
 .favorite-card p {
     font-size: 1.2rem;
+    padding-left: 10px;
 }
 
 .detail-link {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .detail-link:hover {
@@ -149,7 +140,6 @@
 .reservation-card,
 .favorite-card {
     background-color: white;
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -188,20 +178,78 @@
 /* お気に入りカードのスタイル */
 .favorite-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
+}
+
+.favorite-card {
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px #aaa;
+    background-color: white;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
 }
 
 .favorite-card img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 16/9;
+    /* または必要なアスペクト比に調整 */
+    object-fit: cover;
+    display: block;
+    /* 画像下部の余白を削除 */
 }
 
-.detail-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+
+.favorite-card h2 {
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.favorite-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.favorite-card .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    /* アクションを下部に配置 */
+}
+
+.favorite-card .detail-link {
+    background-color: #315eff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.favorite-card .detail-link:hover {
+    background-color: #0056b3;
+}
+
+.favorite-card .heart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #c2bdbd;
+    transition: color 0.2s ease;
+    margin-right: 20px;
+}
+
+.favorite-card .heart-btn.active {
+    color: #ff0000;
 }
 
 /* テーブル全体のスタイル */

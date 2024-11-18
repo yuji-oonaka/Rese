@@ -26,24 +26,24 @@
         <form id="reservation-form" method="POST" novalidate>
             @csrf
             <!-- 日付選択 -->
-            <input type="date" id="date-input" name="date" class="input date" value="{{ request('date') }}" required>
-            @if ($errors->has('date'))
-                <span class="text-danger">{{ $errors->first('date') }}</span>
-            @endif
+            <input type="date" id="date-input" name="date" class="input date" value="{{ old('date', request('date')) }}" min="{{ date('Y-m-d') }}"required>
+            @error('date')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
             <!-- 時間選択 -->
-            <input type="time" id="time-input" name="time" class="input time" value="{{ request('time') }}" required>
-            @if ($errors->has('time'))
-                <span class="text-danger">{{ $errors->first('time') }}</span>
-            @endif
+            <input type="time" id="time-input" name="time" class="input time" value="{{ old('time', request('time')) }}" required>
+            @error('time')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
             <!-- 人数選択 -->
             <select id="people-input" name="number_of_people" class="input people" required>
                 @for ($i = 0; $i <= 10; $i++)
-                    <option value="{{ $i }}" {{ request('number_of_people') == $i ? 'selected' : '' }}>{{ $i }}人</option>
+                    <option value="{{ $i }}" {{ old('number_of_people',request('number_of_people')) == $i ? 'selected' : '' }}>{{ $i }}人</option>
                 @endfor
             </select>
-            @if ($errors->has('number_of_people'))
-                <span class="text-danger">{{ $errors->first('number_of_people') }}</span>
-            @endif
+            @error('number_of_people')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
             <!-- サマリー表示 -->
             <div class="summary">
                 <table class="summary-table">
@@ -53,47 +53,89 @@
                     </tr>
                     <tr>
                         <td>Date</td>
-                        <td><span id="summary-date">{{ request('date') }}</span></td>
+                        <td><span id="summary-date">{{ old('date', request('date')) }}</span></td>
                     </tr>
                     <tr>
                         <td>Time</td>
-                        <td><span id="summary-time">{{ request('time') }}</span></td>
+                        <td><span id="summary-time">{{ old('time', request('time')) }}</span></td>
                     </tr>
                     <tr>
                         <td>Number</td>
-                        <td><span id="summary-people">{{ request('number_of_people') }}</span>人</td>
+                        <td><span id="summary-people">{{ old('number_of_people', request('number_of_people', 1)) }}</span>人</td>
                     </tr>
                 </table>
             </div>
-            <!-- 予約ボタン -->
-            <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="submit-btn">予約する</button>
+            <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="submit-btn">
+                予約する
+            </button>
         </form>
     </div>
 </div>
 
 <script>
-// JavaScriptでフォームの選択内容をリアルタイムで取得し、サマリーを更新
-document.getElementById('date-input').addEventListener('change', function() {
-    document.getElementById('summary-date').textContent = this.value;
-});
-
-document.getElementById('time-input').addEventListener('change', function() {
-    document.getElementById('summary-time').textContent = this.value;
-});
-
-document.getElementById('people-input').addEventListener('change', function() {
-    document.getElementById('summary-people').textContent = this.value;
-});
-
-// 今日の日付以降しか選べないようにする
 document.addEventListener("DOMContentLoaded", function() {
     const dateInput = document.getElementById('date-input');
+    const timeInput = document.getElementById('time-input');
 
     // 今日の日付を取得
     const today = new Date().toISOString().split('T')[0];
-
-    // 日付フィールドの最小値（min）を今日の日付に設定
     dateInput.setAttribute('min', today);
+
+    // 時刻の制御を行う関数
+    function updateTimeRestrictions() {
+        const selectedDate = new Date(dateInput.value);
+        const now = new Date();
+
+        // 選択された日付が今日の場合
+        if (selectedDate.toDateString() === now.toDateString()) {
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+
+            // 現在時刻を "HH:MM" 形式に変換
+            const currentTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+            // 最小時刻を設定
+            timeInput.min = currentTime;
+
+            // 既に選択されている時刻が現在時刻より前の場合、現在時刻にリセット
+            if (timeInput.value && timeInput.value < currentTime) {
+                timeInput.value = currentTime;
+                // サマリーの更新
+                updateSummary('time', currentTime);
+            }
+        } else {
+            // 今日以外の日付の場合、時刻の制限を解除
+            timeInput.removeAttribute('min');
+        }
+    }
+
+    // 日付が変更されたときのイベントリスナー
+    dateInput.addEventListener('change', function() {
+        updateTimeRestrictions();
+    });
+
+    // 時刻が変更されたときのイベントリスナー
+    timeInput.addEventListener('change', function() {
+        updateTimeRestrictions();
+    });
+
+    // ページ読み込み時に初期チェック
+    updateTimeRestrictions();
+
+    // フォーム送信時のバリデーション
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+        const selectedDateTime = new Date(dateInput.value + 'T' + timeInput.value);
+        const now = new Date();
+
+    });
+
+    // サマリー更新関数
+    function updateSummary(type, value) {
+        const element = document.getElementById(`summary-${type}`);
+        if (element) {
+            element.textContent = value;
+        }
+    }
 });
 </script>
 

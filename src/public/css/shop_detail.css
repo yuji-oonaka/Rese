@@ -9,20 +9,24 @@ h2 {
     font-size: 32px;
 }
 
+h3 {
+    margin-left: 20px;
+}
+
 .left {
-    width: 50%;
+    width: 40%;
 }
 
 .right {
-    width: 40%;
+    width: 45%;
     background-color: #305dff;
-    /* 背景色は青 */
     color: white;
-    padding: 30px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     margin: 30px 0;
+    position: relative;
+    /* 追加 */
 }
 
 .shop-image {
@@ -50,6 +54,7 @@ h2 {
 
 .input {
     width: 100%;
+    margin-left: 20px;
     margin-bottom: 10px;
     padding: 5px;
     background-color: #ffffff;
@@ -76,6 +81,7 @@ select[name="number_of_people"] {
 
 .text-danger {
     color: tomato;
+    margin-left: 20px;
 }
 
 .summary {
@@ -84,7 +90,8 @@ select[name="number_of_people"] {
     /* サマリー部分の背景色を薄い青色に */
     border-radius: 4px;
     color: #ffffff;
-    padding: 10px 30px;
+    padding: 10px 20px;
+    margin-left: 20px;
 }
 
 .summary-table {
@@ -109,7 +116,6 @@ select[name="number_of_people"] {
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* Make the form take full height of its container */
 }
 
 .submit-btn {
@@ -121,4 +127,10 @@ select[name="number_of_people"] {
     border-radius: 0 0 8px 8px;
     margin-top: auto;
     cursor: pointer;
+    box-sizing: border-box;
+    /* 追加 */
+}
+
+.submit-btn:hover {
+    background-color: #0729a3;
 }

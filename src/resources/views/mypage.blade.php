@@ -107,31 +107,27 @@
                 <p>現在、お気に入りの店舗はありません。</p>
             @else
             <div class="favorite-grid">
-                @foreach($favorites as $favorite)
-                    <div class="favorite-card">
-                        @if($favorite->shop)
-                            <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
-                            <p>{{ $favorite->shop->name }}</p>
+            @foreach($favorites as $favorite)
+                <div class="favorite-card" id="favorite-{{ $favorite->shop->id }}">
+                    @if($favorite->shop)
+                        <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+                        <div class="content">
+                            <h2>{{ $favorite->shop->name }}</h2>
                             <p>#{{ $favorite->shop->area->name }} #{{ $favorite->shop->genre->name }}</p>
-                            <a href="{{ route('shop.detail', ['shop_id' => $favorite->shop->id]) }}" class="detail-link">詳しくみる</a>
-
-                            <!-- ハートマークの表示 -->
-                            <form method="POST" action="{{ route('shop.favorite', ['shop' => $favorite->shop->id]) }}">
-                                @csrf
-                                @if(auth()->user()->favorites()->where('shop_id', $favorite->shop->id)->exists())
-                                    <!-- お気に入り解除ボタン -->
-                                    <button type="submit" class="heart-btn active">❤️</button>
-                                @else
-                                    <!-- お気に入り追加ボタン -->
-                                    <button type="submit" class="heart-btn">🤍</button>
-                                @endif
-                            </form>
-                        @else
-                            <p>このお気に入りには店舗情報がありません。</p>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
+                            <div class="actions">
+                                <a href="{{ route('shop.detail', ['shop_id' => $favorite->shop->id]) }}" class="detail-link">詳しくみる</a>
+                                <form method="POST" action="{{ route('shop.favorite', ['shop' => $favorite->shop->id]) }}" class="favorite-form">
+                                    @csrf
+                                    <button type="button" class="heart-btn active" data-shop-id="{{ $favorite->shop->id }}">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
             @endif
         </div>
     </div>
@@ -184,4 +180,49 @@ function setDateAndTimeValidation(index) {
     dateInput.dispatchEvent(new Event('change'));
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    // すべてのお気に入りボタンにイベントリスナーを追加
+    document.querySelectorAll('.heart-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const shopId = this.dataset.shopId;
+            const form = this.closest('form');
+            const csrfToken = form.querySelector('input[name="_token"]').value;
+            const favoriteCard = document.getElementById(`favorite-${shopId}`);
+
+            // お気に入り状態を切り替える関数
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // アニメーションを追加してカードを削除
+                    favoriteCard.style.transition = 'opacity 0.3s ease';
+                    favoriteCard.style.opacity = '0';
+
+                    setTimeout(() => {
+                        favoriteCard.remove();
+
+                        // カードがすべて無くなった場合のメッセージを表示
+                        const remainingCards = document.querySelectorAll('.favorite-card');
+                        if (remainingCards.length === 0) {
+                            const grid = document.querySelector('.favorite-grid');
+                            grid.innerHTML = '<p>現在、お気に入りの店舗はありません。</p>';
+                        }
+                    }, 300);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
 </script>

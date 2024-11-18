@@ -1,4 +1,10 @@
 /* thanks.css */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .thank-you-container {
     width: 400px;
     margin: 100px auto;

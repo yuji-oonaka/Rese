@@ -80,12 +80,18 @@ label {
 }
 
 input {
-    width: calc(100% - 40px);
+    width: 100%;
+    /* 入力フィールドの幅を100%に設定 */
     padding: 15px;
     margin-bottom: 10px;
     border: none;
     border-bottom: 1px solid #414141;
     font-size: 18px;
+}
+
+.password-container input {
+    padding-right: 40px;
+    /* 目のアイコンの分のスペースを確保 */
 }
 
 button {
@@ -122,4 +128,34 @@ button:hover {
     margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* コンテナの幅を100%に設定 */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+    z-index: 1;
+    /* アイコンが確実に表示されるようにする */
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }

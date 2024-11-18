@@ -70,17 +70,33 @@ class ShopController extends Controller
 
     public function toggleFavorite(Request $request, $shop_id)
     {
-        $user = auth()->user();
-        $shop = Shop::findOrFail($shop_id);
+        try {
+            $user = auth()->user();
+            $shop = Shop::findOrFail($shop_id);
 
-        $favorite = $user->favorites()->where('shop_id', $shop_id)->first();
+            $favorite = $user->favorites()->where('shop_id', $shop_id)->first();
+            $status = false;
 
-        if ($favorite) {
-            $favorite->delete();
-        } else {
-            $user->favorites()->create(['shop_id' => $shop_id]);
+            if ($favorite) {
+                $favorite->delete();
+                $message = 'お気に入りを解除しました';
+            } else {
+                $user->favorites()->create(['shop_id' => $shop_id]);
+                $status = true;
+                $message = 'お気に入りに追加しました';
+            }
+
+            return response()->json([
+                'success' => true,
+                'status' => $status,
+                'message' => $message
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'エラーが発生しました'
+            ], 500);
         }
-
-        return redirect()->back();
     }
 }

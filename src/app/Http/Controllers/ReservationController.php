@@ -11,6 +11,16 @@ class ReservationController extends Controller
 {
     public function makeReservation(ReservationRequest $request, $shop_id)
     {
+        // 現在の日時を取得
+        $now = now();
+        $reservationDateTime = \Carbon\Carbon::parse($request->date . ' ' . $request->time);
+
+        // 過去の日時チェック
+        if ($reservationDateTime < $now) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['time' => '過去の日時は選択できません。']);
+        }
 
         // 予約処理
         Reservation::create([
@@ -59,18 +69,34 @@ class ReservationController extends Controller
             return redirect()->route('mypage')->with('error', '予約の編集権限がありません。');
         }
 
+        // 現在の日時を取得
+        $now = now();
+
         // バリデーション
-        $request->validate([
-            'date' => 'nullable|date|after_or_equal:today', // 日付はnullでもOK
-            'time' => 'nullable|date_format:H:i',           // 時間もnullでもOK
-            'number_of_people' => 'nullable|integer|min:1', // 人数もnullでもOK
+        $validated = $request->validate([
+            'date' => [
+                'required',
+                'date',
+                'after_or_equal:today',
+            ],
+            'time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request, $now) {
+                    $reservationDateTime = \Carbon\Carbon::parse($request->date . ' ' . $value);
+                    if ($reservationDateTime < $now) {
+                        $fail('過去の日時は選択できません。');
+                    }
+                },
+            ],
+            'number_of_people' => 'required|integer|min:1|max:10',
         ]);
 
-        // 更新処理：リクエストに値があれば更新し、なければ元の値を保持
+        // 更新処理
         $reservation->update([
-            'date' => $request->input('date') ?? $reservation->date,
-            'time' => $request->input('time') ?? $reservation->time,
-            'number_of_people' => $request->input('number_of_people') ?? $reservation->number_of_people,
+            'date' => $validated['date'],
+            'time' => $validated['time'],
+            'number_of_people' => $validated['number_of_people'],
         ]);
 
         return redirect()->route('mypage')->with('success', '予約が更新されました。');
