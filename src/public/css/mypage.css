@@ -1,5 +1,6 @@
+/* 共通のスタイル */
 .container {
-    max-width: 80%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -19,6 +20,7 @@
 .content-row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .left-section,
@@ -27,113 +29,9 @@
 }
 
 .left-section {
-    margin-right: 20px;
-}
-
-/* 予約カードのスタイル */
-.reservation-card {
-    background-color: #007bff;
-    color: white;
-    max-width: 60%;
-}
-
-.reservation-card p {
-    margin: 5px 0;
-}
-
-/* お気に入りカードのスタイル */
-.favorite-card img {
-    width: 100%;
-    height: auto;
-}
-
-.favorite-card p {
-    font-size: 1.2rem;
-    padding-left: 10px;
-}
-
-.detail-link {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-.detail-link:hover {
-    background-color: #0056b3;
-}
-
-/* ハートボタン */
-.heart-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-}
-
-.heart-btn.active {
-    color: red;
-    /* お気に入り状態のハートは赤色 */
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .header-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .user-name {
-        margin-top: 10px;
-    }
-
-    .content-row {
-        flex-direction: column;
-    }
-
-    .left-section,
-    .right-section {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .left-section {
-        margin-bottom: 20px;
-    }
-}
-
-.container {
-    max-width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.user-name {
-    margin: 0 auto;
-    font-size: 32px;
-}
-
-.content-row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-section,
-.right-section {
-    flex: 1;
-}
-
-.left-section {
-    margin-right: 20px;
+    margin-right: 100px;
+    max-width: 40%;
+    overflow: auto;
 }
 
 /* カード共通のスタイル */
@@ -143,36 +41,127 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-}
-
-/* 時計アイコンと削除ボタン */
-.reservation-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.reservation-header svg {
-    color: white;
-}
-
-.reservation-header p {
-    font-size: 16px;
-    color: white;
-}
-
-.delete-btn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
+    overflow: hidden;
 }
 
 /* 予約カードのスタイル */
 .reservation-card {
     background-color: #007bff;
     color: white;
+    padding: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.reservation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-header svg,
+.reservation-header p {
+    color: white;
+}
+
+.reservation-header p {
+    font-size: 16px;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.delete-btn,
+.heart-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn {
+    color: white;
+    font-size: 20px;
+    line-height: 1;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-btn:hover {
+    color: #ff6b6b;
+}
+
+.reservation-info-table,
+.reservation-edit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.reservation-info-table th,
+.reservation-info-table td,
+.reservation-edit-table th,
+.reservation-edit-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.reservation-info-table th,
+.reservation-edit-table th {
+    width: 30%;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reservation-info-table td {
+    width: 70%;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ボタンのスタイル */
+.edit-btn,
+.update-btn,
+.cancel-btn,
+.detail-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-btn,
+.update-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.detail-link {
+    background-color: #315eff;
+    color: white;
+    font-size: 14px;
+}
+
+.edit-btn:hover,
+.update-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn:hover {
+    background-color: #545b62;
+}
+
+.detail-link:hover {
+    background-color: #0056b3;
 }
 
 /* お気に入りカードのスタイル */
@@ -184,10 +173,7 @@
 
 .favorite-card {
     border: 1px solid #dedede;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 2px 2px 2px #aaa;
-    background-color: white;
+    transition: transform 0.3s ease;
 }
 
 .favorite-card:hover {
@@ -197,12 +183,9 @@
 .favorite-card img {
     width: 100%;
     aspect-ratio: 16/9;
-    /* または必要なアスペクト比に調整 */
     object-fit: cover;
     display: block;
-    /* 画像下部の余白を削除 */
 }
-
 
 .favorite-card h2 {
     font-size: 18px;
@@ -221,212 +204,24 @@
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
-    padding-left: 20px;
-    margin-bottom: 10px;
-    /* アクションを下部に配置 */
+    padding: 0 20px 10px;
 }
 
-.favorite-card .detail-link {
-    background-color: #315eff;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.favorite-card .detail-link:hover {
-    background-color: #0056b3;
-}
-
-.favorite-card .heart-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
+.heart-btn {
     font-size: 24px;
     color: #c2bdbd;
     transition: color 0.2s ease;
-    margin-right: 20px;
 }
 
-.favorite-card .heart-btn.active {
+.heart-btn.active {
     color: #ff0000;
 }
 
-/* テーブル全体のスタイル */
-.reservation-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 15px; /* カード間隔のように見せるため */
-}
-
-.reservation-table th,
-.reservation-table td {
-    padding: 12px;
-    text-align: left;
-}
-
-.reservation-table th {
-    background-color: transparent;
-    color: black;
-}
-
-/* テーブル行のスタイル (カード風) */
-.reservation-card {
-    background-color: #007bff;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.reservation-card td {
-    padding: 15px;
-}
-
-/* 削除ボタンのスタイル */
-.delete-btn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .reservation-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    .reservation-card {
-        display: block;
-        width: 100%;
-        margin-bottom: 20px; /* カード間隔 */
-    }
-}
-
-/* 変更ボタンのスタイル */
-.edit-btn {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.edit-btn:hover {
-    background-color: #218838;
-}
-
 /* フォームのスタイル */
-#edit-form {
-    margin-top: 10px;
-}
-
-#edit-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#edit-form input {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.reservation-edit-table th {
-    color: white;
-}
-
 .reservation-edit-table input {
     padding: 5px;
     border: none;
     border-radius: 3px;
-}
-
-/* 予約情報テーブルのスタイル */
-.reservation-info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
-
-.reservation-info-table th,
-.reservation-info-table td {
-    padding: 8px;
-    text-align: left;
-}
-
-.reservation-info-table th {
-    width: 30%;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.reservation-info-table td {
-    width: 70%;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* 変更ボタンのスタイル調整 */
-.edit-btn {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-top: 5px;
-}
-
-.edit-btn:hover {
-    background-color: #218838;
-}
-
-/* 予約カードの内部余白調整 */
-.reservation-card {
-    padding: 15px;
-}
-
-/* 予約ヘッダーのスタイル調整 */
-.reservation-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.reservation-header svg {
-    margin-right: 10px;
-}
-
-.reservation-header p {
-    flex-grow: 1;
-    margin: 0;
-}
-
-/* 削除ボタンのスタイル調整 */
-.delete-btn {
-    background-color: transparent;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-    border: 2px solid white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.delete-btn:hover {
-    color: #ff6b6b;
 }
 
 .form-actions {
@@ -434,59 +229,80 @@
     padding: 10px;
 }
 
-.update-btn,
-.cancel-btn {
-    padding: 8px 16px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-name {
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    .content-row {
+        flex-direction: column;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    .left-section {
+        margin-bottom: 20px;
+    }
+
+    .favorite-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .favorite-card h2 {
+        font-size: 16px;
+    }
+
+    .favorite-card p {
+        font-size: 12px;
+    }
+
+    .detail-link,
+    .edit-btn,
+    .update-btn,
+    .cancel-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
 
-.update-btn {
-    background-color: #28a745;
-    color: white;
-}
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
 
-.cancel-btn {
-    background-color: #6c757d;
-    color: white;
-}
+    .user-name {
+        font-size: 20px;
+    }
 
-.update-btn:hover {
-    background-color: #218838;
-}
+    .favorite-grid {
+        grid-template-columns: 1fr;
+    }
 
-.cancel-btn:hover {
-    background-color: #545b62;
-}
+    .reservation-card,
+    .favorite-card {
+        margin-bottom: 15px;
+    }
 
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.popup-buttons {
-    margin-top: 20px;
-}
-
-.popup-buttons button {
-    margin: 0 10px;
-    padding: 5px 15px;
-    cursor: pointer;
+    .reservation-info-table th,
+    .reservation-info-table td,
+    .reservation-edit-table th,
+    .reservation-edit-table td {
+        padding: 5px;
+    }
 }

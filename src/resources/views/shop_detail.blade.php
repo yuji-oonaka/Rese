@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>Number</td>
-                        <td><span id="summary-people">{{ old('number_of_people', request('number_of_people', 1)) }}</span>人</td>
+                        <td><span id="summary-people">{{ old('number_of_people', request('number_of_people')) }}</span>人</td>
                     </tr>
                 </table>
             </div>
@@ -76,10 +76,16 @@
 document.addEventListener("DOMContentLoaded", function() {
     const dateInput = document.getElementById('date-input');
     const timeInput = document.getElementById('time-input');
+    const peopleInput = document.getElementById('people-input');
 
     // 今日の日付を取得
     const today = new Date().toISOString().split('T')[0];
     dateInput.setAttribute('min', today);
+
+    // 初期値をサマリーに反映
+    if (dateInput.value) updateSummary('date', dateInput.value);
+    if (timeInput.value) updateSummary('time', timeInput.value);
+    if (peopleInput.value) updateSummary('people', peopleInput.value);
 
     // 時刻の制御を行う関数
     function updateTimeRestrictions() {
@@ -100,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // 既に選択されている時刻が現在時刻より前の場合、現在時刻にリセット
             if (timeInput.value && timeInput.value < currentTime) {
                 timeInput.value = currentTime;
-                // サマリーの更新
                 updateSummary('time', currentTime);
             }
         } else {
@@ -109,25 +114,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 日付が変更されたときのイベントリスナー
-    dateInput.addEventListener('change', function() {
+    // イベントリスナーの設定
+    dateInput.addEventListener('input', function() {
+        updateSummary('date', this.value);
         updateTimeRestrictions();
     });
 
-    // 時刻が変更されたときのイベントリスナー
-    timeInput.addEventListener('change', function() {
+    timeInput.addEventListener('input', function() {
+        updateSummary('time', this.value);
         updateTimeRestrictions();
+    });
+
+    peopleInput.addEventListener('change', function() {
+        updateSummary('people', this.value );
     });
 
     // ページ読み込み時に初期チェック
     updateTimeRestrictions();
-
-    // フォーム送信時のバリデーション
-    document.getElementById('reservation-form').addEventListener('submit', function(e) {
-        const selectedDateTime = new Date(dateInput.value + 'T' + timeInput.value);
-        const now = new Date();
-
-    });
 
     // サマリー更新関数
     function updateSummary(type, value) {

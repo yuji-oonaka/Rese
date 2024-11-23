@@ -1,40 +1,26 @@
 .container {
-    max-width: 80%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.login-container {
-    max-width: 540px;
-    margin: 0 auto;
-    background-color: white;
-    box-shadow: 2px 4px 8px #979797;
-    border-radius: 5px;
-}
-
+.login-container,
 .register-container {
     max-width: 540px;
-    margin: 0 auto;
+    margin: 30px auto;
     background-color: white;
     box-shadow: 2px 4px 8px #979797;
     border-radius: 5px;
+    width: 100%;
 }
 
-.login-header {
-    background-color: #305dff;
-    /* 濃い青色 */
-    color: white;
-    padding: 5px 20px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    text-align: left;
-}
-
+.login-header,
 .register-header {
     background-color: #305dff;
-    /* 濃い青色 */
     color: white;
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     text-align: left;
@@ -42,11 +28,9 @@
 
 .form-group {
     display: flex;
-    /* フレックスボックスに変更 */
     align-items: center;
-    /* 垂直方向に中央揃え */
     padding: 5px;
-    margin: 20px 20px;
+    margin: 20px;
 }
 
 label {
@@ -71,63 +55,19 @@ label {
 
 .icon-email::before {
     content: "\f0e0";
-    /* メールアイコン */
 }
 
 .icon-password::before {
     content: "\f023";
-    /* 鍵アイコン */
 }
 
 input {
     width: 100%;
-    /* 入力フィールドの幅を100%に設定 */
     padding: 15px;
-    margin-bottom: 10px;
     border: none;
     border-bottom: 1px solid #414141;
     font-size: 18px;
-}
-
-.password-container input {
-    padding-right: 40px;
-    /* 目のアイコンの分のスペースを確保 */
-}
-
-button {
-    width: auto;
-    /* 自動幅 */
-    padding: 10px 20px;
-    /* パディング調整 */
-    background-color: #305dff;
-    /* ボタンの青色 */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    /* ボタンを右に寄せる */
-    margin-bottom: 10px;
-}
-
-button:hover {
-    background-color: #305dff;
-    /* ホバー時の色 */
-}
-
-.form-group:last-child {
-    display: flex;
-    justify-content: flex-end;
-    /* ボタンを右寄せ */
-}
-
-.error-message {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    box-sizing: border-box;
 }
 
 .password-container {
@@ -135,14 +75,10 @@ button:hover {
     display: flex;
     align-items: center;
     width: 100%;
-    /* コンテナの幅を100%に設定 */
 }
 
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    color: #666;
+.password-container input {
+    padding-right: 40px;
 }
 
 .toggle-password {
@@ -151,11 +87,76 @@ button:hover {
     cursor: pointer;
     color: #666;
     z-index: 1;
-    /* アイコンが確実に表示されるようにする */
+}
+
+button {
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    background-color: #305dff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2040cc;
+}
+
+.form-group:last-child {
+    justify-content: flex-end;
 }
 
 .error-message {
     color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+    font-size: 14px;
+    margin-left: 60px;
+}
+
+@media (max-width: 768px) {
+
+    .login-container,
+    .register-container {
+        max-width: 100%;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    label {
+        margin-bottom: 5px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+
+    .error-message {
+        margin-left: 30px;
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .login-header,
+    .register-header {
+        padding: 10px;
+    }
+
+    .form-group {
+        margin: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
 }

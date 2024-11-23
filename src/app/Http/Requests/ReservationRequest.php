@@ -40,7 +40,7 @@ class ReservationRequest extends FormRequest
             'time.date_format' => '時間はHH:MM形式で入力してください。',
             'number_of_people.required' => '人数を選択してください。',
             'number_of_people.integer' => '人数は整数で入力してください。',
-            'number_of_people.min' => '人数は1人以上でなければなりません。',
+            'number_of_people.min' => '予約人数は1名様以上でお願いいたします。',
             'number_of_people.max' => '人数は10人以下でなければなりません。',
         ];
     }

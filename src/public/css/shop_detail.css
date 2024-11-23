@@ -1,8 +1,10 @@
 .main {
     display: flex;
     justify-content: space-between;
-    max-width: 80%;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 h2 {
@@ -26,7 +28,6 @@ h3 {
     flex-direction: column;
     margin: 30px 0;
     position: relative;
-    /* 追加 */
 }
 
 .shop-image {
@@ -53,49 +54,40 @@ h3 {
 }
 
 .input {
-    width: 100%;
+    width: calc(100% - 40px);
     margin-left: 20px;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 10px;
     background-color: #ffffff;
-    /* 入力フィールドの背景を白に */
     border: none;
-    /* 枠線なし */
     border-radius: 4px;
-    /* 角を丸める */
+    box-sizing: border-box;
 }
 
-/* 日付選択フィールド */
-input[type="date"] {
-    width: 150px;
-    /* 幅を縮める */
-}
-
-input[type="time"] {
-    width:88%;
-}
-
+input[type="date"],
+input[type="time"],
 select[name="number_of_people"] {
-    width:90%
+    width: calc(100% - 40px);
 }
 
 .text-danger {
     color: tomato;
     margin-left: 20px;
+    font-size: 14px;
 }
 
 .summary {
-    max-width: 80%;
+    width: calc(100% - 40px);
     background-color: #4d7fff;
-    /* サマリー部分の背景色を薄い青色に */
     border-radius: 4px;
     color: #ffffff;
     padding: 10px 20px;
     margin-left: 20px;
+    box-sizing: border-box;
 }
 
 .summary-table {
-    width: 50%;
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -106,10 +98,7 @@ select[name="number_of_people"] {
 
 .summary-table td:first-child {
     text-align: left;
-}
-
-.summary-table td:last-child {
-    text-align: left;
+    width: 30%;
 }
 
 #reservation-form {
@@ -128,9 +117,45 @@ select[name="number_of_people"] {
     margin-top: auto;
     cursor: pointer;
     box-sizing: border-box;
-    /* 追加 */
+    font-size: 16px;
 }
 
 .submit-btn:hover {
     background-color: #0729a3;
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+    }
+    
+    .left,
+    .right {
+        width: 100%;
+    }
+
+    .right {
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .input,
+    .summary {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .summary-table td {
+        font-size: 14px;
+    }
 }

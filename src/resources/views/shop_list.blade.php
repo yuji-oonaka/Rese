@@ -61,12 +61,18 @@
                             </div>
                             <div class="actions">
                                 <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="btn-detail">詳しくみる</a>
-                                <form action="{{ route('shop.favorite', ['shop' => $shop->id]) }}" method="POST" class="favorite-form">
-                                @csrf
-                                <button type="button" class="btn-favorite {{ $shop->favorites_count > 0 ? 'active' : '' }}" data-shop-id="{{ $shop->id }}">
-                                    <i class="fa-solid fa-heart"></i>
-                                </button>
-                            </form>
+                                @auth
+                                    <form action="{{ route('shop.favorite', ['shop' => $shop->id]) }}" method="POST" class="favorite-form">
+                                        @csrf
+                                        <button type="button" class="btn-favorite {{ $shop->favorites_count > 0 ? 'active' : '' }}" data-shop-id="{{ $shop->id }}">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <button type="button" class="btn-favorite" onclick="redirectToLogin()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -157,4 +163,24 @@ function createSparkles(container) {
         }, 800);
     }
 }
+function redirectToLogin() {
+    // 現在のURLをセッションストレージに保存
+    sessionStorage.setItem('returnTo', window.location.href);
+    // ログインページへリダイレクト
+    window.location.href = '{{ route("login") }}';
+}
+
+// お気に入りボタンのイベントハンドラ（認証済みユーザー用）
+document.querySelectorAll('.favorite-form .btn-favorite').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        // 既存のお気に入り処理
+        const shopId = this.dataset.shopId;
+        const form = this.closest('form');
+        const csrfToken = form.querySelector('input[name="_token"]').value;
+        
+        // 以下既存のfetch処理
+        // ...
+    });
+});
 </script>

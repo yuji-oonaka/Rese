@@ -1,12 +1,14 @@
 /* thanks.css */
 .container {
-    width: 80%;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
 .thank-you-container {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     margin: 100px auto;
     padding: 60px 40px;
     background-color: white;
@@ -19,20 +21,41 @@
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 50px;
-    /* テキストとボタンの間に余白を追加 */
 }
 
 .btn-primary {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: #2979ff;
     color: white;
     text-decoration: none;
     border-radius: 4px;
     margin-bottom: 30px;
+    font-size: 1rem;
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
-    /* ホバー時の色変更 */
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .thank-you-container {
+        width: 95%;
+        margin: 50px auto;
+        padding: 40px 20px;
+    }
+
+    .thank-you-container p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+    .btn-primary {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
 }
