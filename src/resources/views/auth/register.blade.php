@@ -2,34 +2,72 @@
 
 @section('title', '登録')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+@endsection
+
 @section('content')
-<div class="register-container">
-    <div class="register-header">
-        <h2>Registration</h2>
+<div class="container">
+    <x-header-component />
+    <div class="register-container">
+        <div class="register-header">
+            <h2>Registration</h2>
+        </div>
+        <form method="POST" action="{{ route('register') }}" novalidate>
+            @csrf
+            <div class="form-group">
+                <label for="name">
+                    <span class="icon-name"></span>
+                </label>
+                <input type="text" id="name" name="name" placeholder="Username" required autofocus>
+            </div>
+            @error('name')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <div class="form-group">
+                <label for="email">
+                    <span class="icon-email"></span>
+                </label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            @error('email')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <div class="form-group">
+                <label for="password">
+                    <span class="icon-password"></span>
+                </label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <span class="toggle-password">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            @error('password')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
+            <div class="form-group">
+                <button type="submit">登録</button>
+            </div>
+        </form>
     </div>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <div class="form-group">
-            <label for="name">
-                <span class="icon-name"></span>
-            </label>
-            <input type="text" id="name" name="name" placeholder="Username" required autofocus>
-        </div>
-        <div class="form-group">
-            <label for="email">
-                <span class="icon-email"></span></i>
-            </label>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">
-                <span class="icon-password"></span>
-            </label>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">登録</button>
-        </div>
-    </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.querySelector('.toggle-password');
+    const passwordInput = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // アイコンの切り替え
+        this.querySelector('i').classList.toggle('fa-eye');
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+});
+</script>
 @endsection

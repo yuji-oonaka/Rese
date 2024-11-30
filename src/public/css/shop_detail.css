@@ -1,0 +1,176 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+h3 {
+    margin-left: 20px;
+}
+
+.left {
+    width: 40%;
+}
+
+.right {
+    width: 45%;
+    background-color: #305dff;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+    position: relative;
+}
+
+.shop-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.back-btn {
+    font-weight: bold;
+    background: #fff;
+    padding: 3px 8px;
+    margin-right: 10px;
+    text-decoration: none;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px #aaa;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="date"],
+input[type="time"],
+select[name="number_of_people"] {
+    width: calc(80% - 40px);
+}
+
+.text-danger {
+    color: tomato;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.summary {
+    width: calc(90% - 40px);
+    background-color: #4d7fff;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-left: 20px;
+    box-sizing: border-box;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table td {
+    padding: 5px;
+    color: white;
+}
+
+.summary-table td:first-child {
+    text-align: left;
+    width: 30%;
+}
+
+#reservation-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #0538ff;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    margin-top: auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background-color: #0729a3;
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        margin-left: 10px;
+        font-size: 18px;
+    }
+
+    .left,
+    .right {
+        width: 100%;
+    }
+
+    .right {
+        margin: 20px 0;
+    }
+
+    .input {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+    }
+
+    input[type="date"],
+    input[type="time"],
+    select[name="number_of_people"] {
+        width: calc(100% - 20px);
+    }
+
+    .text-danger {
+        margin-left: 10px;
+    }
+
+    .summary {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+        padding: 10px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+}

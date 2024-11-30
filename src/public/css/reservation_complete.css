@@ -1,0 +1,62 @@
+/* コンテナのスタイル */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.reservation-complete-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 60px 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px #aaa;
+    text-align: center;
+}
+
+/* タイトルのスタイル */
+.reservation-complete-container p {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+/* ボタンのスタイル */
+.reservation-complete-container .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2979ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.reservation-complete-container .btn:hover {
+    background-color: #1565c0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .reservation-complete-container {
+        width: 95%;
+        margin: 50px auto;
+        padding: 40px 20px;
+    }
+
+    .reservation-complete-container p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+    .reservation-complete-container .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

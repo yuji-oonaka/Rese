@@ -12,17 +12,24 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use App\Http\Responses\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use App\Http\Responses\RegisterResponse;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
+use App\Http\Responses\LogoutResponse; //
 
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
-        //
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
+        $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
     }
-
     /**
      * Bootstrap any application services.
      */
@@ -31,6 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('auth.login');
         });
+        
 
         Fortify::registerView(function () {
             return view('auth.register');
@@ -50,5 +58,18 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        $this->app->singleton(
+        \Illuminate\Contracts\Validation\Factory::class,
+        function ($app) {
+            $validator = new \Illuminate\Validation\Factory($app['translator'], $app);
+
+            $validator->resolver(function ($translator, $data, $rules, $messages, $attributes) {
+                return new \Illuminate\Validation\Validator($translator, $data, $rules, $messages, $attributes);
+            });
+
+            return $validator;
+        }
+    );
     }
 }

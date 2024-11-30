@@ -1,0 +1,328 @@
+/* 共通のスタイル */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-name {
+    margin: 0 auto;
+    font-size: 32px;
+}
+
+.content-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.left-section,
+.right-section {
+    flex: 1;
+}
+
+.left-section {
+    margin-right: 100px;
+    max-width: 40%;
+    overflow: auto;
+}
+
+/* カード共通のスタイル */
+.reservation-card,
+.favorite-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* 予約カードのスタイル */
+.reservation-card {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.reservation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-header svg,
+.reservation-header p {
+    color: white;
+}
+
+.reservation-header p {
+    font-size: 16px;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.delete-btn,
+.heart-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn {
+    color: white;
+    font-size: 20px;
+    line-height: 1;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-btn:hover {
+    color: #ff6b6b;
+}
+
+.reservation-info-table,
+.reservation-edit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.reservation-info-table th,
+.reservation-info-table td,
+.reservation-edit-table th,
+.reservation-edit-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.reservation-info-table th,
+.reservation-edit-table th {
+    width: 30%;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reservation-info-table td {
+    width: 70%;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+input[name="number_of_people"] {
+    width: calc(30% - 40px);
+}
+
+/* ボタンのスタイル */
+.edit-btn,
+.update-btn,
+.cancel-btn,
+.detail-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-btn,
+.update-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.detail-link {
+    background-color: #315eff;
+    color: white;
+    font-size: 14px;
+}
+
+.edit-btn:hover,
+.update-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn:hover {
+    background-color: #545b62;
+}
+
+.detail-link:hover {
+    background-color: #0056b3;
+}
+
+/* お気に入りカードのスタイル */
+.favorite-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.favorite-card {
+    border: 1px solid #dedede;
+    transition: transform 0.3s ease;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
+}
+
+.favorite-card img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+}
+
+.favorite-card h2 {
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.favorite-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.favorite-card .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding: 0 20px 10px;
+}
+
+.heart-btn {
+    font-size: 24px;
+    color: #c2bdbd;
+    transition: color 0.2s ease;
+}
+
+.heart-btn.active {
+    color: #ff0000;
+}
+
+/* フォームのスタイル */
+.reservation-edit-table input {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+.form-actions {
+    text-align: center;
+    padding: 10px;
+}
+
+.qr-code-btn {
+    background-color: #315eff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#qrCodeImage {
+    max-width: 200px;
+    height: auto;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-name {
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    .content-row {
+        flex-direction: column;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    .left-section {
+        margin-bottom: 20px;
+    }
+
+    .favorite-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .favorite-card h2 {
+        font-size: 16px;
+    }
+
+    .favorite-card p {
+        font-size: 12px;
+    }
+
+    .detail-link,
+    .edit-btn,
+    .update-btn,
+    .cancel-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
