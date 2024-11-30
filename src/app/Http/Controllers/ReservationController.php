@@ -23,13 +23,15 @@ class ReservationController extends Controller
         }
 
         // 予約処理
-        Reservation::create([
+        $reservation =Reservation::create([
             'user_id' => auth()->id(),
             'shop_id' => $shop_id,
             'date' => $request->input('date'),
             'time' => $request->input('time'),
             'number_of_people' => $request->input('number_of_people'),
         ]);
+
+        $reservation->generateQrCode();
 
         // 予約完了ページにリダイレクト
         return redirect()->route('reservation.show')->with('success', '予約が完了しました。');
@@ -59,7 +61,7 @@ class ReservationController extends Controller
     }
 
 
-    public function updateReservation(Request $request, $reservation_id)
+    public function updateReservation(ReservationRequest $request, $reservation_id)
     {
         // 予約情報を取得
         $reservation = Reservation::findOrFail($reservation_id);
@@ -99,6 +101,47 @@ class ReservationController extends Controller
             'number_of_people' => $validated['number_of_people'],
         ]);
 
+        $reservation->generateQrCode();
+
         return redirect()->route('mypage')->with('success', '予約が更新されました。');
+    }
+
+    public function showReviewForm(Reservation $reservation)
+    {
+        // QRコードの検証ロジックをここに追加
+        return view('review_form', compact('reservation'));
+    }
+
+    public function verify($id)
+    {
+        try {
+            $reservation = Reservation::with(['user', 'shop'])
+                ->findOrFail($id);
+
+            return view('reservations.verify', compact('reservation'));
+        } catch (\Exception $e) {
+            return redirect()->route('mypage')
+                ->with('error', '予約情報が見つかりませんでした。');
+        }
+    }
+
+    public function showHistory()
+    {
+        $user = auth()->user();
+        $past_reservations = $user->reservations()
+            ->with(['shop', 'review'])
+            ->where(function ($query) {
+                $now = now();
+                $query->where('date', '<', $now->toDateString())
+                    ->orWhere(function ($q) use ($now) {
+                        $q->where('date', '=', $now->toDateString())
+                        ->where('time', '<', $now->toTimeString());
+                    });
+            })
+            ->orderBy('date', 'desc')
+            ->orderBy('time', 'desc')
+            ->paginate(5);
+
+        return view('reservation_history', compact('past_reservations'));
     }
 }

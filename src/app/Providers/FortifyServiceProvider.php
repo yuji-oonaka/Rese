@@ -64,7 +64,6 @@ class FortifyServiceProvider extends ServiceProvider
         function ($app) {
             $validator = new \Illuminate\Validation\Factory($app['translator'], $app);
 
-            // カスタムメッセージの設定
             $validator->resolver(function ($translator, $data, $rules, $messages, $attributes) {
                 return new \Illuminate\Validation\Validator($translator, $data, $rules, $messages, $attributes);
             });

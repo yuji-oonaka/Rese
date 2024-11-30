@@ -13,5 +13,6 @@
     <!-- フッターの内容 -->
 </footer>
     <x-scripts-component />
+    @stack('scripts')
 </body>
 </html>

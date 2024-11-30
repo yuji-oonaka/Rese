@@ -94,3 +94,31 @@ body {
     left: 20px;
     border-radius: 3px;
 }
+
+@media screen and (max-width: 768px) {
+    .icon-box {
+        padding: 6px;
+        margin-right: 5px;
+    }
+
+    .icon-box i {
+        font-size: 24px;
+    }
+
+    .menu-content {
+        padding: 50px;
+        width: 90%;
+    }
+
+    .menu-content a,
+    .btn-link {
+        font-size: 24px;
+    }
+
+    .close-btn {
+        font-size: 20px;
+        padding: 3px 10px;
+        top: 10px;
+        left: 10px;
+    }
+}

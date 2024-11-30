@@ -74,6 +74,21 @@
                                     </button>
                                 @endauth
                             </div>
+                            <div class="rating">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $shop->fullStars)
+                                        <span class="star full">★</span>
+                                    @elseif ($i == $shop->fullStars + 1 && $shop->halfStar)
+                                        <span class="star half">★</span>
+                                    @else
+                                        <span class="star empty">☆</span>
+                                    @endif
+                                @endfor
+                                <span class="rating-value">{{ number_format($shop->averageRating, 1) }}</span>
+                                @if($shop->reviews_count > 0)
+                                    <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="reviews-count">({{ $shop->reviews_count }})</a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,9 +193,6 @@ document.querySelectorAll('.favorite-form .btn-favorite').forEach(button => {
         const shopId = this.dataset.shopId;
         const form = this.closest('form');
         const csrfToken = form.querySelector('input[name="_token"]').value;
-        
-        // 以下既存のfetch処理
-        // ...
     });
 });
 </script>

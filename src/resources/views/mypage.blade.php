@@ -16,10 +16,10 @@
         <!-- 左側: 予約状況 -->
         <div class="left-section">
             <h2>予約状況</h2>
-            @if($reservations->isEmpty())
+            @if($future_reservations->isEmpty())
                 <p>現在、予約はありません。</p>
             @else
-            @foreach($reservations as $index => $reservation)
+            @foreach($future_reservations as $reservation)
                 <div class="reservation-card">
                     <div class="reservation-header">
                         <!-- 時計アイコン -->
@@ -28,7 +28,7 @@
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                         <!-- 予約番号 -->
-                        <p>予約{{ $index + 1 }}</p>
+                        <p>予約{{ $loop->iteration }}</p>
                         <!-- 削除ボタン -->
                         <form action="{{ route('reservation.delete', $reservation->id) }}" method="POST" class="delete-form">
                             @csrf
@@ -54,17 +54,27 @@
                             <th>Number</th>
                             <td>{{ $reservation->number_of_people }}人</td>
                         </tr>
+                        @if($reservation->qr_code_path)
+                            <tr>
+                                <th>QR Code</th>
+                                <td>
+                                    <button type="button" class="qr-code-btn" onclick="showQRCode('{{ asset('storage/' . $reservation->qr_code_path) }}')">
+                                        QRコードを表示
+                                    </button>
+                                </td>
+                            </tr>
+                        @endif
                     </table>
-                    <button class="edit-btn" onclick="toggleForm({{ $index }})">変更</button>
+                    <button class="edit-btn" onclick="toggleForm({{ $loop->index }})">変更</button>
                     <!-- 変更フォーム (非表示) -->
-                    <form id="edit-form-{{ $index }}" action="{{ route('reservation.update', ['reservation_id' => $reservation->id]) }}" method="POST" style="display: none;">
+                    <form id="edit-form-{{ $loop->index }}" action="{{ route('reservation.update', ['reservation_id' => $reservation->id]) }}" method="POST" style="display: none;">
                         @csrf
                         @method('PUT')
                         <table class="reservation-edit-table">
                             <tr>
                                 <th><label for="date">日付</label></th>
                                 <td>
-                                    <input type="date" name="date" id="date-input-{{ $index }}"
+                                    <input type="date" name="date" id="date-input-{{ $loop->index }}"
                                         value="{{ old('date', $reservation->date) }}"
                                         min="{{ now()->toDateString() }}">
                                 </td>
@@ -72,7 +82,7 @@
                             <tr>
                                 <th><label for="time">時間</label></th>
                                 <td>
-                                    <input type="time" name="time" id="time-input-{{ $index }}"
+                                    <input type="time" name="time" id="time-input-{{ $loop->index }}"
                                         value="{{ old('time', $reservation->time) }}">
                                 </td>
                             </tr>
@@ -87,7 +97,7 @@
                             <tr>
                                 <td colspan="2" class="form-actions">
                                     <button type="submit" class="update-btn">更新する</button>
-                                    <button type="button" class="cancel-btn" onclick="toggleForm({{ $index }})">キャンセル</button>
+                                    <button type="button" class="cancel-btn" onclick="toggleForm({{ $loop->index }})">キャンセル</button>
                                 </td>
                             </tr>
                         </table>
@@ -98,6 +108,7 @@
                 </div>
             @endforeach
             @endif
+            <a href="{{ route('reservation.history') }}" class="btn-history">予約履歴を見る</a>
         </div>
 
         <!-- 右側: お気に入り店舗 -->
@@ -131,57 +142,78 @@
             @endif
         </div>
     </div>
+    <div id="qrCodeModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="qrCodeImage" src="" alt="QR Code">
+        </div>
+    </div>
 </div>
 @endsection
 
 <script>
-// フォームの表示・非表示を切り替える関数
-function toggleForm(index) {
-    var form = document.getElementById('edit-form-' + index);
-    if (form.style.display === "none") {
-        form.style.display = "block";
-        // フォームが表示されたときに日付と時間のバリデーションを設定
-        setDateAndTimeValidation(index);
-    } else {
-        form.style.display = "none";
-    }
-}
-
-// 日付と時間のバリデーション設定
-function setDateAndTimeValidation(index) {
-    const dateInput = document.getElementById('date-input-' + index);
-    const timeInput = document.getElementById('time-input-' + index);
-
-    // 日付が変更されたときに実行
-    dateInput.addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const currentDate = new Date();
-
-        // 今日の日付が選択された場合
-        if (selectedDate.toDateString() === currentDate.toDateString()) {
-            // 現在時刻以降のみ許可
-            const hours = currentDate.getHours();
-            const minutes = currentDate.getMinutes();
-            const minTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-
-            timeInput.min = minTime;
-
-            // もし現在時刻より前の時間が設定されていたらリセットする
-            if (timeInput.value && timeInput.value < minTime) {
-                timeInput.value = minTime;
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    // フォーム表示・非表示の関数をグローバルスコープに定義
+    window.toggleForm = function(index) {
+        var form = document.getElementById('edit-form-' + index);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+            setDateAndTimeValidation(index);
         } else {
-            // 他の日付が選択された場合は制限なし
-            timeInput.removeAttribute('min');
+            form.style.display = "none";
+        }
+    }
+
+    // 日付と時間のバリデーション設定
+    function setDateAndTimeValidation(index) {
+        const dateInput = document.getElementById('date-input-' + index);
+        const timeInput = document.getElementById('time-input-' + index);
+
+        dateInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const currentDate = new Date();
+
+            if (selectedDate.toDateString() === currentDate.toDateString()) {
+                const hours = currentDate.getHours();
+                const minutes = currentDate.getMinutes();
+                const minTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+
+                timeInput.min = minTime;
+                if (timeInput.value && timeInput.value < minTime) {
+                    timeInput.value = minTime;
+                }
+            } else {
+                timeInput.removeAttribute('min');
+            }
+        });
+
+        dateInput.dispatchEvent(new Event('change'));
+    }
+
+    // QRコードモーダル関連の機能
+    const modal = document.getElementById('qrCodeModal');
+    const closeBtn = document.querySelector('.close');
+
+    // QRコードを表示する関数をグローバルスコープに定義
+    window.showQRCode = function(imagePath) {
+        const img = document.getElementById('qrCodeImage');
+        img.src = imagePath;
+        modal.style.display = "block";
+    };
+
+    // ×ボタンでモーダルを閉じる
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    // モーダルの背景クリックで閉じる
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
         }
     });
 
-    // ページ読み込み時にもチェック（初期値が今日の場合に対応）
-    dateInput.dispatchEvent(new Event('change'));
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // すべてのお気に入りボタンにイベントリスナーを追加
+    // お気に入りボタンの機能
     document.querySelectorAll('.heart-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -190,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const csrfToken = form.querySelector('input[name="_token"]').value;
             const favoriteCard = document.getElementById(`favorite-${shopId}`);
 
-            // お気に入り状態を切り替える関数
+            // お気に入り状態を切り替える
             fetch(form.action, {
                 method: 'POST',
                 headers: {

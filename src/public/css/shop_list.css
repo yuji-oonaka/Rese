@@ -237,6 +237,44 @@
     animation: heartPop 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49);
 }
 
+.rating .star {
+    color: #ffd700;
+    font-size: 1.2em;
+}
+
+.rating .star.empty {
+    color: #ccc;
+}
+
+.rating .star.half {
+    position: relative;
+    display: inline-block;
+}
+
+.rating .star.half:after {
+    content: '★';
+    color: #ffd700;
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+}
+
+.rating-value,
+.reviews-count {
+    margin-left: 5px;
+}
+
+.reviews-count {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reviews-count:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0 10px;
@@ -302,22 +340,5 @@
 
     .btn-favorite i {
         font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .filter select,
-    .search-wrapper {
-        flex: 1 1 100%;
-        max-width: none;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .card img {
-        height: 180px;
     }
 }
