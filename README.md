@@ -34,7 +34,7 @@
 
 ## 環境構築  
 ### Dockerビルド
-1. `git@github.com:yuji-oonaka/Rese.git`
+1. `git clone git@github.com:yuji-oonaka/Rese.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 >*MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。 エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください*
