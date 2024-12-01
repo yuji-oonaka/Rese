@@ -8,11 +8,7 @@
     <x-menu-overlay-component />
     @yield('content')
 </main>
-
-<footer>
-    <!-- フッターの内容 -->
-</footer>
     <x-scripts-component />
-    @stack('scripts')
+    @yield('js')
 </body>
 </html>

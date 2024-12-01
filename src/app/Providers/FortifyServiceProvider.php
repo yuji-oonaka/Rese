@@ -17,7 +17,8 @@ use App\Http\Responses\LoginResponse;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use App\Http\Responses\RegisterResponse;
 use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
-use App\Http\Responses\LogoutResponse; //
+use App\Http\Responses\LogoutResponse;
+use App\Http\Requests\LoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('auth.login');
         });
-        
+
+        $this->app->bind(
+        \Laravel\Fortify\Http\Requests\LoginRequest::class,
+        \App\Http\Requests\LoginRequest::class
+        );
 
         Fortify::registerView(function () {
             return view('auth.register');
@@ -58,18 +63,5 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
-
-        $this->app->singleton(
-        \Illuminate\Contracts\Validation\Factory::class,
-        function ($app) {
-            $validator = new \Illuminate\Validation\Factory($app['translator'], $app);
-
-            $validator->resolver(function ($translator, $data, $rules, $messages, $attributes) {
-                return new \Illuminate\Validation\Validator($translator, $data, $rules, $messages, $attributes);
-            });
-
-            return $validator;
-        }
-    );
     }
 }
