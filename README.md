@@ -66,3 +66,6 @@ php artisan key:generate
 ```
 php artisan migrate
 ```
+###追記
+- お店の評価は予約日時が過ぎた後に予約履歴内の対象のお店欄の評価するにて行う
+- QRコードはmypageと予約履歴にて表示可能
