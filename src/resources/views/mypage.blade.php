@@ -12,6 +12,11 @@
         <x-header-component />
         <h1 class="user-name">{{ auth()->user()->name }}さん</h1>
     </div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="content-row">
         <!-- 左側: 予約状況 -->
         <div class="left-section">
@@ -19,6 +24,7 @@
             @if($future_reservations->isEmpty())
                 <p>現在、予約はありません。</p>
             @else
+            <div class="reservation-grid">
             @foreach($future_reservations as $reservation)
                 <div class="reservation-card">
                     <div class="reservation-header">
@@ -107,8 +113,11 @@
                     @endif
                 </div>
             @endforeach
+            </div>
             @endif
-            <a href="{{ route('reservation.history') }}" class="btn-history">予約履歴を見る</a>
+            <div class="history-section">
+                <a href="{{ route('reservation.history') }}" class="btn-history">予約履歴を見る</a>
+            </div>
         </div>
 
         <!-- 右側: お気に入り店舗 -->
@@ -151,110 +160,6 @@
 </div>
 @endsection
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // フォーム表示・非表示の関数をグローバルスコープに定義
-    window.toggleForm = function(index) {
-        var form = document.getElementById('edit-form-' + index);
-        if (form.style.display === "none") {
-            form.style.display = "block";
-            setDateAndTimeValidation(index);
-        } else {
-            form.style.display = "none";
-        }
-    }
-
-    // 日付と時間のバリデーション設定
-    function setDateAndTimeValidation(index) {
-        const dateInput = document.getElementById('date-input-' + index);
-        const timeInput = document.getElementById('time-input-' + index);
-
-        dateInput.addEventListener('change', function() {
-            const selectedDate = new Date(this.value);
-            const currentDate = new Date();
-
-            if (selectedDate.toDateString() === currentDate.toDateString()) {
-                const hours = currentDate.getHours();
-                const minutes = currentDate.getMinutes();
-                const minTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-
-                timeInput.min = minTime;
-                if (timeInput.value && timeInput.value < minTime) {
-                    timeInput.value = minTime;
-                }
-            } else {
-                timeInput.removeAttribute('min');
-            }
-        });
-
-        dateInput.dispatchEvent(new Event('change'));
-    }
-
-    // QRコードモーダル関連の機能
-    const modal = document.getElementById('qrCodeModal');
-    const closeBtn = document.querySelector('.close');
-
-    // QRコードを表示する関数をグローバルスコープに定義
-    window.showQRCode = function(imagePath) {
-        const img = document.getElementById('qrCodeImage');
-        img.src = imagePath;
-        modal.style.display = "block";
-    };
-
-    // ×ボタンでモーダルを閉じる
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = "none";
-    });
-
-    // モーダルの背景クリックで閉じる
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // お気に入りボタンの機能
-    document.querySelectorAll('.heart-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const shopId = this.dataset.shopId;
-            const form = this.closest('form');
-            const csrfToken = form.querySelector('input[name="_token"]').value;
-            const favoriteCard = document.getElementById(`favorite-${shopId}`);
-
-            // お気に入り状態を切り替える
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                credentials: 'same-origin'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // アニメーションを追加してカードを削除
-                    favoriteCard.style.transition = 'opacity 0.3s ease';
-                    favoriteCard.style.opacity = '0';
-
-                    setTimeout(() => {
-                        favoriteCard.remove();
-
-                        // カードがすべて無くなった場合のメッセージを表示
-                        const remainingCards = document.querySelectorAll('.favorite-card');
-                        if (remainingCards.length === 0) {
-                            const grid = document.querySelector('.favorite-grid');
-                            grid.innerHTML = '<p>現在、お気に入りの店舗はありません。</p>';
-                        }
-                    }, 300);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    });
-});
-</script>
+@section('js')
+<script src="{{ asset('js/mypage.js') }}"></script>
+@endsection

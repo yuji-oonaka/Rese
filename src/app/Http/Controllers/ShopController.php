@@ -25,23 +25,20 @@ class ShopController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            // 全角スペースを半角スペースに変換
             $search = str_replace('　', ' ', $search);
-            // 連続する半角スペースを1つにまとめる
             $search = preg_replace('/\s+/', ' ', $search);
-            // 半角スペースで分割
             $searchTerms = explode(' ', $search);
 
-            $query->where(function($q) use ($searchTerms) {
+            $query->where(function ($q) use ($searchTerms) {
                 foreach ($searchTerms as $term) {
-                    $q->where(function($subQ) use ($term) {
+                    $q->where(function ($subQ) use ($term) {
                         $subQ->where('name', 'like', '%' . $term . '%')
-                            ->orWhereHas('area', function($areaQ) use ($term) {
+                            ->orWhereHas('area', function ($areaQ) use ($term) {
                                 $areaQ->where('name', 'like', '%' . $term . '%')
                                     ->orWhere('name_kana', 'like', '%' . $term . '%')
                                     ->orWhere('name_katakana', 'like', '%' . $term . '%');
                             })
-                            ->orWhereHas('genre', function($genreQ) use ($term) {
+                            ->orWhereHas('genre', function ($genreQ) use ($term) {
                                 $genreQ->where('name', 'like', '%' . $term . '%');
                             });
                     });
@@ -73,9 +70,9 @@ class ShopController extends Controller
     public function showShopDetail($shop_id)
     {
         $shop = Shop::with(['area', 'genre', 'reviews.user'])
-        ->withAvg('reviews', 'rating')
-        ->withCount('reviews')
-        ->findOrFail($shop_id);
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->findOrFail($shop_id);
         return view('shop_detail', compact('shop'));
     }
 
@@ -113,7 +110,6 @@ class ShopController extends Controller
                 'status' => $status,
                 'message' => $message
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

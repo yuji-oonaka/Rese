@@ -11,8 +11,8 @@ use App\Models\Reservation;
 class ReviewController extends Controller
 {
     public function submit(Request $request)
-        {
-            $validator = Validator::make($request->all(), [
+    {
+        $validator = Validator::make($request->all(), [
             'reservation_id' => 'required|exists:reservations,id',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
@@ -22,7 +22,6 @@ class ReviewController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
         $reservation = Reservation::findOrFail($request->reservation_id);
 
         // ユーザーが予約者本人であることを確認
@@ -31,7 +30,7 @@ class ReviewController extends Controller
         }
 
         // 予約日時が過去であることを確認
-        if ($reservation->date > now()->toDateString() || 
+        if ($reservation->date > now()->toDateString() ||
             ($reservation->date == now()->toDateString() && $reservation->time > now()->toTimeString())) {
             return redirect()->back()->with('error', '予約日時が過ぎてからレビューを投稿してください。');
         }

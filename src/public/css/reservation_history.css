@@ -212,6 +212,43 @@ textarea {
     border-color: #007bff;
 }
 
+.qr-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.qr-btn:hover {
+    background-color: #2980b9;
+}
+
+#qrCodeImage {
+    max-width: 200px;
+    /* または必要なサイズに調整 */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.content-wrapper {
+    transition: filter 0.3s ease;
+}
+
+.modal-active .content-wrapper {
+    filter: blur(8px);
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.qr-expired {
+    font-size: 0.9rem;
+    color: #888;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -228,7 +265,6 @@ textarea {
 
     .reservation-table {
         font-size: 14px;
-        margin: 0;
     }
 
     .reservation-table th,
@@ -236,10 +272,11 @@ textarea {
         padding: 8px;
     }
 
-    .review-btn {
+    .review-btn,
+    .qr-btn {
         width: 100%;
-        margin-top: 10px;
-        padding: 12px;
+        margin-top: 5px;
+        padding: 8px;
     }
 
     .modal-content {
@@ -248,12 +285,20 @@ textarea {
     }
 
     .rating label {
-        font-size: 30px;
-        margin: 0 3px;
+        font-size: 24px;
     }
 
     textarea {
         height: 80px;
-        font-size: 14px;
     }
+    .review-btn,
+    .qr-btn {
+        width: auto;
+        margin-top: 5px;
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        }
+    .qr-expired {
+        font-size: 0.8rem;
+        }
 }

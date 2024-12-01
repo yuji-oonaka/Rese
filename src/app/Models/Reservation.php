@@ -8,6 +8,7 @@ use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
+use Carbon\Carbon;
 
 class Reservation extends Model
 {
@@ -57,6 +58,20 @@ class Reservation extends Model
             \Log::error('QR Code generation failed: ' . $e->getMessage());
             throw $e;
         }
+    }
+
+    public function isValidForQrCode()
+    {
+        $reservationDate = Carbon::parse($this->date);
+        return $reservationDate->isToday();
+    }
+
+    public function getQrCodeUrlAttribute()
+    {
+        if ($this->qr_code_path) {
+            return asset('storage/' . $this->qr_code_path);
+        }
+        return null;
     }
 
     public function review()

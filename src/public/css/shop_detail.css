@@ -135,8 +135,17 @@ select[name="number_of_people"] {
     }
 
     h3 {
+        text-align: center;
         margin-left: 10px;
         font-size: 18px;
+    }
+
+    .shop-image {
+        max-width: 80%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
     }
 
     .left,
@@ -145,7 +154,45 @@ select[name="number_of_people"] {
     }
 
     .right {
-        margin: 20px 0;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .back-btn {
+        margin-right: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .back-btn {
+        margin-right: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    p {
+        max-width: 80%;
+        margin: 10px auto;
     }
 
     .input {
@@ -156,21 +203,25 @@ select[name="number_of_people"] {
     input[type="date"],
     input[type="time"],
     select[name="number_of_people"] {
-        width: calc(100% - 20px);
+        width: calc(80% - 20px);
+        margin: 5px auto;
     }
 
     .text-danger {
-        margin-left: 10px;
+        width: calc(80% - 20px);
+        margin: 5px auto;
     }
 
     .summary {
-        width: calc(100% - 20px);
-        margin-left: 10px;
+        width: calc(80% - 20px);
+        margin: 10px auto;
         padding: 10px;
     }
 
     .submit-btn {
+        width: calc(80% - 20px);
+        margin: 0 auto;
         font-size: 14px;
-        padding: 12px;
+        padding: 8px;
     }
 }

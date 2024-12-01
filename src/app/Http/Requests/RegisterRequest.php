@@ -8,37 +8,33 @@ class RegisterRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // リクエストの認可を行う場合はここで設定
+        return true;
     }
 
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'name' => 'required|string|max:191',
+            'email' => 'required|email|unique:users|string|max:191',
+            'password' => 'required|string|min:8|max:191',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => '名前は必須項目です。',
-            'name.max' => '名前は255文字以内で入力してください。',
-            'email.required' => 'メールアドレスは必須項目です。',
-            'email.email' => '有効なメールアドレスを入力してください。',
-            'email.unique' => 'このメールアドレスは既に使用されています。',
-            'password.required' => 'パスワードは必須項目です。',
-            'password.min' => 'パスワードは8文字以上で入力してください。',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'name' => '名前',
-            'email' => 'メールアドレス',
-            'password' => 'パスワード',
+            'name.required' => 'ユーザーネームをご入力ください。',
+            'name.string' => 'ユーザーネームは文字列でお願いします。',
+            'name.max' => 'ユーザーネームは191文字までとなります。',
+            'email.required' => 'メールアドレスのご入力をお願いします。',
+            'email.email' => 'メールアドレスの形式が正しくありません。ご確認ください。',
+            'email.unique' => 'このメールアドレスは既に登録されています。',
+            'email.string' => 'メールアドレスは文字列でお願いします。',
+            'email.max' => 'メールアドレスは191文字までとなります。',
+            'password.required' => 'パスワードのご入力をお願いします。',
+            'password.string' => 'パスワードは文字列でお願いします。',
+            'password.min' => 'パスワードは安全のため、8文字以上でお願いします。',
+            'password.max' => 'パスワードは191文字までとなります。',
         ];
     }
 }

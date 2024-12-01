@@ -11,19 +11,16 @@ class ReservationController extends Controller
 {
     public function makeReservation(ReservationRequest $request, $shop_id)
     {
-        // 現在の日時を取得
         $now = now();
         $reservationDateTime = \Carbon\Carbon::parse($request->date . ' ' . $request->time);
 
-        // 過去の日時チェック
         if ($reservationDateTime < $now) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['time' => '過去の日時は選択できません。']);
         }
 
-        // 予約処理
-        $reservation =Reservation::create([
+        $reservation = Reservation::create([
             'user_id' => auth()->id(),
             'shop_id' => $shop_id,
             'date' => $request->input('date'),
@@ -33,48 +30,37 @@ class ReservationController extends Controller
 
         $reservation->generateQrCode();
 
-        // 予約完了ページにリダイレクト
         return redirect()->route('reservation.show')->with('success', '予約が完了しました。');
     }
 
     public function deleteReservation(Request $request, $reservation_id)
     {
-        // 予約を取得
         $reservation = Reservation::findOrFail($reservation_id);
 
-        // 現在のユーザーが予約者であることを確認
         if ($reservation->user_id !== auth()->id()) {
             return redirect()->route('mypage')->with('error', '予約の削除権限がありません。');
         }
 
-        // 予約を削除
         $reservation->delete();
 
-        // マイページにリダイレクトし、成功メッセージを表示
         return redirect()->route('mypage')->with('success', '予約が削除されました。');
     }
 
-    // 予約完了ページ表示用メソッド
     public function showReservation()
     {
-        return view('reservation_complete'); // 完了ページのビューを返す
+        return view('reservation_complete');
     }
-
 
     public function updateReservation(ReservationRequest $request, $reservation_id)
     {
-        // 予約情報を取得
         $reservation = Reservation::findOrFail($reservation_id);
 
-        // 現在のユーザーが予約者であることを確認
         if ($reservation->user_id !== auth()->id()) {
             return redirect()->route('mypage')->with('error', '予約の編集権限がありません。');
         }
 
-        // 現在の日時を取得
         $now = now();
 
-        // バリデーション
         $validated = $request->validate([
             'date' => [
                 'required',
@@ -94,7 +80,6 @@ class ReservationController extends Controller
             'number_of_people' => 'required|integer|min:1|max:10',
         ]);
 
-        // 更新処理
         $reservation->update([
             'date' => $validated['date'],
             'time' => $validated['time'],
@@ -108,7 +93,6 @@ class ReservationController extends Controller
 
     public function showReviewForm(Reservation $reservation)
     {
-        // QRコードの検証ロジックをここに追加
         return view('review_form', compact('reservation'));
     }
 
@@ -135,13 +119,15 @@ class ReservationController extends Controller
                 $query->where('date', '<', $now->toDateString())
                     ->orWhere(function ($q) use ($now) {
                         $q->where('date', '=', $now->toDateString())
-                        ->where('time', '<', $now->toTimeString());
+                            ->where('time', '<', $now->toTimeString());
                     });
             })
             ->orderBy('date', 'desc')
             ->orderBy('time', 'desc')
             ->paginate(5);
 
-        return view('reservation_history', compact('past_reservations'));
+        $total_count = $past_reservations->total();
+
+        return view('reservation_history', compact('past_reservations', 'total_count'));
     }
 }
