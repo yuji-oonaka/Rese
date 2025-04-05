@@ -51,5 +51,10 @@ class Shop extends Model
     {
         return $this->reviews()->count();
     }
+
+    public function representative()
+    {
+        return $this->belongsTo(User::class, 'representative_id');
+    }
 }
 

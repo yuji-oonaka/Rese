@@ -1,13 +1,25 @@
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content">
         @auth
+            {{-- 管理者用メニュー --}}
+            @role('admin')
+                <a href="{{ route('admin.dashboard') }}">管理者ダッシュボード</a>
+            @endrole
+
+            {{-- 店舗代表者用メニュー --}}
+            @role('representative')
+                <a href="{{ route('representative.dashboard') }}">店舗管理ダッシュボード</a>
+            @endrole
+
+            {{-- 共通メニュー --}}
             <a href="{{ route('shop.list') }}">Home</a>
-            <form method="POST" action="{{ route('logout') }}" >
+            <a href="{{ route('mypage') }}">Mypage</a>
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="btn-link">Logout</button>
             </form>
-            <a href="{{ route('mypage') }}">Mypage</a>
         @else
+            {{-- 未認証ユーザーメニュー --}}
             <a href="{{ route('shop.list') }}">Home</a>
             <a href="{{ route('register') }}">Registration</a>
             <a href="{{ route('login') }}">Login</a>

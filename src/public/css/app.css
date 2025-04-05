@@ -95,6 +95,10 @@ body {
     border-radius: 3px;
 }
 
+.logo {
+    color: #2755fe;
+}
+
 @media screen and (max-width: 768px) {
     .icon-box {
         padding: 6px;
