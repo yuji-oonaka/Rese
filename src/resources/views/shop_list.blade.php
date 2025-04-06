@@ -13,6 +13,11 @@
         <form action="{{ route('shop.list') }}" method="GET" id="search-form">
             <div class="filter-container">
                 <div class="filter">
+                    <select name="sort" id="sort-filter" onchange="this.form.submit()">
+                        <option value="random" {{ request('sort') == 'random' || !request('sort') ? 'selected' : '' }}>並び替え：ランダム</option>
+                        <option value="rating_high" {{ request('sort') == 'rating_high' ? 'selected' : '' }}>評価が高い順</option>
+                        <option value="rating_low" {{ request('sort') == 'rating_low' ? 'selected' : '' }}>評価が低い順</option>
+                    </select>
                     <select name="area" id="area-filter" onchange="this.form.submit()">
                         <option value="">All areas</option>
                         @foreach($areas as $area)
@@ -36,13 +41,19 @@
             </div>
         </form>
     </div>
-    @if($isSearched)
+    
+    @if($isSearched || request('sort'))
         @if($shops->isEmpty())
             <div class="alert alert-info">
                 検索結果が見つかりませんでした。
             </div>
         @else
             <div class="alert alert-info">
+                @if(request('sort') == 'rating_high')
+                    検索情報： "評価の高い順"
+                @elseif(request('sort') == 'rating_low')
+                    検索情報： "評価の低い順"
+                @endif
                 {{ $shops->total() }}件の検索結果が見つかりました。
             </div>
         @endif

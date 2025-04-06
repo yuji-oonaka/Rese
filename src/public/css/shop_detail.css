@@ -1,4 +1,4 @@
-.main {
+.shop-detail {
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
@@ -7,36 +7,39 @@
     box-sizing: border-box;
 }
 
-h2 {
+.shop-detail__title {
     font-size: 32px;
 }
 
-h3 {
+.shop-detail__reservation-title {
     margin-left: 20px;
 }
 
-.left {
+.shop-detail__left {
     width: 40%;
 }
 
-.right {
+.shop-detail__right {
     width: 45%;
     background-color: #305dff;
     color: white;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    /* 子要素を縦方向に並べる */
     margin: 30px 0;
     position: relative;
+    padding-bottom: 0;
+    /* 下部の余白を削除 */
 }
 
-.shop-image {
+.shop-detail__image {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
-.back-btn {
+.shop-detail__back-btn {
     font-weight: bold;
     background: #fff;
     padding: 3px 8px;
@@ -48,12 +51,12 @@ h3 {
     color: #333;
 }
 
-.header {
+.shop-detail__header {
     display: flex;
     align-items: center;
 }
 
-.input {
+.shop-detail__input {
     width: calc(100% - 40px);
     margin-left: 20px;
     margin-bottom: 10px;
@@ -64,19 +67,19 @@ h3 {
     box-sizing: border-box;
 }
 
-input[type="date"],
-input[type="time"],
-select[name="number_of_people"] {
+.shop-detail__input--date,
+.shop-detail__input--time,
+.shop-detail__input--people {
     width: calc(80% - 40px);
 }
 
-.text-danger {
+.shop-detail__error {
     color: tomato;
     margin-left: 20px;
     font-size: 14px;
 }
 
-.summary {
+.shop-detail__summary {
     width: calc(90% - 40px);
     background-color: #4d7fff;
     border-radius: 4px;
@@ -86,142 +89,43 @@ select[name="number_of_people"] {
     box-sizing: border-box;
 }
 
-.summary-table {
+.shop-detail__summary-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.summary-table td {
+.shop-detail__summary-table td {
     padding: 5px;
-    color: white;
 }
 
-.summary-table td:first-child {
+.shop-detail__summary-table td:first-child {
     text-align: left;
-    width: 30%;
 }
 
 #reservation-form {
     display: flex;
     flex-direction: column;
+    /* 子要素を縦方向に並べる */
     height: 100%;
+    /* フォーム全体を埋める */
 }
 
-.submit-btn {
+.shop-detail__submit-btn {
     width: 100%;
+    /* 幅を100%に設定 */
     background-color: #0538ff;
     color: white;
     border: none;
     padding: 15px;
     border-radius: 0 0 8px 8px;
+    /* 下部の角を丸める */
     margin-top: auto;
+    /* ボタンを一番下に配置 */
     cursor: pointer;
     box-sizing: border-box;
     font-size: 16px;
 }
 
-.submit-btn:hover {
+.shop-detail__submit-btn:hover {
     background-color: #0729a3;
-}
-
-@media screen and (max-width: 768px) {
-    .main {
-        flex-direction: column;
-        padding: 0 10px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    h3 {
-        text-align: center;
-        margin-left: 10px;
-        font-size: 18px;
-    }
-
-    .shop-image {
-        max-width: 80%;
-        height: auto;
-        border-radius: 8px;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .left,
-    .right {
-        width: 100%;
-    }
-
-    .right {
-        max-width: 80%;
-        margin: 0 auto;
-    }
-
-    .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    .back-btn {
-        margin-right: 10px;
-    }
-
-    h2 {
-        font-size: 24px;
-        margin: 0;
-    }
-
-    .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    .back-btn {
-        margin-right: 10px;
-    }
-
-    h2 {
-        font-size: 24px;
-        margin: 0;
-    }
-
-    p {
-        max-width: 80%;
-        margin: 10px auto;
-    }
-
-    .input {
-        width: calc(100% - 20px);
-        margin-left: 10px;
-    }
-
-    input[type="date"],
-    input[type="time"],
-    select[name="number_of_people"] {
-        width: calc(80% - 20px);
-        margin: 5px auto;
-    }
-
-    .text-danger {
-        width: calc(80% - 20px);
-        margin: 5px auto;
-    }
-
-    .summary {
-        width: calc(80% - 20px);
-        margin: 10px auto;
-        padding: 10px;
-    }
-
-    .submit-btn {
-        width: calc(80% - 20px);
-        margin: 0 auto;
-        font-size: 14px;
-        padding: 8px;
-    }
 }

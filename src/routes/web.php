@@ -38,6 +38,17 @@ Route::middleware(['auth'])->group(function () {
     // レビュー関連
     Route::get('/reservation/history', [ReservationController::class, 'showHistory'])->name('reservation.history');
     Route::post('/review/submit', [ReviewController::class, 'submit'])->name('review.submit');
+    
+    // レビュー機能拡張
+    Route::prefix('review')->name('review.')->group(function () {
+        // レビュー作成フォーム表示
+        Route::get('/create/{shop_id}', [ReviewController::class, 'create'])->name('create');
+        // レビュー編集
+        Route::get('/{reservation_id}/edit', [ReviewController::class, 'edit'])->name('edit');
+        Route::put('/{reservation_id}', [ReviewController::class, 'update'])->name('update');
+        // レビュー削除
+        Route::delete('/{reservation_id}', [ReviewController::class, 'destroy'])->name('destroy');
+    });
 
     // その他
     Route::view('/thanks', 'thanks')->name('thanks');
@@ -55,6 +66,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     
     // 店舗管理
     Route::resource('shops', \App\Http\Controllers\Admin\ShopController::class);
+    
+    // レビュー管理（管理者は全レビューを削除可能）
+    Route::delete('/reviews/{review_id}', [\App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 /*------------------------------------------
@@ -75,4 +89,8 @@ Route::prefix('representative')
         // 予約管理
         Route::get('/reservations', [\App\Http\Controllers\Representative\ReservationController::class, 'index'])
             ->name('reservations');
+            
+        // 店舗レビュー確認（閲覧のみ）
+        Route::get('/shop/{shop_id}/reviews', [\App\Http\Controllers\Representative\ReviewController::class, 'index'])
+            ->name('shop.reviews');
     });

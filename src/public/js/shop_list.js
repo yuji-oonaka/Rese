@@ -91,3 +91,55 @@ document.querySelectorAll('.favorite-form .btn-favorite').forEach(button => {
         const csrfToken = form.querySelector('input[name="_token"]').value;
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const areaSelect = document.querySelector('select[name="area"]');
+    const sortSelect = document.querySelector('select[name="sort"]');
+    const genreSelect = document.querySelector('select[name="genre"]');
+    const searchInput = document.querySelector('#search-input');
+
+    // フィルター適用関数
+    function applyFilters() {
+        let url = new URL(window.location);
+
+        // パラメータセット
+        if (sortSelect.value) {
+            url.searchParams.set('sort', sortSelect.value);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        if (areaSelect.value) {
+            url.searchParams.set('area', areaSelect.value);
+        } else {
+            url.searchParams.delete('area');
+        }
+
+        if (genreSelect.value) {
+            url.searchParams.set('genre', genreSelect.value);
+        } else {
+            url.searchParams.delete('genre');
+        }
+
+        if (searchInput.value) {
+            url.searchParams.set('search', searchInput.value);
+        } else {
+            url.searchParams.delete('search');
+        }
+
+        // 新URLに移動
+        window.location.href = url.toString();
+    }
+
+    // イベントリスナー追加
+    areaSelect.addEventListener('change', applyFilters);
+    sortSelect.addEventListener('change', applyFilters);
+    genreSelect.addEventListener('change', applyFilters);
+
+    // Enterキーで検索
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            applyFilters();
+        }
+    });
+});
