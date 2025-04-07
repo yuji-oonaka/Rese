@@ -129,3 +129,15 @@
 .shop-detail__submit-btn:hover {
     background-color: #0729a3;
 }
+
+.shop-detail__all-reviews-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #0000FF;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 20px 0;
+}

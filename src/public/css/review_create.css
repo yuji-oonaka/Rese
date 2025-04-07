@@ -206,6 +206,19 @@
     background-color: #2347cc;
 }
 
+.alert {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 14px;
+}
+
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {

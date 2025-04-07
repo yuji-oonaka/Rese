@@ -1,0 +1,84 @@
+.shop-edit {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.shop-edit__title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #3b5ff5;
+    padding-bottom: 10px;
+}
+
+/* フォームグループ共通スタイル */
+.shop-edit__form-group {
+    margin-bottom: 20px;
+}
+
+.shop-edit__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.shop-edit__input,
+.shop-edit__select,
+.shop-edit__textarea,
+.shop-edit__file-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.shop-edit__input:focus,
+.shop-edit__select:focus,
+.shop-edit__textarea:focus,
+.shop-edit__file-input:focus {
+    border-color: #3b5ff5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 95, 245, 0.2);
+}
+
+/* テキストエリアのスタイル */
+.shop-edit__textarea {
+    min-height: 120px;
+}
+
+/* ボタンスタイル */
+.shop-edit__btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.shop-edit__btn--primary {
+    background-color: #3b5ff5;
+    color: white;
+}
+
+.shop-edit__btn--primary:hover {
+    background-color: #2a4cd6;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .shop-edit {
+        padding: 15px;
+    }
+
+    .shop-edit__btn {
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        /* ボタン間の余白を追加 */
+        text-align: center
+    }
+}

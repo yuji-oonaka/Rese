@@ -1,0 +1,142 @@
+.shop-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.shop-list__title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #3b5ff5;
+    padding-bottom: 10px;
+}
+
+/* アクションボタン */
+.shop-list__actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.shop-list__btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.shop-list__btn--primary {
+    background-color: #3b5ff5;
+    color: white;
+}
+
+.shop-list__btn--primary:hover {
+    background-color: #2a4cd6;
+}
+
+.shop-list__btn--secondary {
+    background-color: #f5f7ff;
+    color: #333;
+}
+
+.shop-list__btn--secondary:hover {
+    background-color: #e4e9f7;
+}
+
+.shop-list__btn--warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.shop-list__btn--warning:hover {
+    background-color: #e0a800;
+}
+
+.shop-list__btn--danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.shop-list__btn--danger:hover {
+    background-color: #c82333;
+}
+
+/* テーブルスタイル */
+.shop-list__table-wrapper {
+    overflow-x: auto;
+    /* 横スクロール対応 */
+}
+
+.shop-list__table {
+    width: 100%;
+    border-collapse: collapse;
+    /* セル間の隙間をなくす */
+}
+
+.shop-list__table-header-cell,
+.shop-list__table-cell {
+    padding: 12px 15px;
+    /* セル内余白 */
+    text-align: left;
+    /* 左揃え */
+}
+
+.shop-list__table-header-cell {
+    background-color: #f5f7ff;
+    /* ヘッダー背景色 */
+    font-weight: bold;
+    /* ヘッダー文字を太字に */
+}
+
+.shop-list__table-row:nth-child(even) {
+    background-color: #f9f9f9;
+    /* 偶数行の背景色 */
+}
+
+.shop-list__actions-cell {
+    display: flex;
+    /* ボタンを横並びにする */
+    gap: 10px;
+    /* ボタン間の隙間 */
+}
+
+/* 空メッセージ */
+.shop-list__empty-message {
+    text-align: center;
+}
+
+/* ページネーションスタイル */
+.pagination {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination li a,
+.pagination li span {
+    display: block;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #007bff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination li.active span,
+.pagination li a:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}

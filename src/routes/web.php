@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Admin\ShopController as AdminShopController;
 
 /*------------------------------------------
   公開ルート（認証不要）
@@ -69,6 +70,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     
     // レビュー管理（管理者は全レビューを削除可能）
     Route::delete('/reviews/{review_id}', [\App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+    Route::post('/admin/shops/import', [ShopController::class, 'importCsv'])->name('shops.importCsv');
 });
 
 /*------------------------------------------

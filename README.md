@@ -3,9 +3,6 @@
 ユーザー登録しログインすることでグループ会社の飲食店閲覧、お気に入り登録、予約、評価等を行うことができる
 ![スクリーンショット 2024-11-30 094006](https://github.com/user-attachments/assets/5ae84db8-de2e-4fad-a8fb-b28a1937b20f)
 
-## 作成した目的
-自社予約サービスを持つため
-
 ## アプリケーションURL
 - 開発環境:http://localhost  
 - phpMyAdmin:http://localhost:8080
@@ -66,6 +63,8 @@ php artisan key:generate
 ```
 php artisan migrate
 ```
-###追記
-- お店の評価は予約日時が過ぎた後に予約履歴内の対象のお店欄の評価するにて行う
-- QRコードはmypageと予約履歴にて表示可能
+7. シーディングの実行
+php artisan db:seed
+
+8. シンボリックリンクの作成
+php artisan storage:link

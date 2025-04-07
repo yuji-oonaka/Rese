@@ -4,11 +4,12 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/shop_detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/shop_reviews.css') }}">
 @endsection
 
 @section('content')
 <div class="shop-detail">
-    <div class="shop-detail__left">
+    <div class="shop-detail__left" id="content-left">
         <x-header-component />
         <div class="shop-detail__header">
             <a href="{{ route('shop.list') }}" class="shop-detail__back-btn">&lt;</a>
@@ -17,9 +18,17 @@
         <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" class="shop-detail__image">
         <p class="shop-detail__tags">#{{ $shop->area->name }} #{{ $shop->genre->name }}</p>
         <p class="shop-detail__description">{{ $shop->description }}</p>
-        <div class="shop-detail__rating">
-            <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">口コミを投稿する</a>
-        </div>
+
+        <!-- 口コミボタン -->
+        @if($shop->reviews_count > 0)
+            <!-- 口コミがある場合 -->
+            <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="shop-detail__all-reviews-btn" id="review-button">全ての口コミ情報</a>
+        @else
+            <!-- 口コミがない場合 -->
+            @auth
+                <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">口コミを投稿する</a>
+            @endauth
+        @endif
     </div>
 
     <div class="shop-detail__right">
@@ -68,6 +77,7 @@
                     </tr>
                 </table>
             </div>
+            <!-- 予約ボタン -->
             <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="shop-detail__submit-btn">
                 予約する
             </button>
