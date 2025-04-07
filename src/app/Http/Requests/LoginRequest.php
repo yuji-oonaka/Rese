@@ -16,7 +16,7 @@ class LoginRequest extends FortifyLoginRequest
     {
         return [
             'email' => 'required',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email:rfc',
             'password' => 'required',
         ];
     }

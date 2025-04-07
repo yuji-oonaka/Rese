@@ -51,14 +51,17 @@ class ReviewController extends Controller
 
     public function submit(Request $request)
     {
-        // バリデーション
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
+            'reservation_id' => 'required|exists:reservations,id',
             'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'required|string|max:400',
-            'image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'comment' => 'nullable|string|max:400', // 文字数制限を400に変更
+            'image' => 'nullable|image|mimes:jpeg,png|max:2048', // 画像バリデーションを追加
         ]);
 
-        // 予約情報を取得
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $reservation = Reservation::findOrFail($request->reservation_id);
 
         // ユーザーが予約者本人であることを確認
@@ -79,22 +82,20 @@ class ReviewController extends Controller
         }
 
         // レビューの作成または更新
-        Review::updateOrCreate(
+        $review = Review::updateOrCreate(
             ['reservation_id' => $request->reservation_id],
             [
                 'user_id' => auth()->id(),
                 'shop_id' => $reservation->shop_id,
                 'rating' => $request->rating,
                 'comment' => $request->comment,
-                'image_path' => $imagePath,
+                'image_path' => $imagePath, // 画像パスを保存
             ]
         );
 
-        // 投稿後に口コミ一覧ページへリダイレクト
-        return redirect()->route('shop.reviews', ['shop_id' => $reservation->shop_id])
-                        ->with('success', '口コミが投稿されました！');
+        return redirect()->route('reservation.history')->with('success', '評価が送信されました。ありがとうございます！');
     }
-
+    
     // 既存のレビューを編集するメソッド
     public function edit($reservation_id)
     {

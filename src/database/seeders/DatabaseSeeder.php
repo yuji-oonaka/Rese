@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             RepresentativeUserSeeder::class,
             ShopsTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->foreignId('reservation_id')->nullable()->after('shop_id')
+            $table->foreignId('reservation_id')->after('shop_id')
                   ->constrained('reservations')->onDelete('cascade');
         });
     }
