@@ -16,6 +16,7 @@ class LoginRequest extends FortifyLoginRequest
     {
         return [
             'email' => 'required',
+            'email' => 'required|email:rfc',
             'password' => 'required',
         ];
     }
@@ -24,6 +25,7 @@ class LoginRequest extends FortifyLoginRequest
     {
         return [
             'email.required' => 'メールアドレスのご入力をお願いします。',
+            'email.email' => '有効なメールアドレスをご入力ください（例: example@example.com）。',
             'password.required' => 'パスワードのご入力をお願いします。',
         ];
     }

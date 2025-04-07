@@ -13,6 +13,9 @@ class ShopController extends Controller
     {
         $query = Shop::query();
 
+        // ソートオプションを取得（デフォルトはランダム）
+        $sortOption = $request->get('sort', 'random');
+
         $isSearched = $request->filled('area') || $request->filled('genre') || $request->filled('search');
 
         if ($request->filled('area')) {
@@ -45,18 +48,40 @@ class ShopController extends Controller
                 }
             });
         }
+
         $userId = auth()->id();
 
-        $areas = Area::all();
-        $genres = Genre::all();
-
-        $shops = $query->with(['area', 'genre', 'reviews'])
+        // 基本クエリ構築
+        $query = $query->with(['area', 'genre', 'reviews'])
             ->withCount(['favorites' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
             ->withAvg('reviews', 'rating')
-            ->withCount('reviews')
-            ->paginate(12);
+            ->withCount('reviews');
+
+        // ソート適用
+        switch ($sortOption) {
+            case 'rating_high':
+                // 評価が高い順、NULL値は最後
+                $query->orderByRaw('CASE WHEN reviews_avg_rating IS NULL THEN 0 ELSE 1 END DESC')
+                    ->orderBy('reviews_avg_rating', 'DESC');
+                break;
+
+            case 'rating_low':
+                // 評価が低い順、NULL値は最後
+                $query->orderByRaw('CASE WHEN reviews_avg_rating IS NULL THEN 0 ELSE 1 END DESC')
+                    ->orderBy('reviews_avg_rating', 'ASC');
+                break;
+
+            case 'random':
+            default:
+                // ランダム順
+                $query->inRandomOrder();
+                break;
+        }
+
+        // 結果取得とページネーション
+        $shops = $query->paginate(12);
 
         $shops->each(function ($shop) {
             $shop->averageRating = $shop->reviews_avg_rating ?? 0;
@@ -64,8 +89,12 @@ class ShopController extends Controller
             $shop->halfStar = $shop->averageRating - $shop->fullStars >= 0.5;
         });
 
-        return view('shop_list', compact('shops', 'areas', 'genres', 'isSearched'));
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        return view('shop_list', compact('shops', 'areas', 'genres', 'isSearched', 'sortOption'));
     }
+
 
     public function showShopDetail($shop_id)
     {
@@ -73,12 +102,15 @@ class ShopController extends Controller
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
             ->findOrFail($shop_id);
+
+        $hasReviews = $shop->reviews_count > 0;
+
         return view('shop_detail', compact('shop'));
     }
 
     public function showReviews($shop_id)
     {
-        $shop = Shop::findOrFail($shop_id);
+        $shop = Shop::with(['reviews.user'])->findOrFail($shop_id);
         $reviews = $shop->reviews()
             ->with('user')
             ->latest()

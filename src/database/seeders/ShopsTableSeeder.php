@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use App\Models\Shop;
 
 class ShopsTableSeeder extends Seeder
@@ -13,6 +14,8 @@ class ShopsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $representatives = User::role('representative')->get(); // 全代表者を取得
+
         $shops = [
             ['name' => '仙人', 'area_id' => 1, 'genre_id' => 1, 'description' => '料理長厳選の食材から作る寿司を用いたコースをぜひお楽しみください。食材・味・価格、お客様の満足度を徹底的に追及したお店です。特別な日のお食事、ビジネス接待まで気軽に使用することができます。', 'image_url' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg'],
             ['name' => '牛助', 'area_id' => 2, 'genre_id' => 2, 'description' => '焼肉業界で20年間経験を積み、肉を熟知したマスターによる実力派焼肉店。長年の実績とお付き合いをもとに、なかなか食べられない希少部位も仕入れております。また、ゆったりとくつろげる空間はお仕事終わりの一杯や女子会にぴったりです。', 'image_url' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg'],
@@ -36,8 +39,15 @@ class ShopsTableSeeder extends Seeder
             ['name'=> '木船', 'area_id' => 2, 'genre_id' => 1, 'description' => '毎日店主自ら市場等に出向き、厳選した魚介類が、お鮨をはじめとした繊細な料理に仕立てられます。また、選りすぐりの種類豊富なドリンクもご用意しております。', 'image_url' =>'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg'],
         ];
 
-        foreach ($shops as $shop) {
-            Shop::create($shop);
+        // 代表者と店舗の数が一致しているか確認
+        if (count($representatives) < count($shops)) {
+            throw new \Exception("代表者が不足しています。代表者数を店舗数に合わせてください");
+        }
+
+        foreach ($shops as $index => $shopData) {
+            Shop::create(array_merge($shopData, [
+                'representative_id' => $representatives[$index]->id
+            ]));
         }
     }
 }

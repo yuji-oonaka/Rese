@@ -4,49 +4,61 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/shop_detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/shop_reviews.css') }}">
 @endsection
 
 @section('content')
-<div class="main">
-    <div class="left">
+<div class="shop-detail">
+    <div class="shop-detail__left" id="content-left">
         <x-header-component />
-        <div class="header">
-            <a href="{{ route('shop.list') }}" class="back-btn">&lt;</a>
-            <h2>{{ $shop->name }}</h2>
+        <div class="shop-detail__header">
+            <a href="{{ route('shop.list') }}" class="shop-detail__back-btn">&lt;</a>
+            <h2 class="shop-detail__title">{{ $shop->name }}</h2>
         </div>
-        <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" class="shop-image">
-        <p>#{{ $shop->area->name }} #{{ $shop->genre->name }}</p>
-        <p>{{ $shop->description }}</p>
+        <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" class="shop-detail__image">
+        <p class="shop-detail__tags">#{{ $shop->area->name }} #{{ $shop->genre->name }}</p>
+        <p class="shop-detail__description">{{ $shop->description }}</p>
+
+        <!-- 口コミボタン -->
+        @if($shop->reviews_count > 0)
+            <!-- 口コミがある場合 -->
+            <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="shop-detail__all-reviews-btn" id="review-button">全ての口コミ情報</a>
+        @else
+            <!-- 口コミがない場合 -->
+            @auth
+                <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">口コミを投稿する</a>
+            @endauth
+        @endif
     </div>
 
-    <div class="right">
-        <h3>予約</h3>
+    <div class="shop-detail__right">
+        <h3 class="shop-detail__reservation-title">予約</h3>
 
         <!-- 予約フォーム -->
-        <form id="reservation-form" method="POST" novalidate>
+        <form id="reservation-form" method="POST" novalidate class="shop-detail__form">
             @csrf
             <!-- 日付選択 -->
-            <input type="date" id="date-input" name="date" class="input date" value="{{ old('date', request('date')) }}" min="{{ date('Y-m-d') }}"required>
+            <input type="date" id="date-input" name="date" class="shop-detail__input shop-detail__input--date" value="{{ old('date', request('date')) }}" min="{{ date('Y-m-d') }}" required>
             @error('date')
-                <span class="text-danger">{{ $message }}</span>
+                <span class="shop-detail__error">{{ $message }}</span>
             @enderror
             <!-- 時間選択 -->
-            <input type="time" id="time-input" name="time" class="input time" value="{{ old('time', request('time')) }}" required>
+            <input type="time" id="time-input" name="time" class="shop-detail__input shop-detail__input--time" value="{{ old('time', request('time')) }}" required>
             @error('time')
-                <span class="text-danger">{{ $message }}</span>
+                <span class="shop-detail__error">{{ $message }}</span>
             @enderror
             <!-- 人数選択 -->
-            <select id="people-input" name="number_of_people" class="input people" required>
+            <select id="people-input" name="number_of_people" class="shop-detail__input shop-detail__input--people" required>
                 @for ($i = 0; $i <= 10; $i++)
                     <option value="{{ $i }}" {{ old('number_of_people',request('number_of_people')) == $i ? 'selected' : '' }}>{{ $i }}人</option>
                 @endfor
             </select>
             @error('number_of_people')
-                <span class="text-danger">{{ $message }}</span>
+                <span class="shop-detail__error">{{ $message }}</span>
             @enderror
             <!-- サマリー表示 -->
-            <div class="summary">
-                <table class="summary-table">
+            <div class="shop-detail__summary">
+                <table class="shop-detail__summary-table">
                     <tr>
                         <td>Shop</td>
                         <td>{{ $shop->name }}</td>
@@ -65,7 +77,8 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="submit-btn">
+            <!-- 予約ボタン -->
+            <button type="submit" formaction="{{ route('reservation.store', ['shop_id' => $shop->id]) }}" class="shop-detail__submit-btn">
                 予約する
             </button>
         </form>

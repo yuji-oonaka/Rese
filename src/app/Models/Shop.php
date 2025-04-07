@@ -15,6 +15,7 @@ class Shop extends Model
         'genre_id',
         'description',
         'image_url',
+        'representative_id'
     ];
 
     public function area()
@@ -50,6 +51,11 @@ class Shop extends Model
     public function reviewsCount()
     {
         return $this->reviews()->count();
+    }
+
+    public function representative()
+    {
+        return $this->belongsTo(User::class, 'representative_id');
     }
 }
 

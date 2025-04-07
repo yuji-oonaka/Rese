@@ -1,4 +1,4 @@
-.container {
+.auth {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -6,8 +6,7 @@
     box-sizing: border-box;
 }
 
-.login-container,
-.register-container {
+.auth__container {
     max-width: 540px;
     margin: 30px auto;
     background-color: white;
@@ -16,8 +15,7 @@
     width: 100%;
 }
 
-.login-header,
-.register-header {
+.auth__header {
     background-color: #305dff;
     color: white;
     padding: 10px 20px;
@@ -26,42 +24,42 @@
     text-align: left;
 }
 
-.form-group {
+.auth__form-group {
     display: flex;
     align-items: center;
     padding: 5px;
     margin: 20px;
 }
 
-label {
+.auth__form-label {
     display: flex;
     align-items: center;
     font-weight: bold;
     color: #414141;
 }
 
-.icon-name::before,
-.icon-email::before,
-.icon-password::before {
+.auth__icon--name::before,
+.auth__icon--email::before,
+.auth__icon--password::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 8px;
     font-size: 25px;
 }
 
-.icon-name::before {
+.auth__icon--name::before {
     content: "\f007";
 }
 
-.icon-email::before {
+.auth__icon--email::before {
     content: "\f0e0";
 }
 
-.icon-password::before {
+.auth__icon--password::before {
     content: "\f023";
 }
 
-input {
+.auth__input {
     width: 100%;
     padding: 15px;
     border: none;
@@ -70,46 +68,61 @@ input {
     box-sizing: border-box;
 }
 
-.password-container {
+.auth__password-container {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.password-container input {
+.auth__password-container .auth__input {
     padding-right: 40px;
+    /* パスワード入力欄の右側余白 */
 }
 
-.toggle-password {
+.auth__toggle-password {
     position: absolute;
     right: 10px;
+    /* トグルアイコンの位置 */
     cursor: pointer;
     color: #666;
+    /* アイコン色 */
     z-index: 1;
+    /* アイコンを前面に表示 */
 }
 
-button {
+.auth__submit-btn {
     padding: 5px 20px;
+    /* ボタンの内側余白 */
     margin-bottom: 10px;
+    /* ボタン下部の余白 */
     background-color: #305dff;
+    /* ボタン背景色 */
     color: white;
+    /* ボタン文字色 */
     border: none;
+    /* ボーダーなし */
     border-radius: 4px;
+    /* ボタン角丸 */
     font-size: 16px;
+    /* フォントサイズ */
     cursor: pointer;
+    /* カーソルをポインタに変更 */
     transition: background-color 0.3s ease;
+    /* 背景色変更のアニメーション */
 }
 
-button:hover {
+.auth__submit-btn:hover {
     background-color: #2040cc;
+    /* ホバー時の背景色 */
 }
 
-.form-group:last-child {
+.auth__form-group:last-child {
     justify-content: flex-end;
+    /* 最後のフォームグループ内要素を右寄せ */
 }
 
-.error-message {
+.auth__error {
     color: #dc3545;
     font-size: 14px;
     margin-left: 60px;
@@ -117,46 +130,13 @@ button:hover {
 
 @media (max-width: 768px) {
 
-    .login-container,
-    .register-container {
+    .auth__container {
         max-width: 100%;
         margin: 20px auto;
     }
 
-    .form-group {
+    .auth__form-group {
         flex-direction: column;
-        align-items: flex-start;
-    }
-
-    label {
-        margin-bottom: 5px;
-    }
-
-    input {
-        font-size: 16px;
-    }
-
-    .error-message {
-        margin-left: 30px;
-    }
-
-    button {
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .login-header,
-    .register-header {
-        padding: 10px;
-    }
-
-    .form-group {
-        margin: 15px;
-    }
-
-    button {
-        width: 100%;
+        align-items: flex-start
     }
 }

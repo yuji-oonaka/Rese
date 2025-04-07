@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
         'name',
@@ -42,5 +43,15 @@ class User extends Authenticatable
     public function favoritedShops()
     {
         return $this->belongsToMany(Shop::class, 'favorites');
+    }
+
+    public function managedShop()
+    {
+        return $this->hasOne(Shop::class, 'representative_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

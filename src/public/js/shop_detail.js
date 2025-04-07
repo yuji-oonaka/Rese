@@ -65,3 +65,30 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 全ての口コミ情報ボタンのクリックイベント
+    const reviewButton = document.getElementById('review-button');
+    if (reviewButton) {
+        reviewButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            
+            // 左側コンテンツを口コミ一覧に置き換える
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const reviewContent = doc.querySelector('.review-content');
+                    
+                    if (reviewContent) {
+                        document.getElementById('content-left').innerHTML = reviewContent.innerHTML;
+                    }
+                })
+                .catch(error => {
+                    console.error('エラーが発生しました:', error);
+                });
+        });
+    }
+});

@@ -22,9 +22,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            RolesAndPermissionsSeeder::class,
             AreasTableSeeder::class,
             GenresTableSeeder::class,
+            AdminUserSeeder::class,
+            RepresentativeUserSeeder::class,
             ShopsTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }
