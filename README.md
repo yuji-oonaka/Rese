@@ -22,12 +22,15 @@
 - MySQL:8.0.26
 
 ## テーブル設計  
-![image](https://github.com/user-attachments/assets/bb3dd0b6-9ae9-4b4f-ad17-e52443753b90)
+![スクリーンショット 2025-04-07 233451](https://github.com/user-attachments/assets/4c4b8d65-48ba-45ab-877f-e135209d5fea)
+
+![スクリーンショット 2025-04-07 233331](https://github.com/user-attachments/assets/869ced62-89d1-4b62-9bee-a06a6c6eb9e0)
 
 
 
 ## ER図
-![shop drawio (5)](https://github.com/user-attachments/assets/c0642232-fc4b-46a6-ba9b-7de655ebaaae)
+![Rese](https://github.com/user-attachments/assets/19ff060f-9709-4288-8ce4-8783349d5e03)
+
 
 ## 環境構築  
 ### Dockerビルド
@@ -49,11 +52,13 @@ php artisan key:generate
 php artisan migrate
 ```
 6. シーディングの実行
+```
 php artisan db:seed
-
+```
 7. シンボリックリンクの作成
+```
 php artisan storage:link
-
+```
 ## テストアカウント
 name: 111
 email: 111@sample.com
