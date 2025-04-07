@@ -60,27 +60,27 @@ php artisan db:seed
 php artisan storage:link
 ```
 ## テストアカウント
-name: 111
-email: 111@sample.com
-password: 111sample
+- name: 111
+- email: 111@sample.com
+- password: 111sample
 - または会員登録にて任意のユーザーを登録
 
 ## 管理者アカウント
-name: admin
-email: admin@example.com
-password: password
+- name: admin
+- email: admin@example.com
+- password: password
 
 ## 店舗代表者アカウント
-name: 代表者1",
-email: rep1@example.com
-password: password
+- name: 代表者1",
+- email: rep1@example.com
+- password: password
 
 ## 口コミ機能(未実装)
 店舗来店予定日時終了後から口コミ機能を利用することが可能です
 
 ## コメント
-今回、Pro入会テストを受けさせていただきましてありがとうございます
-模擬案件時からの再設計、追加実装、機能要件の見落としに加え設計やシートの更新ができておらず、タスク管理も不十分でした
-ファイルなどの乱立により修正ができなくなり機能要件を満たせませんでした
-かなり力不足を実感しました
+今回、Pro入会テストを受けさせていただきましてありがとうございます  
+模擬案件時からの再設計、追加実装、機能要件の見落としに加え設計やシートの更新ができておらず、タスク管理も不十分でした  
+ファイルなどの乱立により修正ができなくなり機能要件を満たせませんでした  
+かなり力不足を実感しました  
 ただやはり作り上げていく過程は毎回勉強になるし、感動もあるので精進していき、出直したいと思います。
