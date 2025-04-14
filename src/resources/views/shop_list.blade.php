@@ -41,7 +41,7 @@
             </div>
         </form>
     </div>
-    
+
     @if($isSearched || request('sort'))
         @if($shops->isEmpty())
             <div class="alert alert-info">
@@ -111,7 +111,6 @@
     @endif
 </div>
 @endsection
-
 @section('js')
 <script src="{{ asset('js/shop_list.js') }}"></script>
 @endsection

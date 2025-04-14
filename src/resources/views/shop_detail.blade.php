@@ -29,6 +29,11 @@
                 <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">口コミを投稿する</a>
             @endauth
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     </div>
 
     <div class="shop-detail__right">

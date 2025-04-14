@@ -12,42 +12,43 @@ use App\Models\Reservation;
 class ReviewController extends Controller
 {
 
-    public function create($shop_id)
+    public function create($shop_id, Request $request)
     {
         $shop = Shop::findOrFail($shop_id);
 
-        $isFavorite = $shop->favorites()->where('user_id', auth()->id())->exists();
-
-        // 予約済み&来店済みか確認
+        // 予約済み＆来店済みか確認
         $pastReservations = Reservation::where('user_id', auth()->id())
             ->where('shop_id', $shop_id)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('date', '<', now()->toDateString())
-                    ->orWhere(function($q) {
+                    ->orWhere(function ($q) {
                         $q->where('date', '=', now()->toDateString())
                             ->where('time', '<', now()->toTimeString());
                     });
             })
-            ->exists();
-            
+            ->first();
+
         if (!$pastReservations) {
             return redirect()->route('shop.detail', ['shop_id' => $shop_id])
-                ->with('error', 'レビューを投稿するには、予約・来店済みである必要があります。');
+                ->with('error', '口コミを投稿するには、予約・来店済みである必要があります。');
         }
-        
+
         // すでにレビュー投稿済みか確認
         $existingReview = Review::where('user_id', auth()->id())
             ->where('shop_id', $shop_id)
             ->first();
-            
+
         if ($existingReview) {
             return redirect()->route('shop.detail', ['shop_id' => $shop_id])
-                ->with('error', 'この店舗には既にレビューを投稿済みです。');
+                ->with('error', 'この店舗には既に口コミを投稿済みです。');
         }
-        
-        return view('reviews.create', compact('shop', 'isFavorite'));
 
+        return view('reviews.create', [
+            'shop' => $shop,
+            'reservation_id' => $pastReservations->id, // 予約IDを渡す
+        ]);
     }
+
 
     public function submit(Request $request)
     {
