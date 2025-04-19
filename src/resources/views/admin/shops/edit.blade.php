@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+    <x-header-component />
     <h1>店舗編集</h1>
     <form method="POST" action="{{ route('shops.update', $shop) }}">
         @csrf

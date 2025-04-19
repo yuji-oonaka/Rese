@@ -50,12 +50,11 @@
                 </div>
             @endif
 
-            <form action="{{ route('review.submit') }}" method="POST" enctype="multipart/form-data">
+            <form id="review-form" action="{{ route('review.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="reservation_id" value="{{ $reservation_id }}">
                 <!-- 評価セクション -->
                 <div class="rating-section">
-                    <h3>評価</h3>
                     <div class="stars">
                         @for ($i = 5; $i >= 1; $i--)
                             <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" {{ old('rating') == $i ? 'checked' : '' }}>
@@ -84,7 +83,7 @@
                 <!-- 画像セクション -->
                 <div class="image-section">
                     <h3>画像の追加</h3>
-                    <div class="image-upload-area">
+                    <div class="image-upload-area" id="drop-area">
                         <input type="file" name="image" id="image-upload" accept="image/jpeg,image/png">
                         <div class="upload-placeholder">
                             <p>クリックして写真を追加<br>またはドラッグアンドドロップ</p>
@@ -94,11 +93,10 @@
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-                
-                <button type="submit" class="submit-btn">口コミを投稿</button>
             </form>
         </div>
     </div>
+    <button type="submit" form="review-form" class="submit-btn">口コミを投稿</button>
 </div>
 @endsection
 
@@ -142,75 +140,88 @@ imageInput.addEventListener('change', function(e) {
 
 <script>
 // お気に入りボタンのイベントハンドラ
-document.querySelectorAll('.btn-favorite').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const shopId = this.dataset.shopId;
-        const form = this.closest('form');
-        const csrfToken = form.querySelector('input[name="_token"]').value;
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.btn-favorite').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const shopId = this.dataset.shopId;
+            const form = this.closest('form');
+            const csrfToken = form.querySelector('input[name="_token"]').value;
 
-        // キラキラエフェクトを作成
-        const wrapper = button.parentNode;
-        const sparklesContainer = document.createElement('div');
-        sparklesContainer.className = 'sparkles';
-        wrapper.appendChild(sparklesContainer);
+            this.classList.add('animating');
 
-        createSparkles(sparklesContainer);
-
-        this.classList.add('animating');
-
-        fetch(form.action, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status) {
-                this.classList.add('active');
-            } else {
-                this.classList.remove('active');
-            }
-
-            setTimeout(() => {
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    this.classList.add('active');
+                } else {
+                    this.classList.remove('active');
+                }
+                setTimeout(() => {
+                    this.classList.remove('animating');
+                }, 400);
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 this.classList.remove('animating');
-            }, 400);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            this.classList.remove('animating');
+            });
         });
     });
 });
 
-// キラキラエフェクトを生成する関数
-function createSparkles(container) {
-    for (let i = 0; i < 8; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
+document.addEventListener('DOMContentLoaded', function() {
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('image-upload');
+    const previewArea = document.querySelector('.upload-placeholder');
 
-        // ランダムな位置と角度を設定
-        const angle = (i * 45) + Math.random() * 30;
-        const distance = 20 + Math.random() * 20;
-        const x = Math.cos(angle * Math.PI / 180) * distance;
-        const y = Math.sin(angle * Math.PI / 180) * distance;
+    // ドラッグ時の見た目変更
+    dropArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropArea.classList.add('dragover');
+    });
+    dropArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropArea.classList.remove('dragover');
+    });
 
-        sparkle.style.left = x + 'px';
-        sparkle.style.top = y + 'px';
-        sparkle.style.animation = `sparkle 0.8s ease-in-out forwards`;
+    // ドロップ時の処理
+    dropArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files && files[0]) {
+            fileInput.files = files; // inputにセット
+            // プレビュー表示
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewArea.innerHTML = `<img src="${e.target.result}" alt="プレビュー">`;
+                previewArea.classList.add('has-image');
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
 
-        container.appendChild(sparkle);
-
-        // アニメーション終了後に要素を削除
-        setTimeout(() => {
-            sparkle.remove();
-        }, 800);
-    }
-}
+    // 通常のinput選択時もプレビュー
+    fileInput.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewArea.innerHTML = `<img src="${e.target.result}" alt="プレビュー">`;
+                previewArea.classList.add('has-image');
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
 
 // ログインページへのリダイレクト
 function redirectToLogin() {

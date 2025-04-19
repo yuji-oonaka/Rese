@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+    <x-header-component />
     <h1>代表者一覧</h1>
     <a href="{{ route('representatives.create') }}" class="btn btn-primary">新規代表者作成</a>
 

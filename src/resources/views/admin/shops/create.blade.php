@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="shop-create">
+    <x-header-component />
     <h1 class="shop-create__title">店舗作成</h1>
 
     <!-- CSVインポートフォーム -->

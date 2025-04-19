@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="shop-list">
+    <x-header-component />
     <h1 class="shop-list__title">店舗一覧</h1>
 
     <!-- ダッシュボードへのリンク -->

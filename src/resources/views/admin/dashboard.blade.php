@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="admin-dashboard">
+    <x-header-component />
     <h1 class="admin-dashboard__title">管理者ダッシュボード</h1>
     <div class="admin-dashboard__stats">
         <div class="admin-dashboard__stat">

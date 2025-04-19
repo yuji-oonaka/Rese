@@ -96,9 +96,6 @@
                                     @endif
                                 @endfor
                                 <span class="rating-value">{{ number_format($shop->averageRating, 1) }}</span>
-                                @if($shop->reviews_count > 0)
-                                    <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="reviews-count">({{ $shop->reviews_count }})</a>
-                                @endif
                             </div>
                         </div>
                     </div>
