@@ -76,6 +76,7 @@ class Reservation extends Model
 
     public function review()
     {
-        return $this->hasOne(Review::class);
+        return $this->hasOne(Review::class, 'reservation_id', 'id')
+        ->where('user_id', auth()->id());
     }
 }

@@ -32,6 +32,7 @@
 .shop-list__btn--primary {
     background-color: #3b5ff5;
     color: white;
+    text-decoration: none;
 }
 
 .shop-list__btn--primary:hover {
@@ -41,6 +42,7 @@
 .shop-list__btn--secondary {
     background-color: #f5f7ff;
     color: #333;
+    text-decoration: none;
 }
 
 .shop-list__btn--secondary:hover {

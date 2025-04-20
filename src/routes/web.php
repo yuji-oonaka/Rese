@@ -7,6 +7,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ShopController as AdminShopController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*------------------------------------------
   公開ルート（認証不要）
@@ -14,6 +15,11 @@ use App\Http\Controllers\Admin\ShopController as AdminShopController;
 Route::get('/', [ShopController::class, 'showShopList'])->name('shop.list');
 Route::get('/detail/{shop_id}', [ShopController::class, 'showShopDetail'])->name('shop.detail');
 Route::get('/shop/{shop_id}/reviews', [ShopController::class, 'showReviews'])->name('shop.reviews');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('thanks'); // thanksページへ遷移
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 
 /*------------------------------------------
   認証済み一般ユーザー用ルート
@@ -39,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
     // レビュー関連
     Route::get('/reservation/history', [ReservationController::class, 'showHistory'])->name('reservation.history');
     Route::post('/review/submit', [ReviewController::class, 'submit'])->name('review.submit');
+    Route::get('/reviews/{reservation}/edit', [ReviewController::class, 'edit'])
+     ->name('reviews.edit');
+
     
     // レビュー機能拡張
     Route::prefix('review')->name('review.')->group(function () {
@@ -60,18 +69,30 @@ Route::middleware(['auth'])->group(function () {
 --------------------------------------------*/
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // ダッシュボード
-    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
+        ->name('admin.dashboard');
     
+    // CSVインポート（アップロード＆バリデーション）
+    Route::post('/shops/import', [AdminShopController::class, 'importCsv'])
+        ->name('shops.importCsv');
+
+    // CSVインポート確認画面
+    Route::get('/shops/import/confirm', [AdminShopController::class, 'showImportConfirm'])
+        ->name('shops.import.confirm');
+
+    // CSVインポート実行
+    Route::post('/shops/import/process', [AdminShopController::class, 'processImport'])
+        ->name('shops.import.process');
+
+    // 店舗管理（リソースルート）
+    Route::resource('shops', AdminShopController::class);
+
     // 代表者管理
     Route::resource('representatives', \App\Http\Controllers\Admin\RepresentativeController::class);
-    
-    // 店舗管理
-    Route::resource('shops', \App\Http\Controllers\Admin\ShopController::class);
-    
-    // レビュー管理（管理者は全レビューを削除可能）
-    Route::delete('/reviews/{review_id}', [\App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('reviews.destroy');
 
-    Route::post('/admin/shops/import', [ShopController::class, 'importCsv'])->name('shops.importCsv');
+    // レビュー管理
+    Route::delete('/reviews/{review}', [ReviewController::class, 'adminDestroy'])
+        ->name('admin.reviews.destroy');
 });
 
 /*------------------------------------------

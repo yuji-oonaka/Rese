@@ -103,9 +103,12 @@ class ShopController extends Controller
             ->withCount('reviews')
             ->findOrFail($shop_id);
 
-        $hasReviews = $shop->reviews_count > 0;
+        // ログインユーザーの口コミ有無チェック
+        $hasReviewed = auth()->check() 
+            ? $shop->reviews()->where('user_id', auth()->id())->exists()
+            : false;
 
-        return view('shop_detail', compact('shop'));
+        return view('shop_detail', compact('shop', 'hasReviewed'));
     }
 
     public function showReviews($shop_id)

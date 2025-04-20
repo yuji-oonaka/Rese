@@ -42,7 +42,19 @@
                             <td>{{ $reservation->date }}</td>
                             <td>{{ $reservation->time }}</td>
                             <td>{{ $reservation->number_of_people }}人</td>
-                            <td><button class="review-btn" onclick="showReviewForm({{ $reservation->id }})">評価する</button></td>
+                            <td>
+                                @if($reservation->review)
+                                    <a href="{{ route('reviews.edit', ['reservation' => $reservation->id]) }}"
+                                    class="review-btn">
+                                        評価を修正
+                                    </a>
+                                @else
+                                    <button class="review-btn"
+                                            onclick="showReviewForm({{ $reservation->id }})">
+                                        評価する
+                                    </button>
+                                @endif
+                            </td>
                             <td>
                                 @if($reservation->isValidForQrCode())
                                 <button class="qr-btn" onclick="showQRCode('{{ $reservation->qr_code_url }}')">QRコードを表示</button>

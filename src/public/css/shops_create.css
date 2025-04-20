@@ -82,6 +82,7 @@
 .shop-create__btn--primary {
     background-color: #3b5ff5;
     color: white;
+    text-decoration: none;
 }
 
 .shop-create__btn--primary:hover {
@@ -96,6 +97,21 @@
 /* ファイル入力の特別スタイル */
 input[type="file"] {
     padding: 8px;
+}
+
+.shop-create__drop-area {
+    border: 2px dashed #3b5ff5;
+    border-radius: 6px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    background: #f5f7ff;
+    transition: border-color 0.2s;
+}
+
+.shop-create__drop-area.dragover {
+    border-color: #2a4cd6;
+    background: #eaf0ff;
 }
 
 /* レスポンシブデザイン */

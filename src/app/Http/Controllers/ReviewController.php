@@ -109,7 +109,10 @@ class ReviewController extends Controller
         
         $reservation = Reservation::findOrFail($reservation_id);
         
-        return view('reviews.edit', compact('review', 'reservation'));
+        return view('reviews.edit', [
+            'review' => $review,
+            'reservation' => $review->reservation
+        ]);
     }
     
     // レビュー更新処理
@@ -167,5 +170,23 @@ class ReviewController extends Controller
         $review->delete();
         
         return redirect()->back()->with('success', 'レビューが削除されました');
+    }
+
+    // 管理者用削除メソッド
+    public function adminDestroy(Review $review)
+    {
+        // 権限チェック（管理者のみ）
+        if (!auth()->user()->hasRole('admin')) {
+            abort(403);
+        }
+
+        // 画像削除処理
+        if ($review->image_path) {
+            Storage::disk('public')->delete($review->image_path);
+        }
+
+        $review->delete();
+
+        return redirect()->back()->with('success', '管理者権限で口コミを削除しました');
     }
 }
