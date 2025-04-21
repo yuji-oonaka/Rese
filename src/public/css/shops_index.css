@@ -52,6 +52,7 @@
 .shop-list__btn--warning {
     background-color: #ffc107;
     color: white;
+    text-decoration: none;
 }
 
 .shop-list__btn--warning:hover {
@@ -142,3 +143,4 @@
     color: white;
     border-color: #007bff;
 }
+

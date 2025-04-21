@@ -34,14 +34,29 @@ class UserController extends Controller
 
     private function organizeReservations($reservations, $currentDate)
     {
-        $future_reservations = $reservations->filter(function ($reservation) use ($currentDate) {
-            return Carbon::parse($reservation->date . ' ' . $reservation->time)->gt($currentDate);
-        });
+        $future = collect();
+        $past = collect();
 
-        $past_reservations = $reservations->filter(function ($reservation) use ($currentDate) {
-            return Carbon::parse($reservation->date . ' ' . $reservation->time)->lte($currentDate);
-        });
+        foreach ($reservations as $reservation) {
+            try {
+                // 日付と時刻を厳密に結合
+                $datetime = Carbon::createFromFormat(
+                    'Y-m-d H:i:s',
+                    $reservation->date->format('Y-m-d') . ' ' . $reservation->time->format('H:i:s')
+                );
 
-        return [$future_reservations, $past_reservations];
+                if ($datetime->gt($currentDate)) {
+                    $future->push($reservation);
+                } else {
+                    $past->push($reservation);
+                }
+            } catch (\Exception $e) {
+                // エラーログに記録
+                \Log::error("予約日時パースエラー: {$reservation->id} - " . $e->getMessage());
+                continue;
+            }
+        }
+
+        return [$future, $past];
     }
 }

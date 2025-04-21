@@ -8,6 +8,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ShopController as AdminShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Admin\NoticeMailController;
 
 /*------------------------------------------
   公開ルート（認証不要）
@@ -71,21 +72,21 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // ダッシュボード
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
         ->name('admin.dashboard');
-    
-    // CSVインポート（アップロード＆バリデーション）
-    Route::post('/shops/import', [AdminShopController::class, 'importCsv'])
-        ->name('shops.importCsv');
-
-    // CSVインポート確認画面
-    Route::get('/shops/import/confirm', [AdminShopController::class, 'showImportConfirm'])
-        ->name('shops.import.confirm');
-
-    // CSVインポート実行
-    Route::post('/shops/import/process', [AdminShopController::class, 'processImport'])
-        ->name('shops.import.process');
 
     // 店舗管理（リソースルート）
     Route::resource('shops', AdminShopController::class);
+
+    // CSVインポート関連ルート（リソースルート内にグループ化）
+    Route::prefix('shops')->group(function () {
+        Route::post('/import', [AdminShopController::class, 'importCsv'])
+            ->name('shops.import'); // ルート名: shops.import
+        
+        Route::get('/import/confirm', [AdminShopController::class, 'showImportConfirm'])
+            ->name('shops.import.confirm'); // ルート名: shops.import.confirm
+        
+        Route::post('/import/process', [AdminShopController::class, 'processImport'])
+            ->name('shops.import.process'); // ルート名: shops.import.process
+    });
 
     // 代表者管理
     Route::resource('representatives', \App\Http\Controllers\Admin\RepresentativeController::class);
@@ -93,7 +94,22 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // レビュー管理
     Route::delete('/reviews/{review}', [ReviewController::class, 'adminDestroy'])
         ->name('admin.reviews.destroy');
+
+    // お知らせメール送信フォーム表示
+    Route::get('/notice-mail', [\App\Http\Controllers\Admin\NoticeMailController::class, 'showForm'])
+        ->name('admin.notice_mail.form');
+
+    // お知らせメール送信処理
+    Route::post('/notice-mail', [\App\Http\Controllers\Admin\NoticeMailController::class, 'send'])
+        ->name('admin.notice_mail.send');
+
+    // 管理者プロフィール編集
+    Route::get('/profile/edit', [\App\Http\Controllers\Admin\AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::post('/profile/update', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('admin.profile.update');
+    Route::post('/profile/password', [\App\Http\Controllers\Admin\AdminProfileController::class, 'updatePassword'])->name('admin.profile.password');
 });
+
+
 
 /*------------------------------------------
   店舗代表者用ルート（representativeミドルウェアグループ）
@@ -105,16 +121,26 @@ Route::prefix('representative')
         // ダッシュボード
         Route::get('/dashboard', [\App\Http\Controllers\Representative\DashboardController::class, 'index'])
             ->name('dashboard');
-        
+
         // 店舗管理（ルート名: representative.shops.edit になる）
         Route::resource('shops', \App\Http\Controllers\Representative\ShopController::class)
             ->only(['edit', 'update']);
-        
+
         // 予約管理
         Route::get('/reservations', [\App\Http\Controllers\Representative\ReservationController::class, 'index'])
             ->name('reservations');
-            
+
         // 店舗レビュー確認（閲覧のみ）
         Route::get('/shop/{shop_id}/reviews', [\App\Http\Controllers\Representative\ReviewController::class, 'index'])
             ->name('shop.reviews');
+
+        Route::get('/password/edit', [\App\Http\Controllers\Representative\ProfileController::class, 'editPassword'])->name('password.edit');
+        Route::post('/password/update', [\App\Http\Controllers\Representative\ProfileController::class, 'updatePassword'])->name('password.update');
+
+        // 予約確認
+        Route::get('/reservations', [\App\Http\Controllers\Representative\ReservationController::class, 'index'])
+            ->name('reservations.index');
+        // 予約詳細
+        Route::get('/reservations/{reservation}', [\App\Http\Controllers\Representative\ReservationController::class, 'show'])
+            ->name('reservations.show');
     });

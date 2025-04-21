@@ -64,24 +64,25 @@ class ShopController extends Controller
         $genres = Genre::all();
         $representatives = User::role('representative')->get();
         
+        if ($representatives->isEmpty()) {
+            return redirect()->route('representatives.create')
+                ->with('info', '店舗に紐づける代表者がいません。まず代表者を作成してください。');
+        }
+        
         return view('admin.shops.edit', compact('shop', 'areas', 'genres', 'representatives'));
     }
 
     public function update(Request $request, Shop $shop)
     {
-        // 店舗情報を更新
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:50',
-            'area_id' => 'required|exists:areas,id',
-            'genre_id' => 'required|exists:genres,id',
-            'description' => 'required|string|max:400',
-            'image_url' => 'required|url|regex:/\.(jpg|jpeg|png)$/i',
-            'representative_id' => 'nullable|exists:users,id',
+        $validated = $request->validate([
+            'representative_id' => 'required|exists:users,id',
         ]);
 
-        $shop->update($validatedData);
+        $shop->update([
+            'representative_id' => $validated['representative_id'],
+        ]);
 
-        return redirect()->route('shops.index')->with('success', '店舗情報が更新されました');
+        return redirect()->route('shops.index')->with('success', '代表者が変更されました');
     }
 
     public function destroy(Shop $shop)

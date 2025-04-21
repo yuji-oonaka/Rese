@@ -12,7 +12,7 @@
     <h1 class="shop-create__title">店舗作成</h1>
 
     {{-- CSVインポートフォーム --}}
-    <form method="POST" action="{{ route('shops.importCsv') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import">
+    <form method="POST" action="{{ route('shops.import') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import">
         @csrf
         <div class="shop-create__form-group">
             <label class="shop-create__label">CSVファイルを選択</label>

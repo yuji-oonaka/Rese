@@ -30,7 +30,19 @@
         <!-- 店舗作成ページへのリンク -->
         <a href="{{ route('shops.create') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">新しい店舗を作成する</a>
 
+        <!-- 代表者作成ページへのリンク（追加） -->
+        <a href="{{ route('representatives.create') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">代表者を作成する</a>
+
         <a href="{{ route('shops.index') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">店舗一覧へ</a>
+
+        <!-- 代表者一覧ページへのリンク（追加） -->
+        <a href="{{ route('representatives.index') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">代表者一覧へ</a>
+
+        <!-- 管理者情報編集ページへのリンク -->
+        <a href="{{ route('admin.profile.edit') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">管理者情報の編集</a>
+
+        <!-- お知らせメール送信フォームへのリンク -->
+        <a href="{{ route('admin.notice_mail.form') }}" class="admin-dashboard__btn admin-dashboard__btn--primary">お知らせメール送信</a>
 
         <!-- Topページへのリンク -->
         <a href="{{ route('shop.list') }}" class="admin-dashboard__btn admin-dashboard__btn--secondary">Topページへ戻る</a>

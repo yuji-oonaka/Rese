@@ -46,6 +46,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Shop::class, 'favorites');
     }
 
+    // 修正：一対多関係に変更
+    public function managedShops()
+    {
+        return $this->hasMany(Shop::class, 'representative_id');
+    }
+
+    // 後方互換性のために維持（推奨）
     public function managedShop()
     {
         return $this->hasOne(Shop::class, 'representative_id');

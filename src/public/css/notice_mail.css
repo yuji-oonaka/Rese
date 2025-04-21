@@ -1,0 +1,98 @@
+/* notice-mail.css */
+.notice-mail {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.notice-mail__title {
+    font-size: 2rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.notice-mail__form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.notice-mail__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notice-mail__label {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 1.1rem;
+}
+
+.notice-mail__input,
+.notice-mail__textarea {
+    padding: 12px 15px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.notice-mail__input:focus,
+.notice-mail__textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.notice-mail__textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.notice-mail__button {
+    align-self: flex-end;
+    padding: 12px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.notice-mail__button:hover {
+    background: #2980b9;
+}
+
+/* アラートメッセージ */
+.notice-mail__alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.notice-mail__alert--success {
+    background: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .notice-mail {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .notice-mail__title {
+        font-size: 1.75rem;
+    }
+}

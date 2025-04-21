@@ -50,11 +50,11 @@
                         </tr>
                         <tr>
                             <th>Date</th>
-                            <td>{{ $reservation->date }}</td>
+                            <td>{{ $reservation->formatted_date }}</td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>{{ $reservation->time }}</td>
+                            <td>{{ $reservation->formatted_time }}</td>
                         </tr>
                         <tr>
                             <th>Number</th>

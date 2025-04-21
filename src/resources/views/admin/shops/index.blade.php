@@ -41,11 +41,11 @@
                             <td class="shop-list__table-cell">{{ $shop->genre->name }}</td>
                             <td class="shop-list__table-cell">{{ $shop->representative->name ?? '未設定' }}</td>
                             <td class="shop-list__actions-cell">
-                                <a href="{{ route('shops.edit', $shop) }}" class="shop-list__btn shop-list__btn--warning">編集</a>
+                                <a href="{{ route('shops.edit', $shop) }}" class="shop-list__btn shop-list__btn--warning">代表者の変更</a>
                                 <form action="{{ route('shops.destroy', $shop) }}" method="POST" class="shop-list__form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="shop-list__btn shop-list__btn--danger" onclick="return confirm('本当に削除しますか？')">削除</button>
+                                    <button type="submit" class="shop-list__btn shop-list__btn--danger" onclick="return confirm('本当に削除しますか？')">店舗の削除</button>
                                 </form>
                             </td>
                         </tr>
