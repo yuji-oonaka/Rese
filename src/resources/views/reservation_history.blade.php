@@ -39,8 +39,8 @@
                         <tr>
                             <td>予約{{ $total_count - ($past_reservations->perPage() * ($past_reservations->currentPage() - 1) + $loop->index) }}</td>
                             <td>{{ $reservation->shop ? $reservation->shop->name : 'なし' }}</td>
-                            <td>{{ $reservation->date }}</td>
-                            <td>{{ $reservation->time }}</td>
+                            <td>{{ $reservation->formatted_date }}</td>
+                            <td>{{ $reservation->formatted_time }}</td>
                             <td>{{ $reservation->number_of_people }}人</td>
                             <td>
                                 @if($reservation->review)

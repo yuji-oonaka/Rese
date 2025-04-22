@@ -80,7 +80,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn-favorite" onclick="redirectToLogin()">
+                                    <button type="button" class="btn-favorite" onclick="requireLogin()">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
                                 @endauth
@@ -110,4 +110,9 @@
 @endsection
 @section('js')
 <script src="{{ asset('js/shop_list.js') }}"></script>
+<script>
+function requireLogin() {
+    window.location.href = '{{ route('login') }}';
+}
+</script>
 @endsection
