@@ -39,6 +39,7 @@
     border: none;
     padding: 10px;
     border-radius: 5px;
+    font-size: 14px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -130,19 +131,6 @@ textarea {
     margin-top: 15px;
 }
 
-.review-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.review-btn:hover {
-    background-color: #2980b9;
-}
-
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -162,6 +150,11 @@ textarea {
     right: 20px;
     z-index: 1000;
     animation: fadeInOut 5s ease-in-out;
+}
+
+.alert-danger {
+    color: #f44336;
+    font-size: 14px;
 }
 
 @keyframes fadeInOut {

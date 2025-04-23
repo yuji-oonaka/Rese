@@ -68,3 +68,19 @@ function createSparkles(container) {
         }, 800);
     }
 }
+
+document.getElementById('sort-filter').addEventListener('change', function() {
+    const form = document.getElementById('search-form');
+    
+    // ランダム選択時にタイムスタンプを追加
+    if (this.value === 'random') {
+        const timestamp = new Date().getTime();
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'random_seed';
+        input.value = timestamp;
+        form.appendChild(input);
+    }
+    
+    form.submit();
+});

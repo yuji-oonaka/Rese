@@ -47,9 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservation/history', [ReservationController::class, 'showHistory'])->name('reservation.history');
     Route::post('/review/submit', [ReviewController::class, 'submit'])->name('review.submit');
     Route::get('/reviews/{reservation}/edit', [ReviewController::class, 'edit'])
-     ->name('reviews.edit');
+    ->name('reviews.edit');
 
-    
+
     // レビュー機能拡張
     Route::prefix('review')->name('review.')->group(function () {
         // レビュー作成フォーム表示

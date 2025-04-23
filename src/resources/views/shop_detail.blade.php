@@ -25,7 +25,7 @@
         </a>
 
         @auth
-            @if(!$hasReviewed)
+            @if ($canPostReview)
                 <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">
                     口コミを投稿する
                 </a>
@@ -38,8 +38,6 @@
             </div>
         @endif
     </div>
-
-
     <div class="shop-detail__right">
         <h3 class="shop-detail__reservation-title">予約</h3>
 

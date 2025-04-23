@@ -61,10 +61,10 @@
                             <label for="star{{ $i }}">★</label>
                         @endfor
                     </div>
-                    @error('rating')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
+                @error('rating')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
 
                 <!-- コメントセクション -->
                 <div class="comment-section">

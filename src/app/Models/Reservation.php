@@ -93,9 +93,8 @@ class Reservation extends Model
     {
         return [
             'date' => 'date:Y-m-d',
-            'time' => 'datetime:H:i:s',
-            'number_of_people',
-            // その他のキャスト定義...
+            'time' => 'datetime:H:i',
+            'number_of_people' => 'integer',
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -98,19 +99,34 @@ class ShopController extends Controller
 
     public function showShopDetail($shop_id)
     {
-        $shop = Shop::with(['area', 'genre', 'reviews.user'])
-            ->withAvg('reviews', 'rating')
-            ->withCount('reviews')
-            ->findOrFail($shop_id);
+        $shop = Shop::with(['area', 'genre', 'reviews.user'])->findOrFail($shop_id);
+        $user = auth()->user();
 
-        // ログインユーザーの口コミ有無チェック
-        $hasReviewed = auth()->check() 
-            ? $shop->reviews()->where('user_id', auth()->id())->exists()
-            : false;
+        $canPostReview = false;
+        $hasReviewed = false;
 
-        return view('shop_detail', compact('shop', 'hasReviewed'));
+        if ($user) {
+            // 予約済みかつ来店済みか
+            $hasValidReservation = Reservation::where('user_id', $user->id)
+                ->where('shop_id', $shop_id)
+                ->where(function($query) {
+                    $query->where('date', '<', now()->toDateString())
+                        ->orWhere(function($q) {
+                            $q->where('date', now()->toDateString())
+                                ->where('time', '<', now()->toTimeString());
+                        });
+                })
+                ->exists();
+
+            // 既にレビューしているか
+            $hasReviewed = $shop->reviews()->where('user_id', $user->id)->exists();
+
+            // 口コミ投稿可能条件
+            $canPostReview = $hasValidReservation && !$hasReviewed;
+        }
+
+        return view('shop_detail', compact('shop', 'canPostReview', 'hasReviewed'));
     }
-
     public function showReviews($shop_id)
     {
         $shop = Shop::with(['reviews.user'])->findOrFail($shop_id);
