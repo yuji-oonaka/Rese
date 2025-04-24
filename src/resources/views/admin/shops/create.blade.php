@@ -12,57 +12,78 @@
     <h1 class="shop-create__title">店舗作成</h1>
 
     {{-- CSVインポートフォーム --}}
-    <form method="POST" action="{{ route('shops.import') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import">
+    <form method="POST" action="{{ route('shops.import') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import" novalidate>
         @csrf
         <div class="shop-create__form-group">
             <label class="shop-create__label">CSVファイルを選択</label>
             <input type="file" name="csv_file" class="shop-create__input" required>
+            @error('csv_file')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
+
+        {{-- CSV内容のエラーメッセージ --}}
         @if(session('import_errors'))
             <div class="alert alert-danger mt-2">
-                <ul>
+                <h4 class="alert-heading">CSV内容のエラー</h4>
+                <ul class="mb-0">
                     @foreach(session('import_errors') as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
+
+        {{-- その他のエラーメッセージ --}}
         @if(session('error'))
             <div class="alert alert-danger mt-2">
                 {{ session('error') }}
             </div>
         @endif
+
         <button type="submit" class="shop-create__btn shop-create__btn--primary">CSVインポート</button>
     </form>
 
     <hr class="shop-create__divider">
 
     {{-- 手動入力フォーム --}}
-    <form method="POST" action="{{ route('shops.store') }}" class="shop-create__form shop-create__form--manual" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('shops.store') }}" class="shop-create__form shop-create__form--manual" enctype="multipart/form-data" novalidate>
         @csrf
         <div class="shop-create__form-group">
             <label class="shop-create__label">店舗名</label>
-            <input type="text" name="name" class="shop-create__input" required>
+            <input type="text" name="name" class="shop-create__input" value="{{ old('name') }}" required>
+            @error('name')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="shop-create__form-group">
             <label class="shop-create__label">エリア</label>
             <select name="area_id" class="shop-create__input shop-create__select" required>
                 @foreach($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                    <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
                 @endforeach
             </select>
+            @error('area_id')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="shop-create__form-group">
             <label class="shop-create__label">ジャンル</label>
             <select name="genre_id" class="shop-create__input shop-create__select" required>
                 @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
                 @endforeach
             </select>
+            @error('genre_id')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="shop-create__form-group">
             <label class="shop-create__label">説明</label>
-            <textarea name="description" class="shop-create__input shop-create__textarea" rows="3" required></textarea>
+            <textarea name="description" class="shop-create__input shop-create__textarea" rows="3" required>{{ old('description') }}</textarea>
+            @error('description')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="shop-create__form-group">
             <label class="shop-create__label">画像アップロード</label>

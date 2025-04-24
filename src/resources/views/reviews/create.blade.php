@@ -19,22 +19,25 @@
                 <div class="shop-details">
                     <h3>{{ $shop->name }}</h3>
                     <p>#{{ $shop->area->name }} #{{ $shop->genre->name }}</p>
-                    <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="details-btn">詳しく見る</a>
-                    @auth
-                        <form action="{{ route('shop.favorite', ['shop' => $shop->id]) }}" method="POST" class="favorite-form">
-                            @csrf
-                            <button type="button" class="btn-favorite {{ auth()->user()->favorites()->where('shop_id', $shop->id)->exists() ? 'active' : '' }}" data-shop-id="{{ $shop->id }}">
+                    <div class="actions">
+                        <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="btn-detail">詳しくみる</a>
+                        @auth
+                            <form action="{{ route('shop.favorite', ['shop' => $shop->id]) }}" method="POST" class="favorite-form">
+                                @csrf
+                                <button type="button" class="btn-favorite {{ auth()->user()->favorites()->where('shop_id', $shop->id)->exists() ? 'active' : '' }}" data-shop-id="{{ $shop->id }}">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </form>
+                        @else
+                            <button type="button" class="btn-favorite" onclick="redirectToLogin()">
                                 <i class="fa-solid fa-heart"></i>
                             </button>
-                        </form>
-                    @else
-                        <button type="button" class="btn-favorite" onclick="redirectToLogin()">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
-                    @endauth
+                        @endauth
+                    </div>
                 </div>
             </div>
         </div>
+
         
         <div class="review-form">
             <h2>体験を評価してください</h2>

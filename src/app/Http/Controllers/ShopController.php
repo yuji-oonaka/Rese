@@ -82,7 +82,7 @@ class ShopController extends Controller
         }
 
         // 結果取得とページネーション
-        $shops = $query->paginate(12);
+        $shops = $query->get();
 
         $shops->each(function ($shop) {
             $shop->averageRating = $shop->reviews_avg_rating ?? 0;

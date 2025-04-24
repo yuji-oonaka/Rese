@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -125,7 +126,7 @@ class ReviewController extends Controller
         return view('reviews.edit', compact('review', 'reservation'));
     }
 
-    public function update(Request $request, $reservation_id)
+    public function update(UpdateReviewRequest $request, $reservation_id)
     {
         if ($permissionResponse = $this->checkPermissions()) {
             return $permissionResponse;
@@ -137,32 +138,34 @@ class ReviewController extends Controller
             return redirect()->back()->with('error', '自分のレビューのみ編集できます');
         }
 
-        $validator = Validator::make($request->all(), [
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:400',
-            'image' => 'nullable|image|mimes:jpeg,png|max:2048',
-        ]);
+        try {
+            $validated = $request->validated(); // バリデーション済みデータ取得
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // 画像処理
-        if ($request->hasFile('image')) {
-            if ($review->image_path) {
-                Storage::disk('public')->delete($review->image_path);
+            // 画像処理（既存ロジック維持）
+            if ($request->hasFile('image')) {
+                if ($review->image_path) {
+                    Storage::disk('public')->delete($review->image_path);
+                }
+                $imagePath = $request->file('image')->store('reviews', 'public');
+                $review->image_path = $imagePath;
             }
-            $imagePath = $request->file('image')->store('reviews', 'public');
-            $review->image_path = $imagePath;
+
+            // 更新処理（既存ロジック維持）
+            $review->update([
+                'rating' => $validated['rating'],
+                'comment' => $validated['comment']
+            ]);
+
+            return redirect()->route('reservation.history')
+                ->with('success', 'レビューが更新されました');
+
+        } catch (\Exception $e) {
+            \Log::error('更新エラー: '.$e->getMessage());
+            return redirect()->back()
+                ->with('error', '更新に失敗しました');
         }
-
-        $review->rating = $request->rating;
-        $review->comment = $request->comment;
-        $review->save();
-
-        return redirect()->route('reservation.history')->with('success', 'レビューが更新されました');
     }
-    
+
     public function destroy($reservation_id)
     {
         if ($permissionResponse = $this->checkPermissions()) {

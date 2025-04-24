@@ -10,6 +10,11 @@
 <div class="shop-list">
     <x-header-component />
     <h1 class="shop-list__title">店舗一覧</h1>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <!-- ダッシュボードへのリンク -->
     <div class="shop-list__actions">
@@ -61,3 +66,19 @@
     @endif
 </div>
 @endsection
+
+@section('js')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alert = document.querySelector('.alert-success');
+    if (alert) {
+        setTimeout(() => {
+            alert.style.transition = 'opacity 0.7s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 700);
+        }, 3000);
+    }
+});
+</script>
+@endsection
+

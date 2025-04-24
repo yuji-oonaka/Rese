@@ -11,6 +11,8 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Http\Requests\Admin\StoreShopRequest;
+use App\Http\Requests\Admin\CsvImportFormRequest;
 use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
@@ -33,16 +35,9 @@ class ShopController extends Controller
         return view('admin.shops.create', compact('areas', 'genres', 'representatives'));
     }
 
-    public function store(Request $request)
+    public function store(StoreShopRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:50',
-            'area_id' => 'required|exists:areas,id',
-            'genre_id' => 'required|exists:genres,id',
-            'description' => 'required|string|max:400',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'representative_id' => 'nullable|exists:users,id',
-        ]);
+        $validatedData = $request->validated();
 
         // 画像ファイルの保存
         if ($request->hasFile('image')) {
@@ -50,7 +45,7 @@ class ShopController extends Controller
             $validatedData['image_url'] = asset('storage/' . $path);
         }
 
-        unset($validatedData['image']); // image_urlに変換したのでimageは削除
+        unset($validatedData['image']);
 
         Shop::create($validatedData);
 
@@ -63,12 +58,12 @@ class ShopController extends Controller
         $areas = Area::all();
         $genres = Genre::all();
         $representatives = User::role('representative')->get();
-        
+
         if ($representatives->isEmpty()) {
             return redirect()->route('representatives.create')
                 ->with('info', '店舗に紐づける代表者がいません。まず代表者を作成してください。');
         }
-        
+
         return view('admin.shops.edit', compact('shop', 'areas', 'genres', 'representatives'));
     }
 
@@ -92,7 +87,7 @@ class ShopController extends Controller
         return redirect()->route('shops.index')->with('success', '店舗が削除されました');
     }
 
-    public function importCsv(Request $request)
+    public function importCsv(CsvImportFormRequest $request)
     {
         // ファイルのバリデーション
         $validator = Validator::make($request->all(), [
@@ -123,7 +118,7 @@ class ShopController extends Controller
         foreach ($csvData as $lineNumber => $line) {
             $rowNumber = $lineNumber + 2;
             $row = str_getcsv(trim($line));
-            
+
             // 列数チェック
             if (count($row) !== count($header)) {
                 $errors[] = "行{$rowNumber}: 列数が一致しません";
@@ -144,7 +139,17 @@ class ShopController extends Controller
                     'regex:/\.(jpe?g|png)$/i',
                 ],
             ], [
-                '画像URL.regex' => '対応形式: jpg/jpeg/png'
+                '店舗名.required' => '店舗名は必須です。',
+                '店舗名.max' => '店舗名は50文字以内で入力してください。',
+                '地域.required' => '地域は必須です。',
+                '地域.in' => '地域は「東京都」「大阪府」「福岡県」から選択してください。',
+                'ジャンル.required' => 'ジャンルは必須です。',
+                'ジャンル.in' => 'ジャンルは「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」から選択してください。',
+                '店舗概要.required' => '店舗概要は必須です。',
+                '店舗概要.max' => '店舗概要は400文字以内で入力してください。',
+                '画像URL.required' => '画像URLは必須です。',
+                '画像URL.url' => '画像URLが正しくありません。',
+                '画像URL.regex' => '画像URLはjpg/jpeg/png形式で指定してください。',
             ]);
 
             if ($validator->fails()) {
