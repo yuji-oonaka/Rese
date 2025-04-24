@@ -1,0 +1,84 @@
+.shop-edit {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(59, 95, 245, 0.05);
+}
+
+.shop-edit__title {
+    font-size: 26px;
+    color: #3b5ff5;
+    margin-bottom: 28px;
+    border-bottom: 2px solid #3b5ff5;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.shop-edit__form-group {
+    margin-bottom: 22px;
+}
+
+.shop-edit__label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.shop-edit__input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.2s;
+}
+
+.shop-edit__input:focus {
+    border-color: #3b5ff5;
+    outline: none;
+    background: #f5f7ff;
+}
+
+.shop-edit__error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.shop-edit__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.shop-edit__button {
+    background-color: #3b5ff5;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.shop-edit__button--secondary {
+    background-color: #f5f7ff;
+    color: #333;
+}
+
+.shop-edit__button:hover {
+    background-color: #2a4cd6;
+}
+
+.shop-edit__button--secondary:hover {
+    background-color: #e4e9f7;
+    color: #222;
+}

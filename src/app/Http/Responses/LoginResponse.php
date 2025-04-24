@@ -8,6 +8,7 @@ class LoginResponse implements LoginResponseContract
 {
     public function toResponse($request)
     {
-        return redirect()->route('mypage');
+        return redirect()->route('mypage')
+        ->with('success', 'ログインしました');
     }
 }

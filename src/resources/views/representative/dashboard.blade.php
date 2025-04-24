@@ -24,6 +24,10 @@
         <a href="{{ route('representative.shops.edit', $shop) }}" class="representative-dashboard__btn representative-dashboard__btn--primary">
             店舗情報を編集
         </a>
+        <a href="{{ route('representative.reservations.index') }}" class="representative-dashboard__btn representative-dashboard__btn--primary">
+            予約状況を確認
+        </a>
+        <a href="{{ route('representative.password.edit') }}" class="representative-dashboard__btn representative-dashboard__btn--primary">パスワード変更</a>
         <a href="{{ route('shop.list') }}" class="representative-dashboard__btn representative-dashboard__btn--secondary">Topページへ戻る</a>
     </div>
 </div>

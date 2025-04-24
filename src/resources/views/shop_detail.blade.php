@@ -20,17 +20,24 @@
         <p class="shop-detail__description">{{ $shop->description }}</p>
 
         <!-- 口コミボタン -->
-        @if($shop->reviews_count > 0)
-            <!-- 口コミがある場合 -->
-            <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="shop-detail__all-reviews-btn" id="review-button">全ての口コミ情報</a>
-        @else
-            <!-- 口コミがない場合 -->
-            @auth
-                <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">口コミを投稿する</a>
-            @endauth
+        <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="shop-detail__all-reviews-btn" id="review-button">
+            全ての口コミ情報
+        </a>
+
+        @auth
+            @if ($canPostReview)
+                <a href="{{ route('review.create', ['shop_id' => $shop->id]) }}" class="shop-detail__review-link">
+                    口コミを投稿する
+                </a>
+            @endif
+        @endauth
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
     </div>
-
     <div class="shop-detail__right">
         <h3 class="shop-detail__reservation-title">予約</h3>
 

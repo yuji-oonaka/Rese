@@ -26,6 +26,8 @@
 
 .shop-create__input {
     width: 100%;
+    box-sizing: border-box;
+    display: block;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -42,8 +44,11 @@
 .shop-create__select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 12px center;
     padding-right: 30px;
 }
 
@@ -82,6 +87,7 @@
 .shop-create__btn--primary {
     background-color: #3b5ff5;
     color: white;
+    text-decoration: none;
 }
 
 .shop-create__btn--primary:hover {
@@ -93,19 +99,124 @@
     margin-top: 30px;
 }
 
-/* ファイル入力の特別スタイル */
-input[type="file"] {
-    padding: 8px;
+.shop-create__drop-area {
+    border: 2px dashed #3b5ff5;
+    border-radius: 6px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    background: #f5f7ff;
+    transition: border-color 0.2s;
 }
 
-/* レスポンシブデザイン */
+.shop-create__drop-area.dragover {
+    border-color: #2a4cd6;
+    background: #eaf0ff;
+}
+
+.error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 16px;
+}
+
 @media (max-width: 768px) {
     .shop-create {
-        padding: 15px;
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .shop-create__title {
+        font-size: 20px;
+        padding-bottom: 8px;
+    }
+
+    .shop-create__form--csv-import {
+        padding: 12px;
+    }
+
+    .shop-create__divider {
+        margin: 20px 0;
+    }
+
+    .shop-create__form-group {
+        margin-bottom: 14px;
+    }
+
+    .shop-create__label {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .shop-create__input,
+    .shop-create__select,
+    .shop-create__textarea {
+        font-size: 15px;
+        padding: 8px;
+    }
+
+    .shop-create__drop-area {
+        padding: 16px;
+        font-size: 14px;
     }
 
     .shop-create__btn {
         width: 100%;
         margin-bottom: 10px;
+        font-size: 15px;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .shop-create {
+        padding: 4px;
+    }
+
+    .shop-create__title {
+        font-size: 18px;
+        padding-bottom: 6px;
+    }
+
+    .shop-create__form--csv-import {
+        padding: 8px;
+    }
+
+    .shop-create__divider {
+        margin: 14px 0;
+    }
+
+    .shop-create__form-group {
+        margin-bottom: 10px;
+    }
+
+    .shop-create__label {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .shop-create__input,
+    .shop-create__select,
+    .shop-create__textarea {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .shop-create__drop-area {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .shop-create__btn {
+        font-size: 14px;
+        padding: 8px 0;
     }
 }

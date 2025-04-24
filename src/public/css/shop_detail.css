@@ -141,3 +141,8 @@
     text-decoration: none;
     margin: 20px 0;
 }
+
+.alert-danger {
+    color: #f44336;
+    font-size: 14px;
+}

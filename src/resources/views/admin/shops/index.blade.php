@@ -8,7 +8,13 @@
 
 @section('content')
 <div class="shop-list">
+    <x-header-component />
     <h1 class="shop-list__title">店舗一覧</h1>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <!-- ダッシュボードへのリンク -->
     <div class="shop-list__actions">
@@ -40,11 +46,11 @@
                             <td class="shop-list__table-cell">{{ $shop->genre->name }}</td>
                             <td class="shop-list__table-cell">{{ $shop->representative->name ?? '未設定' }}</td>
                             <td class="shop-list__actions-cell">
-                                <a href="{{ route('shops.edit', $shop) }}" class="shop-list__btn shop-list__btn--warning">編集</a>
+                                <a href="{{ route('shops.edit', $shop) }}" class="shop-list__btn shop-list__btn--warning">代表者の変更</a>
                                 <form action="{{ route('shops.destroy', $shop) }}" method="POST" class="shop-list__form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="shop-list__btn shop-list__btn--danger" onclick="return confirm('本当に削除しますか？')">削除</button>
+                                    <button type="submit" class="shop-list__btn shop-list__btn--danger" onclick="return confirm('本当に削除しますか？')">店舗の削除</button>
                                 </form>
                             </td>
                         </tr>
@@ -60,3 +66,19 @@
     @endif
 </div>
 @endsection
+
+@section('js')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alert = document.querySelector('.alert-success');
+    if (alert) {
+        setTimeout(() => {
+            alert.style.transition = 'opacity 0.7s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 700);
+        }, 3000);
+    }
+});
+</script>
+@endsection
+

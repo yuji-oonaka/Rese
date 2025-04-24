@@ -76,6 +76,25 @@ class Reservation extends Model
 
     public function review()
     {
-        return $this->hasOne(Review::class);
+        return $this->hasOne(Review::class, 'reservation_id', 'id')
+        ->where('user_id', auth()->id());
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return \Carbon\Carbon::parse($this->date)->format('Y-m-d');
+    }
+    public function getFormattedTimeAttribute()
+    {
+        return \Carbon\Carbon::parse($this->time)->format('H:i');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date:Y-m-d',
+            'time' => 'datetime:H:i',
+            'number_of_people' => 'integer',
+        ];
     }
 }

@@ -18,6 +18,11 @@
         {{ session('success') }}
     </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
         @if($past_reservations->isEmpty())
             <p>予約履歴はありません。</p>
         @else
@@ -38,11 +43,31 @@
                     @foreach($past_reservations as $index => $reservation)
                         <tr>
                             <td>予約{{ $total_count - ($past_reservations->perPage() * ($past_reservations->currentPage() - 1) + $loop->index) }}</td>
-                            <td>{{ $reservation->shop ? $reservation->shop->name : 'なし' }}</td>
-                            <td>{{ $reservation->date }}</td>
-                            <td>{{ $reservation->time }}</td>
+                            <td>
+                                @if($reservation->shop)
+                                    <a href="{{ route('shop.detail', ['shop_id' => $reservation->shop->id]) }}">
+                                        {{ $reservation->shop->name }}
+                                    </a>
+                                @else
+                                    なし
+                                @endif
+                            </td>
+                            <td>{{ $reservation->formatted_date }}</td>
+                            <td>{{ $reservation->formatted_time }}</td>
                             <td>{{ $reservation->number_of_people }}人</td>
-                            <td><button class="review-btn" onclick="showReviewForm({{ $reservation->id }})">評価する</button></td>
+                            <td>
+                                @if($reservation->review)
+                                    <a href="{{ route('reviews.edit', ['reservation' => $reservation->id]) }}"
+                                    class="review-btn">
+                                        評価を修正
+                                    </a>
+                                @else
+                                    <button class="review-btn"
+                                            onclick="showReviewForm({{ $reservation->id }})">
+                                        評価する
+                                    </button>
+                                @endif
+                            </td>
                             <td>
                                 @if($reservation->isValidForQrCode())
                                 <button class="qr-btn" onclick="showQRCode('{{ $reservation->qr_code_url }}')">QRコードを表示</button>

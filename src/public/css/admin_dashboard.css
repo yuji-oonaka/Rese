@@ -73,14 +73,11 @@
 
 .admin-dashboard__btn--secondary {
     background-color: #f5f7ff;
-    /* 薄い背景色 */
     color: #333;
-    /* テキスト色 */
 }
 
 .admin-dashboard__btn--secondary:hover {
     background-color: #e4e9f7;
-    /* 少し濃い背景色 */
 }
 
 /* レスポンシブデザイン */

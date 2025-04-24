@@ -14,7 +14,8 @@
             <div class="filter-container">
                 <div class="filter">
                     <select name="sort" id="sort-filter" onchange="this.form.submit()">
-                        <option value="random" {{ request('sort') == 'random' || !request('sort') ? 'selected' : '' }}>並び替え：ランダム</option>
+                        <option value="" disabled selected>並び替え：選択してください</option>
+                        <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
                         <option value="rating_high" {{ request('sort') == 'rating_high' ? 'selected' : '' }}>評価が高い順</option>
                         <option value="rating_low" {{ request('sort') == 'rating_low' ? 'selected' : '' }}>評価が低い順</option>
                     </select>
@@ -41,7 +42,7 @@
             </div>
         </form>
     </div>
-    
+
     @if($isSearched || request('sort'))
         @if($shops->isEmpty())
             <div class="alert alert-info">
@@ -53,8 +54,9 @@
                     検索情報： "評価の高い順"
                 @elseif(request('sort') == 'rating_low')
                     検索情報： "評価の低い順"
+                @elseif(request('sort') == 'random' || !request('sort'))
+                    検索情報： "ランダム"
                 @endif
-                {{ $shops->total() }}件の検索結果が見つかりました。
             </div>
         @endif
     @endif
@@ -80,7 +82,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn-favorite" onclick="redirectToLogin()">
+                                    <button type="button" class="btn-favorite" onclick="requireLogin()">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
                                 @endauth
@@ -96,22 +98,20 @@
                                     @endif
                                 @endfor
                                 <span class="rating-value">{{ number_format($shop->averageRating, 1) }}</span>
-                                @if($shop->reviews_count > 0)
-                                    <a href="{{ route('shop.reviews', ['shop_id' => $shop->id]) }}" class="reviews-count">({{ $shop->reviews_count }})</a>
-                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-        <div class="pagination">
-            {{ $shops->appends(request()->query())->links() }}
-        </div>
     @endif
 </div>
 @endsection
-
 @section('js')
 <script src="{{ asset('js/shop_list.js') }}"></script>
+<script>
+function requireLogin() {
+    window.location.href = '{{ route('login') }}';
+}
+</script>
 @endsection

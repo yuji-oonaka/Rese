@@ -1,0 +1,200 @@
+.csv-import-confirm {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.csv-import-confirm__title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.csv-import-confirm__alert {
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.csv-import-confirm__alert--danger {
+    background: #ffeaea;
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+}
+
+.csv-import-confirm__alert--info {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+}
+
+.csv-import-confirm__alert--warning {
+    background: #fff8e1;
+    color: #fbc02d;
+    border: 1px solid #fbc02d;
+}
+
+.csv-import-confirm__error-list {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.csv-import-confirm__table-wrap {
+    overflow-x: auto;
+    margin-bottom: 32px;
+}
+
+.csv-import-confirm__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fafbfc;
+}
+
+.csv-import-confirm__th,
+.csv-import-confirm__cell {
+    padding: 12px 10px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.csv-import-confirm__th {
+    background: #1976d2;
+    color: #fff;
+    font-weight: bold;
+}
+
+.csv-import-confirm__image {
+    max-width: 100px;
+    max-height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.csv-import-confirm__form {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.csv-import-confirm__btn {
+    padding: 10px 32px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+}
+
+.csv-import-confirm__btn--primary {
+    background: #1976d2;
+    color: #fff;
+}
+
+.csv-import-confirm__btn--primary:hover {
+    background: #1565c0;
+}
+
+.csv-import-confirm__btn--secondary {
+    background: #bdbdbd;
+    color: #fff;
+}
+
+.csv-import-confirm__btn--secondary:hover {
+    background: #757575;
+}
+
+@media (max-width: 900px) {
+    .csv-import-confirm {
+        padding: 24px 16px;
+        margin: 24px 12px;
+    }
+
+    .csv-import-confirm__title {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+
+    .csv-import-confirm__alert {
+        font-size: 0.9rem;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+    }
+
+    .csv-import-confirm__table-wrap {
+        margin-bottom: 24px;
+    }
+
+    .csv-import-confirm__table {
+        font-size: 0.9rem;
+    }
+
+    .csv-import-confirm__th,
+    .csv-import-confirm__cell {
+        padding: 8px 6px;
+    }
+
+    .csv-import-confirm__image {
+        max-width: 80px;
+        max-height: 48px;
+    }
+
+    .csv-import-confirm__form {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .csv-import-confirm__btn {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .csv-import-confirm {
+        padding: 16px 12px;
+        margin: 16px 8px;
+    }
+
+    .csv-import-confirm__title {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+
+    .csv-import-confirm__alert {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+        margin-bottom: 16px;
+    }
+
+    .csv-import-confirm__table {
+        font-size: 0.8rem;
+    }
+
+    .csv-import-confirm__th,
+    .csv-import-confirm__cell {
+        padding: 6px 4px;
+    }
+
+    .csv-import-confirm__image {
+        max-width: 60px;
+        max-height: 36px;
+    }
+
+    .csv-import-confirm__form {
+        gap: 10px;
+    }
+
+    .csv-import-confirm__btn {
+        font-size: 0.9rem;
+        padding: 10px 0;
+    }
+}

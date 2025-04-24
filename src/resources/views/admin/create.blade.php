@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+    <x-header-component />
     <h1>新規代表者作成</h1>
 
     <form method="POST" action="{{ route('representatives.store') }}">

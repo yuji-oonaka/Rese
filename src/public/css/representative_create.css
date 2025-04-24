@@ -1,0 +1,97 @@
+/* Block */
+.representative-create {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(59, 95, 245, 0.05);
+    padding: 32px 24px 24px 24px;
+}
+
+/* Block__Title */
+.representative-create__title {
+    font-size: 26px;
+    color: #3b5ff5;
+    margin-bottom: 28px;
+    border-bottom: 2px solid #3b5ff5;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* Block__Form */
+.representative-create__form {
+    width: 100%;
+}
+
+/* Block__FormGroup */
+.representative-create__form-group {
+    margin-bottom: 22px;
+}
+
+/* Block__Label */
+.representative-create__label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Block__Input */
+.representative-create__input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.2s;
+}
+
+.representative-create__input:focus {
+    border-color: #3b5ff5;
+    outline: none;
+    background: #f5f7ff;
+}
+
+/* Block__Error */
+.representative-create__error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Block__Actions */
+.representative-create__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Block__Button */
+.representative-create__button {
+    background-color: #3b5ff5;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.representative-create__button--secondary {
+    background-color: #f5f7ff;
+    color: #333;
+}
+
+.representative-create__button:hover {
+    background-color: #2a4cd6;
+}
+
+.representative-create__button--secondary:hover {
+    background-color: #e4e9f7;
+    color: #222;
+}
