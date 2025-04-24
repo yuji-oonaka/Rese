@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="representative-dashboard">
+    <x-header-component />
     <h1 class="representative-dashboard__title">{{ $shop->name }} 予約一覧</h1>
 
     @if(session('success'))

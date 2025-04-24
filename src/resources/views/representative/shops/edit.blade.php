@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="shop-edit">
+    <x-header-component />
     <h1 class="shop-edit__title">店舗情報編集</h1>
     <form method="POST" action="{{ route('representative.shops.update', $shop) }}" enctype="multipart/form-data" class="shop-edit__form">
         @csrf
