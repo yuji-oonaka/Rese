@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="representative-dashboard">
+    <x-header-component />
     <h1 class="representative-dashboard__title">パスワード変更</h1>
 
     @if(session('success'))

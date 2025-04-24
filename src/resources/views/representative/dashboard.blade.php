@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="representative-dashboard">
+    <x-header-component />
     <h1 class="representative-dashboard__title">{{ $shop->name }} 管理ダッシュボード</h1>
     
     <div class="representative-dashboard__card">

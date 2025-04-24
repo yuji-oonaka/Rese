@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="representative-dashboard">
+    <x-header-component />
     <h1 class="representative-dashboard__title">予約詳細 #{{ $reservation->id }}</h1>
     
     <div class="representative-dashboard__card">
