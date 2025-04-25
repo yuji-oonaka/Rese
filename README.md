@@ -113,6 +113,18 @@
 
 ---
 
+---
+
+## テーブル設計
+![スクリーンショット 2025-04-25 121505](https://github.com/user-attachments/assets/b87aca5a-4857-4599-9502-33474ff83beb)
+
+![スクリーンショット 2025-04-25 121514](https://github.com/user-attachments/assets/a7294336-6df4-41c1-bcc7-41bad4175a82)
+
+[目次に戻る](#目次)
+
+---
+
+
 ## ER図
 
 ![ER図の画像をここに貼り付けてください](https://github.com/user-attachments/assets/0640db63-0bfb-42c2-82e3-e95a41a13d92)
