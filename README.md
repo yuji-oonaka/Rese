@@ -22,10 +22,9 @@
 - MySQL:8.0.26
 
 ## テーブル設計  
-![スクリーンショット 2025-04-07 233451](https://github.com/user-attachments/assets/4c4b8d65-48ba-45ab-877f-e135209d5fea)
+![スクリーンショット 2025-04-25 121505](https://github.com/user-attachments/assets/2a23d694-eb2c-4faf-9e2e-f5a9951bdf5e)
 
-![スクリーンショット 2025-04-07 233331](https://github.com/user-attachments/assets/869ced62-89d1-4b62-9bee-a06a6c6eb9e0)
-
+![スクリーンショット 2025-04-25 121514](https://github.com/user-attachments/assets/924fb10e-32ae-49ef-9f7d-ca1f50125d6a)
 
 
 ## ER図
