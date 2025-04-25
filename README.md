@@ -127,7 +127,7 @@
 
 ## ER図
 
-![ER図の画像をここに貼り付けてください](https://github.com/user-attachments/assets/0640db63-0bfb-42c2-82e3-e95a41a13d92)
+![attendace drawio (4)](https://github.com/user-attachments/assets/7d74d648-1613-4874-ace9-f49c016ed47a)
 
 [目次に戻る](#目次)
 
