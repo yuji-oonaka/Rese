@@ -58,7 +58,7 @@ php artisan db:seed
 ```
 php artisan storage:link
 ```
-## テストアカウント
+## 一般ユーザーアカウント
 - name: 111
 - email: 111@sample.com
 - password: 111sample
