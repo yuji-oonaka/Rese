@@ -18,7 +18,7 @@ class ReviewController extends Controller
     private function checkPermissions()
     {
         // 店舗ユーザーは全操作禁止
-        if (auth()->user()->hasRole('shop')) {
+        if (auth()->user()->hasRole('representative')) {
             return redirect()->back()
                 ->with('error', '店舗ユーザーは口コミ操作できません');
         }
