@@ -1,123 +1,163 @@
-# Rese 
-### 飲食店予約システム
-ユーザー登録しログインすることでグループ会社の飲食店閲覧、お気に入り登録、予約、評価等を行うことができる
-![スクリーンショット 2024-11-30 094006](https://github.com/user-attachments/assets/5ae84db8-de2e-4fad-a8fb-b28a1937b20f)
+# Rese  
+飲食店予約・口コミ・店舗管理システム
 
-## アプリケーションURL
-- 開発環境:http://localhost  
-- phpMyAdmin:http://localhost:8080
+---
 
-## 機能一覧
-- ログイン、ログアウト機能
-- 飲食店閲覧機能
-- 飲食店検索機能
-- 飲食店予約機能
-- お気に入り登録機能
-- 飲食店評価機能
-- QRコード予約確認表示機能
+## 目次
 
-## 使用技術
-- PHP:8.3.7
-- Laravel:11.33.2
-- MySQL:8.0.26
+1. [主要機能](#主要機能)
+2. [環境構築](#環境構築)
+   - [Dockerビルド](#dockerビルド)
+   - [Laravel環境構築](#laravel環境構築)
+   - [メール認証（Mailtrap）](#メール認証mailtrap)
+3. [テストアカウント](#テストアカウント)
+4. [開発環境](#開発環境)
+5. [技術スタック](#技術スタック)
+6. [ER図](#er図)
+7. [口コミ機能](#口コミ機能)
+8. [CSVインポート機能](#csvインポート機能)
 
-## テーブル設計  
-![スクリーンショット 2025-04-25 121505](https://github.com/user-attachments/assets/2a23d694-eb2c-4faf-9e2e-f5a9951bdf5e)
+---
 
-![スクリーンショット 2025-04-25 121514](https://github.com/user-attachments/assets/924fb10e-32ae-49ef-9f7d-ca1f50125d6a)
+## 主要機能
 
+- ユーザー登録（Mailtrapによるメール認証）
+- 飲食店の閲覧・検索・予約・お気に入り登録
+- 飲食店への口コミ投稿・編集・削除
+- 店舗代表者による店舗管理
+- 管理者による店舗・口コミ・ユーザー管理
+- QRコードによる予約確認表示
+- 管理者によるCSVインポートによる店舗一括登録
 
-## ER図
-![attendace drawio (4)](https://github.com/user-attachments/assets/0640db63-0bfb-42c2-82e3-e95a41a13d92)
+[目次に戻る](#目次)
 
+---
 
-## 環境構築  
+## 環境構築
+
 ### Dockerビルド
+
 1. `git clone git@github.com:yuji-oonaka/Rese.git`
-2. DockerDesktopアプリを立ち上げる
+2. Docker Desktopを起動
 3. `docker-compose up -d --build`
 
 ### Laravel環境構築
+
 1. `docker-compose exec php bash`
 2. `composer install`
 3. `cp .env.example .env`
+4. `php artisan key:generate`
+5. `php artisan migrate`
+6. `php artisan db:seed`
+7. `php artisan storage:link`
 
-4. アプリケーションキーの作成
-```
-php artisan key:generate
-```
-5. マイグレーションの実行
-```
-php artisan migrate
-```
-6. シーディングの実行
-```
-php artisan db:seed
-```
-7. シンボリックリンクの作成
-```
-php artisan storage:link
-```
-## 一般ユーザーアカウント
-- name: 111
-- email: 111@sample.com
-- password: 111sample
-- または会員登録にて任意のユーザーを登録
+[目次に戻る](#目次)
 
-## 管理者アカウント
-- name: admin
-- email: admin@example.com
-- password: password
+---
 
-## 店舗代表者アカウント
-- name: 代表者1",
-- email: rep1@example.com
-- password: password
+## メール認証（Mailtrap）
 
-## メール認証について
-mailtrapというツールを使用しています。  
-Mailtrapアカウント作成
-Mailtrap公式サイト (https://mailtrap.io/) 
-でサインアップし、ログインします。
+1. [Mailtrap](https://mailtrap.io/)でアカウントを作成しログイン
+2. Inboxを作成し、「Integrations」から「Laravel」を選択しSMTP情報を取得
+3. `.env`ファイルの`MAIL_MAILER`から`MAIL_ENCRYPTION`までをMailtrapの値に設定  
+   `MAIL_FROM_ADDRESS`は任意のメールアドレスを指定
+4. 会員登録後、MailtrapのInboxで認証メールを確認し、メール内リンクから認証を完了
 
-SMTP情報の取得
-ログイン後、Inboxesからテスト用のInboxを作成または選択し、「Integrations」から「Laravel」を選択します。
+[目次に戻る](#目次)
 
-.envファイルのMAIL_MAILERからMAIL_ENCRYPTIONまでの項目をコピー＆ペーストしてください。　
-MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
+---
+
+## テストアカウント
+
+- 一般ユーザー  
+  - name: 111  
+  - email: 111@sample.com  
+  - password: 111sample  
+  または会員登録で任意のユーザーを作成
+
+- 管理者  
+  - name: admin  
+  - email: admin@example.com  
+  - password: password
+
+- 店舗代表者  
+  - name: 代表者1  
+  - email: rep1@example.com  
+  - password: password
+
+[目次に戻る](#目次)
+
+---
+
+## 開発環境
+
+- アプリケーション: http://localhost  
+- 会員登録画面: http://localhost/register  
+- phpMyAdmin: http://localhost:8080
+
+[目次に戻る](#目次)
+
+---
+
+## 技術スタック
+
+| 技術      | バージョン    |
+|-----------|--------------|
+| PHP       | 8.3.7        |
+| Laravel   | 11.33.2      |
+| MySQL     | 8.0.26       |
+| nginx     | -            |
+| Mailtrap  | 最新版       |
+
+[目次に戻る](#目次)
+
+---
+
+## ER図
+
+![ER図の画像をここに貼り付けてください](https://github.com/user-attachments/assets/0640db63-0bfb-42c2-82e3-e95a41a13d92)
+
+[目次に戻る](#目次)
+
+---
 
 ## 口コミ機能
-口コミは「店舗来店予定日時終了後」から投稿可能です。
 
-1. 一般ユーザー
-1店舗あたり1件のみ口コミを投稿できます
-自身が投稿した口コミのみ編集可能です
-自身が投稿した口コミのみ削除できます。
+- 口コミは「店舗来店予定日時終了後」から投稿可能です。
+- 一般ユーザーは1店舗につき1件のみ口コミ投稿可能  
+  - 自身の口コミのみ編集・削除可能
+- 管理者ユーザーは全ての口コミを削除可能（追加・編集不可）
+- 店舗代表者は口コミの追加・編集・削除は不可
 
-2. 管理者ユーザー
-口コミの追加、編集はできません。
-管理者権限での全ての口コミを削除できます。
+|            | 新規口コミ追加 | 口コミ編集 | 口コミ削除 |
+|------------|:--------------:|:----------:|:----------:|
+| 一般ユーザー | ○（1店舗1件） | ○（自身のみ） | ○（自身のみ） |
+| 店舗代表者   | ×              | ×           | ×           |
+| 管理者ユーザー | ×              | ×           | ○（全件）    |
 
-3. 店舗ユーザー
-口コミの追加・編集・削除はできません。
+[目次に戻る](#目次)
+
+---
 
 ## CSVインポート機能
-管理者ユーザーは、CSVファイルをインポートすることで新規店舗情報を一括追加できます
-店舗作成ページにてファイルを選択、確認後インポートできます
-テスト用のCSVファイルをプロジェクトディレクトリ直下に作成しています。
 
-CSVファイルの記述方法
-CSVファイルは以下のフォーマットで作成してください。
-すべての項目が必須です。
+管理者ユーザーは、CSVファイルをインポートすることで新規店舗情報を一括追加できます。  
+店舗作成ページにてファイルを選択し、内容を確認後インポートできます。  
+テスト用のCSVファイル（店舗作成用.csv）はプロジェクトディレクトリ直下に作成されています。
 
-店舗名	地域	ジャンル	店舗概要	画像URL
-例: 寿司太郎	東京都	寿司	新鮮なネタの寿司店です	sushitaro.jpg
-店舗名：50文字以内
+### CSVファイルの記述方法
 
-地域：「東京都」「大阪府」「福岡県」のいずれか
+CSVファイルは以下のフォーマットで作成してください（**すべての項目が必須**）。
 
-ジャンル：「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれか
+| 店舗名    | 地域   | ジャンル   | 店舗概要                | 画像URL         |
+|-----------|--------|------------|-------------------------|-----------------|
+| 寿司太郎  | 東京都 | 寿司       | 新鮮なネタの寿司店です  | sushitaro.jpg   |
+| 焼肉花子  | 大阪府 | 焼肉       | 厳選和牛の焼肉店        | hanako.png      |
 
-店舗概要：400文字以内
+- 店舗名：50文字以内
+- 地域：「東京都」「大阪府」「福岡県」のいずれか
+- ジャンル：「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれか
+- 店舗概要：400文字以内
+- 画像URL：jpg、jpeg、pngのみ対応（非対応拡張子はエラー）
 
-画像URL：jpg、jpeg、pngのみ対応（非対応拡張子はエラー）
+[目次に戻る](#目次)
