@@ -29,7 +29,7 @@
 
 
 ## ER図
-![Rese](https://github.com/user-attachments/assets/19ff060f-9709-4288-8ce4-8783349d5e03)
+![attendace drawio (4)](https://github.com/user-attachments/assets/0640db63-0bfb-42c2-82e3-e95a41a13d92)
 
 
 ## 環境構築  
