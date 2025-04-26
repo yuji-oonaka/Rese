@@ -307,7 +307,7 @@
 }
 
 /* --- レスポンシブ対応 --- */
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
     .review-container {
         flex-direction: column;
         align-items: stretch;

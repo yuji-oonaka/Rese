@@ -80,21 +80,100 @@
     background-color: #e4e9f7;
 }
 
-/* レスポンシブデザイン */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .admin-dashboard {
+        padding: 18px 4vw;
+    }
+
+    .admin-dashboard__title {
+        font-size: 24px;
+        margin-bottom: 22px;
+        padding-bottom: 8px;
+    }
+
     .admin-dashboard__stats {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        /* カード間の余白を調整 */
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .admin-dashboard__stat {
+        padding: 16px 12px;
+        border-radius: 8px;
+    }
+
+    .admin-dashboard__stat-title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .admin-dashboard__stat-value {
+        font-size: 22px;
+    }
+
+    .admin-dashboard__actions {
+        margin-top: 22px;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        flex-wrap: wrap;
     }
 
     .admin-dashboard__btn {
-        width: calc(100% - 20px);
-        /* ボタンを幅いっぱいに広げる */
-        margin-bottom: 10px;
-        /* ボタン間の余白を追加 */
+        width: auto;
+        min-width: 130px;
+        font-size: 15px;
+        padding: 10px 16px;
+        margin-bottom: 0;
+        border-radius: 6px;
+        box-sizing: border-box;
+        flex: 1 1 45%;
         text-align: center;
-        /* ボタン内テキストを中央揃え */
-        display: block
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-dashboard {
+        padding: 10px 3vw;
+    }
+
+    .admin-dashboard__title {
+        font-size: 20px;
+        padding-bottom: 7px;
+        margin-bottom: 18px;
+    }
+
+    .admin-dashboard__stat {
+        padding: 12px 8px;
+        border-radius: 7px;
+    }
+
+    .admin-dashboard__stat-title {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .admin-dashboard__stat-value {
+        font-size: 19px;
+    }
+
+    .admin-dashboard__actions {
+        margin-top: 18px;
+    }
+
+    .admin-dashboard__btn {
+        width: 100%;
+        min-width: 0;
+        font-size: 15px;
+        padding: 10px 0;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* ボタンが複数横並びになる場合の防止 */
+    .admin-dashboard__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 }

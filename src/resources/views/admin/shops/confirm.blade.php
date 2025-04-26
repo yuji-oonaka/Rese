@@ -38,11 +38,11 @@
                 <tbody class="csv-import-confirm__tbody">
                     @foreach($shops as $shop)
                         <tr class="csv-import-confirm__row">
-                            <td class="csv-import-confirm__cell">{{ $shop['name'] }}</td>
-                            <td class="csv-import-confirm__cell">{{ $shop['area'] }}</td>
-                            <td class="csv-import-confirm__cell">{{ $shop['genre'] }}</td>
-                            <td class="csv-import-confirm__cell">{{ Str::limit($shop['description'], 60) }}</td>
-                            <td class="csv-import-confirm__cell">
+                            <td class="csv-import-confirm__cell" data-label="店舗名">{{ $shop['name'] }}</td>
+                            <td class="csv-import-confirm__cell" data-label="地域">{{ $shop['area'] }}</td>
+                            <td class="csv-import-confirm__cell" data-label="ジャンル">{{ $shop['genre'] }}</td>
+                            <td class="csv-import-confirm__cell" data-label="店舗概要">{{ Str::limit($shop['description'], 60) }}</td>
+                            <td class="csv-import-confirm__cell" data-label="画像">
                                 <img src="{{ $shop['image_url'] }}" alt="画像" class="csv-import-confirm__image">
                             </td>
                         </tr>

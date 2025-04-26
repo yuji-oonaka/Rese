@@ -1,8 +1,8 @@
 <div class="review-content">
     <!-- 青いヘッダー -->
-    <div class="review-header">
-        <h1>全ての口コミ情報</h1>
-    </div>
+    <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" class="shop-detail__all-reviews-btn" id="review-button">
+        全ての口コミ情報
+    </a>
     <!-- 口コミ編集・削除ボタン -->
     <div class="review-actions">
         @auth

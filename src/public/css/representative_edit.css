@@ -69,16 +69,59 @@
     background-color: #2a4cd6;
 }
 
-/* レスポンシブデザイン */
-@media (max-width: 768px) {
+/* タブレット対応 */
+@media (max-width: 900px) {
     .shop-edit {
-        padding: 15px;
+        max-width: 98vw;
+        width: 98vw;
+        min-width: 0;
+        padding: 16px 4vw;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .shop-edit__btn {
-        width: calc(100% - 20px);
-        margin-bottom: 10px;
-        /* ボタン間の余白を追加 */
-        text-align: center
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .shop-edit {
+        max-width: 100vw;
+        width: 100vw;
+        min-width: 0;
+        padding: 6px 2vw;
+        margin: 6px 0;
+        border-radius: 0;
+        box-shadow: none;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .shop-edit__form-group,
+    .shop-edit__label,
+    .shop-edit__input,
+    .shop-edit__select,
+    .shop-edit__textarea,
+    .shop-edit__file-input,
+    .shop-edit__btn {
+        max-width: 100%;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .shop-edit__textarea {
+        min-width: 0;
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    .shop-edit__btn {
+        min-width: 0;
+        box-sizing: border-box;
+        display: block;
     }
 }

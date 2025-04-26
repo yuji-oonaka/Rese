@@ -40,43 +40,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($past_reservations as $index => $reservation)
-                        <tr>
-                            <td>予約{{ $total_count - ($past_reservations->perPage() * ($past_reservations->currentPage() - 1) + $loop->index) }}</td>
-                            <td>
-                                @if($reservation->shop)
-                                    <a href="{{ route('shop.detail', ['shop_id' => $reservation->shop->id]) }}">
-                                        {{ $reservation->shop->name }}
-                                    </a>
-                                @else
-                                    なし
-                                @endif
-                            </td>
-                            <td>{{ $reservation->formatted_date }}</td>
-                            <td>{{ $reservation->formatted_time }}</td>
-                            <td>{{ $reservation->number_of_people }}人</td>
-                            <td>
-                                @if($reservation->review)
-                                    <a href="{{ route('reviews.edit', ['reservation' => $reservation->id]) }}"
-                                    class="review-btn">
-                                        評価を修正
-                                    </a>
-                                @else
-                                    <button class="review-btn"
-                                            onclick="showReviewForm({{ $reservation->id }})">
-                                        評価する
-                                    </button>
-                                @endif
-                            </td>
-                            <td>
-                                @if($reservation->isValidForQrCode())
+                @foreach($past_reservations as $index => $reservation)
+                    <tr>
+                        <td data-label="予約">予約{{ $total_count - ($past_reservations->perPage() * ($past_reservations->currentPage() - 1) + $loop->index) }}</td>
+                        <td data-label="店舗名">
+                            @if($reservation->shop)
+                                <a href="{{ route('shop.detail', ['shop_id' => $reservation->shop->id]) }}">
+                                    {{ $reservation->shop->name }}
+                                </a>
+                            @else
+                                なし
+                            @endif
+                        </td>
+                        <td data-label="日付">{{ $reservation->formatted_date }}</td>
+                        <td data-label="時間">{{ $reservation->formatted_time }}</td>
+                        <td data-label="人数">{{ $reservation->number_of_people }}人</td>
+                        <td data-label="評価">
+                            @if($reservation->review)
+                                <a href="{{ route('reviews.edit', ['reservation' => $reservation->id]) }}" class="review-btn">評価を修正</a>
+                            @else
+                                <button class="review-btn" onclick="showReviewForm({{ $reservation->id }})">評価する</button>
+                            @endif
+                        </td>
+                        <td data-label="QRコード">
+                            @if($reservation->isValidForQrCode())
                                 <button class="qr-btn" onclick="showQRCode('{{ $reservation->qr_code_url }}')">QRコードを表示</button>
-                                @else
-                                    <span class="qr-expired">QRコード期限切れ</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                            @else
+                                <span class="qr-expired">QRコード期限切れ</span>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

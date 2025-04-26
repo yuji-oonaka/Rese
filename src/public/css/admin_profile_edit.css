@@ -96,3 +96,107 @@
     font-size: 15px;
     border: none;
 }
+
+/* タブレット対応 */
+@media (max-width: 900px) {
+    .container {
+        padding: 10px;
+    }
+
+    .admin-profile-edit {
+        max-width: 98vw;
+        padding: 24px 6vw 22px 6vw;
+        margin: 24px auto;
+        border-radius: 12px;
+    }
+
+    .admin-profile-edit h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+        padding-bottom: 7px;
+    }
+
+    .admin-profile-edit label {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .admin-profile-edit input[type="text"],
+    .admin-profile-edit input[type="email"],
+    .admin-profile-edit input[type="password"] {
+        font-size: 14px;
+        padding: 9px 9px;
+        border-radius: 6px;
+    }
+
+    .admin-profile-edit button[type="submit"] {
+        font-size: 15px;
+        padding: 9px 18px;
+        border-radius: 6px;
+        margin-right: 0;
+        margin-top: 8px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .container {
+        padding: 2vw;
+    }
+
+    .admin-profile-edit {
+        max-width: 100vw;
+        padding: 12px 2vw 14px 2vw;
+        margin: 8px 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .admin-profile-edit h1 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        padding-bottom: 4px;
+        border-bottom-width: 1.5px;
+    }
+
+    .admin-profile-edit label {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .admin-profile-edit input[type="text"],
+    .admin-profile-edit input[type="email"],
+    .admin-profile-edit input[type="password"] {
+        font-size: 13px;
+        padding: 7px 6px;
+        border-radius: 4px;
+        margin-bottom: 7px;
+    }
+
+    .admin-profile-edit .text-danger {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .admin-profile-edit button[type="submit"] {
+        font-size: 14px;
+        padding: 10px 0;
+        border-radius: 4px;
+        margin-right: 0;
+        margin-top: 8px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .admin-profile-edit hr {
+        margin: 16px 0 14px 0;
+    }
+
+    .alert.alert-success {
+        font-size: 13px;
+        padding: 8px 5px;
+        border-radius: 4px;
+    }
+}
