@@ -43,3 +43,19 @@
     @endif
 </div>
 @endsection
+
+@section('js')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // サクセスメッセージを5秒後にフェードアウト
+    const successAlert = document.querySelector('.alert-success');
+    if (successAlert) {
+        setTimeout(() => {
+            successAlert.style.transition = 'opacity 0.5s';
+            successAlert.style.opacity = '0';
+            setTimeout(() => successAlert.remove(), 500);
+        }, 5000);
+    }
+});
+</script>
+@endsection

@@ -1,33 +1,31 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="{{ asset('css/auth_verify.css') }}">
 @endsection
 
 @section('content')
-<div class="auth">
-    <div class="auth__container">
-        <div class="auth__header">
-            <h3>メールアドレスを認証してください</h3>
+<div class="auth-verify-bg">
+    <div class="auth-verify-container">
+        <x-header-component />
+        <div class="auth-verify-header">
+            <span>メールアドレスを認証してください</span>
         </div>
-        <div class="auth__verify-message">
-            <p class="auth__verify-text">
+        <div class="auth-verify-message">
+            <p>
                 登録したメールアドレス宛に認証メールを送信しました。<br>
                 メール内のリンクをクリックして認証を完了してください。
             </p>
             @if (session('status') == 'verification-link-sent')
-                <div class="auth__alert alert-success">
+                <div class="auth-verify-alert success">
                     新しい認証メールを送信しました！
                 </div>
             @endif
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
-                <div class="auth__form-group">
-                    <button type="submit" class="auth__submit-btn">
-                        認証メールを再送信
-                    </button>
-                </div>
+                <button type="submit" class="auth-verify-btn">
+                    認証メールを再送信
+                </button>
             </form>
         </div>
     </div>

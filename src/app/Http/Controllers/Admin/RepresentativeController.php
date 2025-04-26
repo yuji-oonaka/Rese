@@ -15,7 +15,7 @@ class RepresentativeController extends Controller
         $representatives = User::role('representative')
             ->with('managedShops')  // shopsリレーションをEagerロード
             ->paginate(10);
-            
+
         return view('admin.representatives.index', compact('representatives'));
     }
 
@@ -64,10 +64,16 @@ class RepresentativeController extends Controller
 
     public function destroy(User $representative)
     {
+        // 関連する予約データを削除
+        $representative->reservations()->delete();
+
         // 代表者が担当していた店舗の代表者をNULLにする
         $representative->managedShops()->update(['representative_id' => null]);
+
+        // ユーザー削除
         $representative->delete();
 
-        return redirect()->route('representatives.index')->with('success', '代表者を削除しました（店舗は削除されません）');
+        return redirect()->route('representatives.index')
+            ->with('success', '代表者と関連予約を削除しました（店舗は削除されません）');
     }
 }

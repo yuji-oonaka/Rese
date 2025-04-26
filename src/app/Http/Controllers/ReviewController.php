@@ -20,7 +20,7 @@ class ReviewController extends Controller
         // 店舗ユーザーは全操作禁止
         if (auth()->user()->hasRole('representative')) {
             return redirect()->back()
-                ->with('error', '店舗ユーザーは口コミ操作できません');
+                ->with('error', '店舗代表者は口コミ操作できません');
         }
         
         // 管理者は投稿/編集禁止（DELETEメソッド以外をブロック）

@@ -11,6 +11,7 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Models\Reservation;
 use App\Http\Requests\Admin\StoreShopRequest;
 use App\Http\Requests\Admin\CsvImportFormRequest;
 use Illuminate\Support\Facades\Log;
@@ -82,9 +83,28 @@ class ShopController extends Controller
 
     public function destroy(Shop $shop)
     {
-        // 店舗削除
-        $shop->delete();
-        return redirect()->route('shops.index')->with('success', '店舗が削除されました');
+        // トランザクション開始
+        DB::beginTransaction();
+
+        try {
+            // 関連予約を削除
+            $shop->reservations()->delete();
+            
+            // 店舗削除
+            $shop->delete();
+
+            DB::commit();
+
+            return redirect()->route('shops.index')
+                ->with('success', '店舗と関連予約を削除しました');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('店舗削除エラー: ' . $e->getMessage());
+            
+            return redirect()->route('shops.index')
+                ->with('error', '削除中にエラーが発生しました');
+        }
     }
 
     public function importCsv(CsvImportFormRequest $request)
