@@ -75,7 +75,7 @@
 - 一般ユーザー  
   - name: 111  
   - email: 111@sample.com  
-  - password: 111sample  
+  - password: sample111
   または会員登録で任意のユーザーを作成
 
 - 管理者  
