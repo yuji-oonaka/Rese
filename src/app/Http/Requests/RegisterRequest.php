@@ -23,9 +23,9 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'ユーザーネームをご入力ください。',
-            'name.string' => 'ユーザーネームは文字列でお願いします。',
-            'name.max' => 'ユーザーネームは191文字までとなります。',
+            'name.required' => 'お名前をご入力ください。',
+            'name.string' => 'お名前は文字列でお願いします。',
+            'name.max' => 'お名前は191文字までとなります。',
             'email.required' => 'メールアドレスのご入力をお願いします。',
             'email.email' => 'メールアドレスの形式が正しくありません。ご確認ください。',
             'email.unique' => 'このメールアドレスは既に登録されています。',

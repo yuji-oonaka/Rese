@@ -154,18 +154,150 @@
     color: #fff;
 }
 
-/* レスポンシブデザイン */
-@media (max-width: 768px) {
+/* タブレット対応 */
+@media (max-width: 900px) {
     .representative-dashboard {
-        padding: 15px;
+        max-width: 98vw;
+        padding: 10px 2vw;
+    }
+
+    .representative-dashboard__title {
+        font-size: 22px;
+        margin-bottom: 14px;
+        padding-bottom: 7px;
+    }
+
+    .representative-dashboard__card-body {
+        padding: 14px;
+    }
+
+    .representative-dashboard__info-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .representative-dashboard__btn {
-        width: calc(100% - 20px);
-        margin-bottom: 10px;
-        /* ボタン間の余白を追加 */
+        font-size: 15px;
+        padding: 10px 0;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 8px;
         text-align: center;
-        /* ボタン内テキストを中央揃え */
-        display: block
+        display: block;
+        box-sizing: border-box;
+    }
+}
+
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .representative-dashboard {
+        max-width: 100vw;
+        padding: 4px 0vw;
+    }
+
+    .representative-dashboard__title {
+        font-size: 16px;
+        margin-bottom: 8px;
+        padding-bottom: 4px;
+    }
+
+    .representative-dashboard__card {
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .representative-dashboard__card-body {
+        padding: 8px 4vw;
+    }
+
+    .representative-dashboard__card-title {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .representative-dashboard__card-text {
+        font-size: 13px;
+    }
+
+    .representative-dashboard__card-text--small {
+        font-size: 12px;
+    }
+
+    .representative-dashboard__actions {
+        margin-top: 16px;
+    }
+
+    .representative-dashboard__btn {
+        font-size: 13px;
+        padding: 10px 0;
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 6px;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    .representative-dashboard__btn--small {
+        font-size: 12px;
+        padding: 6px 0;
+        border-radius: 3px;
+    }
+
+    .representative-dashboard__table-wrapper {
+        overflow-x: auto;
+    }
+
+    .representative-dashboard__table,
+    .representative-dashboard__table thead,
+    .representative-dashboard__table tbody,
+    .representative-dashboard__table tr,
+    .representative-dashboard__table th,
+    .representative-dashboard__table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .representative-dashboard__table {
+        border: none;
+        background: none;
+    }
+
+    .representative-dashboard__table thead {
+        display: none;
+    }
+
+    .representative-dashboard__table tr {
+        margin-bottom: 12px;
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+        border: 1px solid #eee;
+        padding: 6px 0;
+        display: block;
+    }
+
+    .representative-dashboard__table td {
+        border: none;
+        padding: 7px 10px;
+        font-size: 13px;
+        position: relative;
+    }
+
+    .representative-dashboard__table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 5em;
+        color: #666;
+        margin-right: 8px;
+    }
+
+    .badge {
+        font-size: 11px;
+        padding: 3px 6px;
+        border-radius: 3px;
     }
 }

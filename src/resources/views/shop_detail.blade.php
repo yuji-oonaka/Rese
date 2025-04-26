@@ -11,6 +11,11 @@
 <div class="shop-detail">
     <div class="shop-detail__left" id="content-left">
         <x-header-component />
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="shop-detail__header">
             <a href="{{ route('shop.list') }}" class="shop-detail__back-btn">&lt;</a>
             <h2 class="shop-detail__title">{{ $shop->name }}</h2>

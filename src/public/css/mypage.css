@@ -347,3 +347,123 @@ input[name="number_of_people"] {
         padding: 6px 12px;
     }
 }
+
+@media (max-width: 600px) {
+    .container {
+        padding: 2vw;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .user-name {
+        font-size: 18px;
+        margin: 8px 0;
+    }
+
+    .content-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    .left-section {
+        margin-bottom: 14px;
+    }
+
+    .reservation-card,
+    .favorite-card {
+        border-radius: 5px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        padding: 8px;
+    }
+
+    .reservation-header p {
+        font-size: 13px;
+    }
+
+    .reservation-info-table th,
+    .reservation-info-table td,
+    .reservation-edit-table th,
+    .reservation-edit-table td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .edit-btn,
+    .update-btn,
+    .cancel-btn,
+    .detail-link {
+        font-size: 12px;
+        padding: 6px 0;
+        width: 100%;
+        margin-bottom: 4px;
+        border-radius: 3px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .form-actions {
+        padding: 6px;
+    }
+
+    .favorite-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .favorite-card h2 {
+        font-size: 14px;
+        padding-left: 10px;
+    }
+
+    .favorite-card p {
+        font-size: 11px;
+        padding-left: 10px;
+        margin-bottom: 6px;
+    }
+
+    .favorite-card .actions {
+        flex-direction: column;
+        gap: 4px;
+        padding: 0 10px 6px;
+    }
+
+    .heart-btn {
+        font-size: 20px;
+    }
+
+    .qr-code-btn {
+        font-size: 12px;
+        padding: 5px 0;
+        border-radius: 3px;
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .modal-content {
+        padding: 8px;
+        border-radius: 3px;
+    }
+
+    #qrCodeImage {
+        max-width: 90vw;
+    }
+
+    .alert-success {
+        width: 95vw;
+        font-size: 12px;
+        padding: 8px 4px;
+        border-radius: 3px;
+    }
+}

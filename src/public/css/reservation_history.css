@@ -8,6 +8,11 @@
 .header-row {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .user-name {
@@ -142,9 +147,6 @@ textarea {
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
-}
-
-.alert-success {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -221,7 +223,6 @@ textarea {
 
 #qrCodeImage {
     max-width: 200px;
-    /* または必要なサイズに調整 */
     height: auto;
     display: block;
     margin: 0 auto;
@@ -238,12 +239,18 @@ textarea {
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .qr-expired {
     font-size: 0.9rem;
     color: #888;
 }
 
-@media (max-width: 768px) {
+/* ----------------------------
+   レスポンシブ対応
+----------------------------- */
+
+/* タブレット対応 */
+@media (max-width: 900px) {
     .container {
         padding: 10px;
     }
@@ -251,6 +258,8 @@ textarea {
     .header-row {
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        gap: 8px;
     }
 
     .user-name {
@@ -266,33 +275,105 @@ textarea {
         padding: 8px;
     }
 
-    .review-btn,
-    .qr-btn {
-        width: 100%;
-        margin-top: 5px;
-        padding: 8px;
-    }
-
     .modal-content {
-        width: 95%;
-        padding: 15px;
+        width: 98%;
+        padding: 12px;
+        max-width: 400px;
     }
 
     .rating label {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     textarea {
         height: 80px;
     }
+}
+
+/* スマホ対応（横スクロールテーブル＆ボタン調整） */
+@media (max-width: 600px) {
+
+    /* テーブルをカード型に */
+    .content-wrapper {
+        overflow-x: visible;
+    }
+
+    .reservation-table,
+    .reservation-table thead,
+    .reservation-table tbody,
+    .reservation-table tr,
+    .reservation-table th,
+    .reservation-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .reservation-table {
+        border: none;
+        margin-top: 10px;
+    }
+
+    .reservation-table thead {
+        display: none;
+        /* ヘッダー非表示 */
+    }
+
+    .reservation-table tr {
+        margin-bottom: 18px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+        padding: 10px 0;
+    }
+
+    .reservation-table td {
+        border: none;
+        padding: 7px 12px;
+        position: relative;
+        font-size: 15px;
+    }
+
+    .reservation-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 5.5em;
+        color: #666;
+        margin-right: 8px;
+    }
+
     .review-btn,
     .qr-btn {
-        width: auto;
-        margin-top: 5px;
-        padding: 6px 10px;
-        font-size: 0.9rem;
-        }
+        width: 100%;
+        min-width: 0;
+        margin-top: 6px;
+        padding: 8px 0;
+        font-size: 0.98rem;
+        border-radius: 5px;
+    }
+
     .qr-expired {
+        font-size: 0.85rem;
+    }
+}
+
+/* 画面が極端に狭い場合の調整 */
+@media (max-width: 400px) {
+    .reservation-table {
+        min-width: 500px;
+        font-size: 12px;
+    }
+
+    .modal-content {
+        padding: 4px;
+        font-size: 0.95rem;
+    }
+
+    .review-btn,
+    .qr-btn {
+        min-width: 60px;
         font-size: 0.8rem;
-        }
+    }
 }

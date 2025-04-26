@@ -166,13 +166,121 @@
     display: block;
 }
 
+/* タブレット対応 */
+@media (max-width: 900px) {
+    .shop-list {
+        padding: 12px 2vw;
+    }
+
+    .shop-list__title {
+        font-size: 22px;
+        margin-bottom: 12px;
+        padding-bottom: 7px;
+    }
+
+    .shop-list__actions {
+        gap: 6px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+    }
+
+    .shop-list__btn {
+        font-size: 15px;
+        padding: 8px 14px;
+        border-radius: 5px;
+    }
+}
+
+/* スマホ対応：テーブルをカード型に */
 @media (max-width: 600px) {
-    .alert-success {
-        right: 4vw;
-        left: auto;
-        top: 12px;
-        width: 96vw;
-        font-size: 0.97rem;
-        padding: 10px 8px;
+    .shop-list {
+        padding: 6px 0vw;
+    }
+
+    .shop-list__title {
+        font-size: 17px;
+        margin-bottom: 8px;
+        padding-bottom: 4px;
+    }
+
+    .shop-list__actions {
+        flex-direction: column;
+        gap: 7px;
+        margin-bottom: 10px;
+    }
+
+    .shop-list__btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    /* テーブルをカード型に */
+    .shop-list__table-wrapper {
+        overflow-x: visible;
+    }
+
+    .shop-list__table,
+    .shop-list__table thead,
+    .shop-list__table tbody,
+    .shop-list__table tr,
+    .shop-list__table th,
+    .shop-list__table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .shop-list__table {
+        border: none;
+    }
+
+    .shop-list__table thead {
+        display: none;
+    }
+
+    .shop-list__table-row {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 16px;
+        border: 1px solid #eee;
+        padding: 8px 0;
+        display: block;
+    }
+
+    .shop-list__table-cell {
+        border: none;
+        padding: 7px 10px;
+        position: relative;
+        font-size: 15px;
+    }
+
+    .shop-list__table-cell::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 6em;
+        color: #666;
+        margin-right: 8px;
+    }
+
+    .shop-list__actions-cell {
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 4px;
+    }
+
+    .shop-list__empty-message {
+        font-size: 15px;
+        padding: 16px 0;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.95rem;
     }
 }
