@@ -13,7 +13,7 @@
         <h1 class="user-name">{{ auth()->user()->name }}さん</h1>
     </div>
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif

@@ -1,0 +1,117 @@
+.auth-verify-bg {
+    width: 100%;
+    min-height: 100vh;
+    background: #f4f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.auth-verify-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(59, 95, 245, 0.08);
+    width: 100%;
+    max-width: 420px;
+    padding: 0 0 32px 0;
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.auth-verify-header {
+    width: 100%;
+    background: #305dff;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+    padding: 24px 0 18px 0;
+    box-sizing: border-box;
+}
+
+.auth-verify-message {
+    width: 100%;
+    padding: 32px 8% 0 8%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.auth-verify-message p {
+    font-size: 1rem;
+    color: #414141;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.auth-verify-alert.success {
+    font-size: 15px;
+    color: #2563eb;
+    background: #e8f0fe;
+    border-radius: 6px;
+    padding: 10px 0;
+    margin-bottom: 18px;
+    border: none;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(48, 93, 255, 0.06);
+}
+
+.auth-verify-btn {
+    background: #305dff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 0;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(48, 93, 255, 0.09);
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.2s, box-shadow 0.2s;
+    display: block;
+}
+
+.auth-verify-btn:hover {
+    background: #2040cc;
+}
+
+@media (max-width: 600px) {
+    .auth-verify-container {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+        padding-bottom: 24px;
+    }
+
+    .auth-verify-header {
+        border-radius: 0;
+        font-size: 1rem;
+        padding: 18px 0 12px 0;
+    }
+
+    .auth-verify-message {
+        padding: 24px 5% 0 5%;
+        font-size: 0.97rem;
+    }
+
+    .auth-verify-message p {
+        font-size: 0.97rem;
+        margin-bottom: 18px;
+    }
+
+    .auth-verify-btn {
+        font-size: 0.97rem;
+        padding: 13px 0;
+        border-radius: 6px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}

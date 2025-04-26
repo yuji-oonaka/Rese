@@ -276,24 +276,23 @@ input[name="number_of_people"] {
 }
 
 .alert-success {
-    width: 20%;
-    color: #155724;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin: 10px 0;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-}
-
-.alert-success::before {
-    content: '\2714';
-    /* チェックマーク */
-    font-size: 18px;
-    margin-right: 10px;
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    width: 270px;
+    max-width: 90vw;
+    background: #e6ffed;
+    color: #257942;
+    border: 1px solid #b7ebc6;
+    padding: 14px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    opacity: 1;
+    z-index: 9999;
+    transition: opacity 0.7s, transform 0.7s;
 }
 
 /* レスポンシブ対応 */
@@ -461,9 +460,12 @@ input[name="number_of_people"] {
     }
 
     .alert-success {
-        width: 95vw;
-        font-size: 12px;
-        padding: 8px 4px;
-        border-radius: 3px;
+        top: 12px;
+        right: 4px;
+        width: 96vw;
+        max-width: 200px;
+        min-width: 140px;
+        font-size: 0.95rem;
+        padding: 10px 8px;
     }
 }

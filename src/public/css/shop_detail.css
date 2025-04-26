@@ -163,10 +163,6 @@
     transition: opacity 0.7s, transform 0.7s;
 }
 
-/* ---------------------- */
-/* レスポンシブ対応追加   */
-/* ---------------------- */
-
 /* タブレット対応 (900px以下) */
 @media (max-width: 900px) {
     .shop-detail {
@@ -262,7 +258,7 @@
     #reservation-form {
         padding: 0 8px;
     }
-    
+
     .shop-detail__summary {
         width: 100%;
         margin-left: 0;
@@ -277,10 +273,12 @@
 
     .alert-success {
         top: 12px;
-        right: 4vw;
+        right: 4px;
         width: 96vw;
-        padding: 10px 8px;
+        max-width: 320px;
+        min-width: 140px;
         font-size: 0.95rem;
+        padding: 10px 8px;
     }
 }
 
@@ -292,5 +290,14 @@
 
     .shop-detail__summary-table td {
         font-size: 13px;
+    }
+
+    .alert-success {
+        width: 98vw;
+        max-width: 98vw;
+        right: 1vw;
+        top: 4px;
+        font-size: 0.85rem;
+        padding: 8px 4px;
     }
 }

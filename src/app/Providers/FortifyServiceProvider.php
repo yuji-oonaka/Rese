@@ -51,7 +51,8 @@ class FortifyServiceProvider extends ServiceProvider
                         return redirect()->route('representative.dashboard');
                     }
 
-                    return redirect()->route('mypage');
+                    return redirect()->route('mypage')
+                    ->with('success', 'ログインしました');
                 }
             };
         });
