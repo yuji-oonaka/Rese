@@ -57,7 +57,7 @@
                         <td data-label="人数">{{ $reservation->number_of_people }}人</td>
                         <td data-label="評価">
                             @if($reservation->review)
-                                <a href="{{ route('reviews.edit', ['reservation' => $reservation->id]) }}" class="review-btn">評価を修正</a>
+                                <a href="{{ route('review.edit', ['reservation_id' => $reservation->id]) }}" class="review-btn">評価を修正</a>
                             @else
                                 <button class="review-btn" onclick="showReviewForm({{ $reservation->id }})">評価する</button>
                             @endif
