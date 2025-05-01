@@ -16,16 +16,30 @@
         @endif
 
         {{-- 名前・メールアドレス編集フォーム --}}
-        <form method="POST" action="{{ route('admin.profile.update') }}">
+        <form method="POST" action="{{ route('admin.profile.update') }}" autocomplete="off">
             @csrf
             <div>
-                <label>名前</label>
-                <input type="text" name="name" value="{{ old('name', $admin->name) }}" required>
+                <label for="admin-name">名前</label>
+                <input
+                    type="text"
+                    id="admin-name"
+                    name="name"
+                    value="{{ old('name', $admin->name) }}"
+                    required
+                    autocomplete="name"
+                >
                 @error('name')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div>
-                <label>メールアドレス</label>
-                <input type="email" name="email" value="{{ old('email', $admin->email) }}" required>
+                <label for="admin-email">メールアドレス</label>
+                <input
+                    type="email"
+                    id="admin-email"
+                    name="email"
+                    value="{{ old('email', $admin->email) }}"
+                    required
+                    autocomplete="email"
+                >
                 @error('email')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <button type="submit">プロフィールを変更</button>
@@ -34,16 +48,28 @@
         <hr>
 
         {{-- パスワード変更フォーム --}}
-        <form method="POST" action="{{ route('admin.profile.password') }}">
+        <form method="POST" action="{{ route('admin.profile.password') }}" autocomplete="off">
             @csrf
             <div>
-                <label>新しいパスワード</label>
-                <input type="password" name="password" required>
+                <label for="admin-password">新しいパスワード</label>
+                <input
+                    type="password"
+                    id="admin-password"
+                    name="password"
+                    required
+                    autocomplete="new-password"
+                >
                 @error('password')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div>
-                <label>新しいパスワード（確認）</label>
-                <input type="password" name="password_confirmation" required>
+                <label for="admin-password-confirmation">新しいパスワード（確認）</label>
+                <input
+                    type="password"
+                    id="admin-password-confirmation"
+                    name="password_confirmation"
+                    required
+                    autocomplete="new-password"
+                >
             </div>
             <button type="submit">パスワードを変更</button>
         </form>

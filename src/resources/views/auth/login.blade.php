@@ -14,23 +14,39 @@
         <div class="auth__header">
             <h2 class="auth__title">Login</h2>
         </div>
-        <form method="POST" action="{{ route('login') }}" novalidate class="auth__form">
+        <form method="POST" action="{{ route('login') }}" novalidate class="auth__form" autocomplete="off">
             @csrf
             <div class="auth__form-group">
-                <label for="email" class="auth__form-label">
-                    <span class="auth__icon auth__icon--email"></span>
-                </label>
-                <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus class="auth__input auth__input--email">
+                <label for="email" class="auth__form-label"></label>
+                <span class="auth__icon auth__icon--email"></span>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    value="{{ old('email') }}"
+                    required
+                    autofocus
+                    class="auth__input auth__input--email"
+                    autocomplete="email"
+                >
             </div>
             @error('email')
                 <div class="auth__error">{{ $message }}</div>
             @enderror
             <div class="auth__form-group">
-                <label for="password" class="auth__form-label">
-                    <span class="auth__icon auth__icon--password"></span>
-                </label>
+                <label for="password" class="auth__form-label"></label>
+                <span class="auth__icon auth__icon--password"></span>
                 <div class="auth__password-container">
-                    <input type="password" id="password" name="password" placeholder="Password" required class="auth__input auth__input--password">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                        class="auth__input auth__input--password"
+                        autocomplete="current-password"
+                    >
                     <span class="auth__toggle-password">
                         <i class="fa-solid fa-eye"></i>
                     </span>

@@ -70,15 +70,17 @@
                                 </td>
                             </tr>
                         @endif
-                    </table>
-                    <button class="edit-btn" onclick="toggleForm({{ $loop->index }})">変更</button>
-                    <!-- 変更フォーム (非表示) -->
-                    <form id="edit-form-{{ $loop->index }}" action="{{ route('reservation.update', ['reservation_id' => $reservation->id]) }}" method="POST" style="display: none;">
+                        </table>
+                        <button class="edit-btn" onclick="toggleForm({{ $loop->index }})">変更</button>
+                        <!-- 変更フォーム (非表示) -->
+                        <form id="edit-form-{{ $loop->index }}" action="{{ route('reservation.update', ['reservation_id' => $reservation->id]) }}" method="POST" style="display: none;">
                         @csrf
                         @method('PUT')
                         <table class="reservation-edit-table">
                             <tr>
-                                <th><label for="date">日付</label></th>
+                                <th>
+                                    <label for="date-input-{{ $loop->index }}">日付</label>
+                                </th>
                                 <td>
                                     <input type="date" name="date" id="date-input-{{ $loop->index }}"
                                         value="{{ old('date', $reservation->date) }}"
@@ -86,16 +88,20 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="time">時間</label></th>
+                                <th>
+                                    <label for="time-input-{{ $loop->index }}">時間</label>
+                                </th>
                                 <td>
                                     <input type="time" name="time" id="time-input-{{ $loop->index }}"
                                         value="{{ old('time', $reservation->time) }}">
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="number_of_people">人数</label></th>
+                                <th>
+                                    <label for="number_of_people-input-{{ $loop->index }}">人数</label>
+                                </th>
                                 <td>
-                                    <input type="number" name="number_of_people"
+                                    <input type="number" name="number_of_people" id="number_of_people-input-{{ $loop->index }}"
                                         value="{{ old('number_of_people', $reservation->number_of_people) }}"
                                         min="1">
                                 </td>
@@ -108,6 +114,7 @@
                             </tr>
                         </table>
                     </form>
+
                     @else
                         <p>この予約には店舗情報がありません。</p>
                     @endif

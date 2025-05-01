@@ -17,16 +17,30 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.notice_mail.send') }}" class="notice-mail__form">
+    <form method="POST" action="{{ route('admin.notice_mail.send') }}" class="notice-mail__form" autocomplete="off">
         @csrf
         <div class="notice-mail__form-group">
-            <label class="notice-mail__label">件名</label>
-            <input type="text" name="subject" class="notice-mail__input" required>
+            <label for="notice-subject" class="notice-mail__label">件名</label>
+            <input
+                type="text"
+                id="notice-subject"
+                name="subject"
+                class="notice-mail__input"
+                required
+                autocomplete="off"
+            >
         </div>
 
         <div class="notice-mail__form-group">
-            <label class="notice-mail__label">本文</label>
-            <textarea name="message" class="notice-mail__textarea" required rows="6"></textarea>
+            <label for="notice-message" class="notice-mail__label">本文</label>
+            <textarea
+                id="notice-message"
+                name="message"
+                class="notice-mail__textarea"
+                required
+                rows="6"
+                autocomplete="off"
+            ></textarea>
         </div>
 
         <button type="submit" class="notice-mail__button">送信</button>
