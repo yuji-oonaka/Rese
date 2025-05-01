@@ -12,11 +12,11 @@
     <h1 class="shop-create__title">店舗作成</h1>
 
     {{-- CSVインポートフォーム --}}
-    <form method="POST" action="{{ route('shops.import') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import" novalidate>
+    <form method="POST" action="{{ route('shops.import') }}" enctype="multipart/form-data" class="shop-create__form shop-create__form--csv-import" novalidate autocomplete="off">
         @csrf
         <div class="shop-create__form-group">
-            <label class="shop-create__label">CSVファイルを選択</label>
-            <input type="file" name="csv_file" class="shop-create__input" required>
+            <label for="csv-file" class="shop-create__label">CSVファイルを選択</label>
+            <input type="file" id="csv-file" name="csv_file" class="shop-create__input" required autocomplete="off">
             @error('csv_file')
                 <div class="error">{{ $message }}</div>
             @enderror
@@ -47,18 +47,18 @@
     <hr class="shop-create__divider">
 
     {{-- 手動入力フォーム --}}
-    <form method="POST" action="{{ route('shops.store') }}" class="shop-create__form shop-create__form--manual" enctype="multipart/form-data" novalidate>
+    <form method="POST" action="{{ route('shops.store') }}" class="shop-create__form shop-create__form--manual" enctype="multipart/form-data" novalidate autocomplete="off">
         @csrf
         <div class="shop-create__form-group">
-            <label class="shop-create__label">店舗名</label>
-            <input type="text" name="name" class="shop-create__input" value="{{ old('name') }}" required>
+            <label for="shop-name" class="shop-create__label">店舗名</label>
+            <input type="text" id="shop-name" name="name" class="shop-create__input" value="{{ old('name') }}" required autocomplete="organization">
             @error('name')
                 <div class="error">{{ $message }}</div>
             @enderror
         </div>
         <div class="shop-create__form-group">
-            <label class="shop-create__label">エリア</label>
-            <select name="area_id" class="shop-create__input shop-create__select" required>
+            <label for="area-id" class="shop-create__label">エリア</label>
+            <select id="area-id" name="area_id" class="shop-create__input shop-create__select" required autocomplete="address-level2">
                 @foreach($areas as $area)
                     <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
                 @endforeach
@@ -68,8 +68,8 @@
             @enderror
         </div>
         <div class="shop-create__form-group">
-            <label class="shop-create__label">ジャンル</label>
-            <select name="genre_id" class="shop-create__input shop-create__select" required>
+            <label for="genre-id" class="shop-create__label">ジャンル</label>
+            <select id="genre-id" name="genre_id" class="shop-create__input shop-create__select" required autocomplete="off">
                 @foreach($genres as $genre)
                     <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
                 @endforeach
@@ -79,17 +79,17 @@
             @enderror
         </div>
         <div class="shop-create__form-group">
-            <label class="shop-create__label">説明</label>
-            <textarea name="description" class="shop-create__input shop-create__textarea" rows="3" required>{{ old('description') }}</textarea>
+            <label for="description" class="shop-create__label">説明</label>
+            <textarea id="description" name="description" class="shop-create__input shop-create__textarea" rows="3" required autocomplete="off">{{ old('description') }}</textarea>
             @error('description')
                 <div class="error">{{ $message }}</div>
             @enderror
         </div>
         <div class="shop-create__form-group">
-            <label class="shop-create__label">画像アップロード</label>
+            <label for="image-input" class="shop-create__label">画像アップロード</label>
             <div id="image-drop-area" class="shop-create__drop-area">
                 <p id="drop-text">ここに画像をドラッグ＆ドロップ、またはクリックして選択</p>
-                <input type="file" name="image" id="image-input" class="shop-create__input" accept="image/*" style="display:none;">
+                <input type="file" name="image" id="image-input" class="shop-create__input" accept="image/*" style="display:none;" autocomplete="off">
                 <img id="preview-image" src="" alt="" style="display:none; max-width:100%; margin-top:10px;">
             </div>
             @error('image')
