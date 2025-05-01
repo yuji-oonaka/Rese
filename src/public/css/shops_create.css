@@ -114,6 +114,33 @@
     background: #eaf0ff;
 }
 
+.shop-create__drop-area p,
+.shop-create__drop-area span {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+    word-break: break-all;
+}
+
+.shop-create__drop-area .shop-create__file-name {
+    display: block;
+    margin-top: 10px;
+    color: #3b5ff5;
+    font-weight: bold;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.shop-create__drop-area input[type="file"] {
+    display: none;
+}
+
+/* ドラッグ中の強調 */
+.shop-create__drop-area.dragover {
+    border-color: #2a4cd6;
+    background: #eaf0ff;
+}
+
 .error {
     color: #f44336;
     font-size: 14px;
@@ -174,6 +201,18 @@
         font-size: 15px;
         padding: 10px 0;
     }
+
+    .shop-create__drop-area {
+        padding: 12px;
+        font-size: 14px;
+    }
+    .shop-create__drop-area p,
+    .shop-create__drop-area span {
+        font-size: 13px;
+    }
+    .shop-create__drop-area .shop-create__file-name {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -218,5 +257,19 @@
     .shop-create__btn {
         font-size: 14px;
         padding: 8px 0;
+    }
+
+    .shop-create__drop-area {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .shop-create__drop-area p,
+    .shop-create__drop-area span {
+        font-size: 12px;
+    }
+
+    .shop-create__drop-area .shop-create__file-name {
+        font-size: 12px;
     }
 }

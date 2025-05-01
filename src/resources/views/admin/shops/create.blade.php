@@ -16,7 +16,12 @@
         @csrf
         <div class="shop-create__form-group">
             <label for="csv-file" class="shop-create__label">CSVファイルを選択</label>
-            <input type="file" id="csv-file" name="csv_file" class="shop-create__input" required autocomplete="off">
+            <div id="csv-drop-area" class="shop-create__drop-area">
+                <p id="csv-drop-text">ここにCSVファイルをドラッグ＆ドロップ、またはクリックして選択</p>
+                <input type="file" id="csv-file" name="csv_file" class="shop-create__input" required autocomplete="off" accept=".csv" style="display:none;">
+                <span id="csv-file-name" style="display:none; margin-top:10px;"></span>
+            </div>
+            <div id="csv-file-error" class="error" style="display:none;"></div>
             @error('csv_file')
                 <div class="error">{{ $message }}</div>
             @enderror
@@ -108,15 +113,13 @@
 @section('js')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // 画像ドラッグ＆ドロップ
     const dropArea = document.getElementById('image-drop-area');
     const input = document.getElementById('image-input');
     const preview = document.getElementById('preview-image');
     const dropText = document.getElementById('drop-text');
 
-    // クリックでファイル選択
     dropArea.addEventListener('click', () => input.click());
-
-    // ドラッグオーバー時のスタイル
     dropArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropArea.classList.add('dragover');
@@ -125,8 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         dropArea.classList.remove('dragover');
     });
-
-    // ドロップ時
     dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         dropArea.classList.remove('dragover');
@@ -135,14 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
             previewImage(input.files[0]);
         }
     });
-
-    // ファイル選択時
     input.addEventListener('change', function() {
         if (input.files && input.files[0]) {
             previewImage(input.files[0]);
         }
     });
-
     function previewImage(file) {
         if (!file.type.startsWith('image/')) return;
         const reader = new FileReader();
@@ -152,6 +150,74 @@ document.addEventListener('DOMContentLoaded', function() {
             dropText.style.display = 'none';
         }
         reader.readAsDataURL(file);
+    }
+
+    // CSVドラッグ＆ドロップ
+    const csvDropArea = document.getElementById('csv-drop-area');
+    const csvInput = document.getElementById('csv-file');
+    const csvDropText = document.getElementById('csv-drop-text');
+    const csvFileName = document.getElementById('csv-file-name');
+    const csvFileError = document.getElementById('csv-file-error');
+
+    function clearCsvError() {
+        csvFileError.style.display = 'none';
+        csvFileError.textContent = '';
+    }
+
+    csvDropArea.addEventListener('click', () => {
+        clearCsvError();
+        csvInput.click();
+    });
+
+    csvDropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        csvDropArea.classList.add('dragover');
+    });
+    csvDropArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        csvDropArea.classList.remove('dragover');
+    });
+    csvDropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        csvDropArea.classList.remove('dragover');
+        clearCsvError();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const file = e.dataTransfer.files[0];
+            if (file.name.endsWith('.csv')) {
+                csvInput.files = e.dataTransfer.files;
+                showCsvFileName(file);
+            } else {
+                showCsvError('CSVファイル（.csv）形式でアップロードしてください。');
+                csvInput.value = '';
+                csvFileName.style.display = 'none';
+                csvDropText.style.display = 'block';
+            }
+        }
+    });
+    csvInput.addEventListener('change', function() {
+        clearCsvError();
+        if (csvInput.files && csvInput.files[0]) {
+            const file = csvInput.files[0];
+            if (file.name.endsWith('.csv')) {
+                showCsvFileName(file);
+            } else {
+                showCsvError('CSVファイル（.csv）形式でアップロードしてください。');
+                csvInput.value = '';
+                csvFileName.style.display = 'none';
+                csvDropText.style.display = 'block';
+            }
+        }
+    });
+
+    function showCsvFileName(file) {
+        csvFileName.textContent = file.name;
+        csvFileName.style.display = 'inline-block';
+        csvDropText.style.display = 'none';
+    }
+
+    function showCsvError(message) {
+        csvFileError.textContent = message;
+        csvFileError.style.display = 'block';
     }
 });
 </script>
